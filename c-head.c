@@ -5,6 +5,16 @@ int request_num_players() ;
 int request_num_cards_each() ;
 int calc_decks_required(int, int) ;
 
+enum ranks { TWO = 2, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN,
+             JACK, QUEEN, KING, ACE } ;
+
+enum suits { HEARTS, SPADES, DIAMONDS, CLUBS } ;
+
+struct card {
+    int rank ;
+    int card ;
+} ;
+
 int main(void)
 {
     int num_players, num_cards_each, total_cards_needed, decks_required ;
@@ -56,3 +66,5 @@ int calc_decks_required(int n_players, int n_cards)
     result = div + add ;
     return result ;
 }
+
+
