@@ -1,31 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "c-head.h" 
 
-#define MAXNAMELEN 10
-
-enum ranks { TWO = 2, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN,
-             JACK, QUEEN, KING, ACE } ;
-
-enum suits { HEARTS, SPADES, DIAMONDS, CLUBS } ;
-
-enum player_types { HUMAN, COMPUTER } ;
-
-typedef struct {
-    int rank ;
-    int suit ;
-} card ;
-
-typedef struct {
-    char name[MAXNAMELEN] ;
-    int type ;
-} player ;
-
-void clearscreen() ;
-int request_num_players() ;
-int request_num_cards_each() ;
 int calc_decks_required(int, int) ;
-void show_player(player *) ;
-void show_players(player *, int) ;
 
 int main(void)
 {
@@ -47,38 +24,16 @@ int main(void)
     players = (player *) malloc(num_players * sizeof(player)) ;
 
     int i ;
+    char name[MAX_NAME_LEN] ;
     for (i = 0 ; i < num_players ; i++) 
     {
         printf("Enter name for player %d :\n", i+1) ;
-        scanf("%s", players[i].name) ;
-        players[i].type = HUMAN ;
+        scanf("%s", &name) ;
+        players[i] = make_player(name, HUMAN) ;
     }
     
     show_players(players, num_players) ;
 
-}
-
-void clearscreen() 
-{
-    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n") ;
-    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n") ;
-    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n") ;
-}
-
-int request_num_players()
-{
-    int result ;
-    printf("Enter number of players : ") ;
-    scanf("%d", &result) ;
-    return result ;
-}
-
-int request_num_cards_each()
-{
-    int result ;
-    printf("Enter number of cards each : ") ;
-    scanf("%d", &result) ;
-    return result ;
 }
 
 int calc_decks_required(int n_players, int n_cards)
@@ -93,17 +48,4 @@ int calc_decks_required(int n_players, int n_cards)
     return result ;
 }
 
-void show_player(player *p)
-{
-    printf("Player name : %s, Player type : %d\n", p->name, p->type) ;
-}
 
-void show_players(player *players, int len) 
-{
-    int i ;
-
-    for (i = 0 ; i < len ; i++) 
-    {
-        show_player(&players[i]) ;       
-    }
-}
