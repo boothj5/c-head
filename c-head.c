@@ -24,7 +24,7 @@ void clearscreen() ;
 int request_num_players() ;
 int request_num_cards_each() ;
 int calc_decks_required(int, int) ;
-void show_player(player) ;
+void show_player(player *) ;
 void show_players(player *, int) ;
 
 int main(void)
@@ -53,6 +53,8 @@ int main(void)
         scanf("%s", players[i].name) ;
         players[i].type = HUMAN ;
     }
+    
+    show_players(players, num_players) ;
 
 }
 
@@ -91,9 +93,9 @@ int calc_decks_required(int n_players, int n_cards)
     return result ;
 }
 
-void show_player(player p)
+void show_player(player *p)
 {
-    printf("Player name : %s, Player type : %d\n", p.name, p.type) ;
+    printf("Player name : %s, Player type : %d\n", p->name, p->type) ;
 }
 
 void show_players(player *players, int len) 
@@ -102,6 +104,6 @@ void show_players(player *players, int len)
 
     for (i = 0 ; i < len ; i++) 
     {
-        show_player(players[i]) ;       
+        show_player(&players[i]) ;       
     }
 }
