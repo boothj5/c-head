@@ -1,9 +1,30 @@
 #include <stdio.h>
 #include "c-head.h"
 
+void newline()
+{
+    newlines(1) ;
+}
+
+void newlines(int num)
+{
+    int i ;
+    for (i = 0 ; i < num ; i++)
+    {
+        printf("\n") ;
+    }
+}
+
+void show_welcome_msg()
+{
+    printf("Welcome to C-Head!") ;
+    newlines(2) ;
+}
+
 void show_player(player *p)
 {
-    printf("Player name : %s, Player type : %d\n", p->name, p->type) ;
+    printf("Player name : %s, Player type : %d", p->name, p->type) ;
+    newline() ;
 }
 
 void show_players(player *players, int len) 
@@ -18,9 +39,7 @@ void show_players(player *players, int len)
 
 void clearscreen() 
 {
-    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n") ;
-    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n") ;
-    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n") ;
+    newlines(100) ;
 }
 
 int request_num_players()
@@ -37,5 +56,12 @@ int request_num_cards_each()
     printf("Enter number of cards each : ") ;
     scanf("%d", &result) ;
     return result ;
+}
+
+void request_player_name(char *name, int num)
+{
+    printf("Enter name for player %d :", num) ;
+    newline() ;
+    scanf("%s", name) ;
 }
 

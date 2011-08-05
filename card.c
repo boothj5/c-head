@@ -1,10 +1,25 @@
-enum ranks { TWO = 2, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN,
-             JACK, QUEEN, KING, ACE } ;
+#include <stdlib.h>
+#include "c-head.h"
 
-enum suits { HEARTS, SPADES, DIAMONDS, CLUBS } ;
+void create_deck(card *deck, int num_decks)
+{
+    int rank, suit ;
+    int i = 0 ;
+    int j ;
+    int num_cards = 52 * num_decks ;
 
-typedef struct {
-    int rank ;
-    int suit ;
-} card ;
-
+    for (j = 0 ; j < num_cards ; j++)
+    {
+        for (suit = 0 ; suit <= 3 ; suit++)
+        {
+            for (rank = 2 ; rank <= 14 ; rank++)
+            {
+                card a_card ;
+                a_card.rank = rank ;
+                a_card.suit = suit ;
+                deck[i] = a_card ;
+                i++ ;
+            }
+        }
+    }
+}
