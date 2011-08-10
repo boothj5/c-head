@@ -16,11 +16,8 @@ int main(void)
 
     decks_required = calc_decks_required(num_players, num_cards_each) ;
     total_cards_needed = decks_required * 52 ;
-    printf("Total decks needed = %d", decks_required) ;
-    newline() ;
 
     players = (player *) malloc(num_players * sizeof(player)) ;
-    deck = (card *) malloc(total_cards_needed * sizeof(card)) ;
 
     char name[MAX_NAME_LEN] ;
     for (i = 0 ; i < num_players ; i++) 
@@ -31,6 +28,7 @@ int main(void)
     
     show_players(players, num_players) ;
 
+    deck = (card *) malloc(total_cards_needed * sizeof(card)) ;
     create_deck(deck, decks_required) ;
 
     for (i = 0 ; i < total_cards_needed ; i++)
