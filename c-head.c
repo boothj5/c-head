@@ -17,7 +17,7 @@ int main(void)
     newline() ;
 
     decks_required = calc_decks_required(num_players, num_cards_each) ;
-    total_cards_needed = decks_required * 52 ;
+    total_cards_needed = cards_required(decks_required) ;
 
     players = (player *) malloc(num_players * sizeof(player)) ;
    

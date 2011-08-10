@@ -1,12 +1,14 @@
 #include <stdlib.h>
 #include "c-head.h"
 
+#define DECK_SIZE 52
+
 void create_deck(card *deck, int num_decks)
 {
     int rank, suit ;
     int i = 0 ;
     int j ;
-    int num_cards = 52 * num_decks ;
+    int num_cards = cards_required(num_decks) ;
 
     for (j = 0 ; j < num_cards ; j++)
     {
@@ -22,4 +24,12 @@ void create_deck(card *deck, int num_decks)
             }
         }
     }
+}
+
+int cards_required(int decks)
+{
+    int result ;
+    result = decks * DECK_SIZE ;
+
+    return result ;
 }
