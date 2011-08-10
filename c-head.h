@@ -40,4 +40,4 @@ int request_num_cards_each() ;
 void show_player(player *) ;
 void show_players(player *, int) ;
 void request_player_name(char *, int) ;
-
+void show_deck(card *, int) ;

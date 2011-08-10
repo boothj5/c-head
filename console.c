@@ -65,3 +65,12 @@ void request_player_name(char *name, int num)
     scanf("%s", name) ;
 }
 
+void show_deck(card *deck, int num_cards) 
+{
+    int i ;
+
+    for (i = 0 ; i < num_cards ; i++)
+    {
+        printf("Num: %d, Rank: %d, Suit: %d\n", i, deck[i].rank, deck[i].suit) ;
+    }
+}
