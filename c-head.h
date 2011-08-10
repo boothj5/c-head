@@ -21,7 +21,7 @@ typedef struct {
 } player ;
 
 // card functions
-void create_deck(card *, int) ;
+void create_deck(card **, int) ;
 int cards_required(int) ;
 
 // player functions

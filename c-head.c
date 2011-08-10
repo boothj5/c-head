@@ -21,9 +21,7 @@ int main(void)
     total_cards_needed = cards_required(decks_required) ;
 
     create_players(&players, num_players) ;
-
-    deck = (card *) malloc(total_cards_needed * sizeof(card)) ;
-    create_deck(deck, decks_required) ;
+    create_deck(&deck, decks_required) ;
 
     show_players(players, num_players) ;
     show_deck(deck, total_cards_needed) ;
