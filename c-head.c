@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include "c-head.h" 
 
+void create_players(player *, int) ;
+
 int main(void)
 {
     int i, num_players, num_cards_each, total_cards_needed, decks_required ;
@@ -18,14 +20,8 @@ int main(void)
     total_cards_needed = decks_required * 52 ;
 
     players = (player *) malloc(num_players * sizeof(player)) ;
-
-    char name[MAX_NAME_LEN] ;
-    for (i = 0 ; i < num_players ; i++) 
-    {
-        request_player_name(name, i+1) ;
-        players[i] = make_player(name, HUMAN) ;
-    }
-    
+   
+    create_players(players, num_players) ;
     show_players(players, num_players) ;
 
     deck = (card *) malloc(total_cards_needed * sizeof(card)) ;
@@ -38,4 +34,14 @@ int main(void)
 
 }
 
+void create_players(player *players, int num_players)
+{
+    int i ;
+    char name[MAX_NAME_LEN] ;
 
+    for (i = 0 ; i < num_players ; i++) 
+    {
+        request_player_name(name, i+1) ;
+        players[i] = make_player(name, HUMAN) ;
+    }
+}
