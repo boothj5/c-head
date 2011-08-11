@@ -1,32 +1,17 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "c-head.h"
 
-#define DECK_SIZE 52
-
-void populate_deck(card *, int) ;
-
-void create_deck(card **deck, int num_decks)
+void create_deck(card *deck, int num_cards)
 {
-    int num_cards = cards_required(num_decks) ;
-    *deck = (card *) malloc(num_cards * sizeof(card)) ;
-    populate_deck(*deck, num_cards) ;
-}
-
-int cards_required(int decks)
-{
-    int result ;
-    result = decks * DECK_SIZE ;
-
-    return result ;
-}
-
-void populate_deck(card *deck, int num_cards)
-{
+    int num_decks ;
     int rank, suit ;
     int i = 0 ;
     int j ;
 
-    for (j = 0 ; j < num_cards ; j++)
+    num_decks = num_cards / DECK_SIZE ;
+
+    for (j = 0 ; j < num_decks ; j++)
     {
         for (suit = 0 ; suit <= 3 ; suit++)
         {

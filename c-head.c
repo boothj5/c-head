@@ -3,15 +3,14 @@
 #include <time.h>
 #include "c-head.h" 
 
-void create_players(player **, int) ;
-void populate_players(player *, int) ;
+void create_players(player *, int) ;
 void shuffle(card *, size_t) ;
 
 int main(void)
 {
-    int num_players, num_cards_each, total_cards_needed, decks_required ;
-    player *players ;
-    card *deck ;
+    int num_players, num_cards_each, deck_size ;
+    player players[MAX_NUM_PLAYERS] ;
+    card deck[MAX_DECK_SIZE] ;
 
     clearscreen() ;
     show_welcome_msg() ;
@@ -19,27 +18,21 @@ int main(void)
     num_cards_each = request_num_cards_each() ;
     newline() ;
 
-    decks_required = calc_decks_required(num_players, num_cards_each) ;
-    total_cards_needed = cards_required(decks_required) ;
+    deck_size = cards_required(num_players, num_cards_each) ;
+ 
+    create_deck(deck, deck_size) ;
+    show_deck(deck, deck_size) ;
 
-    create_players(&players, num_players) ;
-    create_deck(&deck, decks_required) ;
-
+    create_players(players, num_players) ;
     show_players(players, num_players) ;
-    show_deck(deck, total_cards_needed) ;
-    shuffle(deck, total_cards_needed) ;
+
+    shuffle(deck, deck_size) ;
     newline() ;
-    show_deck(deck, total_cards_needed) ;
+    show_deck(deck, deck_size) ;
 
 }
 
-void create_players(player **players, int num_players)
-{
-    *players = (player *) malloc(num_players * sizeof(player)) ;
-    populate_players(*players, num_players) ;
-}
-
-void populate_players(player *players, int num_players)
+void create_players(player *players, int num_players)
 {
     int i ;
     char name[MAX_NAME_LEN] ;

@@ -1,4 +1,10 @@
-// player contants
+// game constants
+
+#define MAX_NUM_PLAYERS 20
+#define MAX_DECK_SIZE 260
+#define DECK_SIZE 52
+
+// player constants
 #define MAX_NAME_LEN 10
 
 // card data types
@@ -21,14 +27,11 @@ typedef struct {
 } player ;
 
 // card functions
-void create_deck(card **, int) ;
-int cards_required(int) ;
+void create_deck(card *, int) ;
 
 // player functions
 player make_player(char *, int) ;
-
-// game functions
-int calc_decks_required(int, int) ;
+int cards_required(int, int) ;
 
 // console functions
 void show_welcome_msg();
