@@ -3,7 +3,7 @@
 
 void newline()
 {
-    newlines(1) ;
+    printf("\n") ;
 }
 
 void newlines(int num)
@@ -11,7 +11,7 @@ void newlines(int num)
     int i ;
     for (i = 0 ; i < num ; i++)
     {
-        printf("\n") ;
+        newline() ;
     }
 }
 
@@ -71,13 +71,14 @@ void show_deck(card *deck, int num_cards)
 
     for (i = 0 ; i < num_cards ; i++)
     {
+        printf("%s of %s", show_rank(deck[i].rank), show_suit(deck[i].suit)) ;
         if (i < (num_cards - 1))
         {
-            printf("%s of %s, ", show_rank(deck[i].rank), show_suit(deck[i].suit)) ;
+            printf(", ") ;
         }
         else
         {
-            printf("%s of %s\n", show_rank(deck[i].rank), show_suit(deck[i].suit)) ;
+            printf("\n") ;
         }
     }
 }

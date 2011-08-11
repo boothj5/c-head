@@ -4,7 +4,6 @@
 #include "c-head.h" 
 
 void create_players(player *, int) ;
-void shuffle(card *, size_t) ;
 
 int main(void)
 {

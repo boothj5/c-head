@@ -1,5 +1,4 @@
 #include <stdlib.h>
-#include <stdio.h>
 #include "c-head.h"
 
 void shuffle(card *deck, size_t n)
@@ -17,7 +16,6 @@ void shuffle(card *deck, size_t n)
         }
     }
 }
-
 
 void create_deck(card *deck, int num_cards)
 {
