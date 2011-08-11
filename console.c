@@ -48,7 +48,8 @@ void show_players(player *players, int len)
 
     for (i = 0 ; i < len ; i++) 
     {
-        show_player(&players[i]) ;       
+        show_player(&players[i]) ;
+        newline() ;
     }
 }
 
@@ -83,11 +84,12 @@ void request_player_name(char *name, int num)
 void show_cards(card *cards, int num_cards) 
 {
     int i ;
+    int j = 1 ;
 
-    for (i = 0 ; i < num_cards ; i++)
+    for (i = (num_cards-1) ; i >= 0 ; i--)
     {
-        printf("%s of %s", show_rank(cards[i].rank), show_suit(cards[i].suit)) ;
-        if (i < (num_cards - 1))
+        printf("(%d)%s of %s", j, show_rank(cards[i].rank), show_suit(cards[i].suit)) ;
+        if (j <= (num_cards - 1))
         {
             printf(", ") ;
         }
@@ -95,5 +97,6 @@ void show_cards(card *cards, int num_cards)
         {
             printf("\n") ;
         }
+        j++ ;
     }
 }
