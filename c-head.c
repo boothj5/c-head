@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 #include "c-head.h" 
 
 void create_players(player *, int) ;
