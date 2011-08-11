@@ -71,6 +71,13 @@ void show_deck(card *deck, int num_cards)
 
     for (i = 0 ; i < num_cards ; i++)
     {
-        printf("Num: %d, Rank: %d, Suit: %d\n", i, deck[i].rank, deck[i].suit) ;
+        if (i < (num_cards - 1))
+        {
+            printf("%s of %s, ", show_rank(deck[i].rank), show_suit(deck[i].suit)) ;
+        }
+        else
+        {
+            printf("%s of %s\n", show_rank(deck[i].rank), show_suit(deck[i].suit)) ;
+        }
     }
 }

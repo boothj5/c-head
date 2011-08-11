@@ -1,5 +1,6 @@
-// game constants
+#include <stdlib.h>
 
+// game constants
 #define MAX_NUM_PLAYERS 20
 #define MAX_DECK_SIZE 260
 #define DECK_SIZE 52
@@ -27,7 +28,10 @@ typedef struct {
 } player ;
 
 // card functions
+void shuffle(card *, size_t) ;
 void create_deck(card *, int) ;
+char* show_rank(int) ;
+char* show_suit(int) ;
 
 // player functions
 player make_player(char *, int) ;
