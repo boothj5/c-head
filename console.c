@@ -23,8 +23,23 @@ void show_welcome_msg()
 
 void show_player(player *p)
 {
-    printf("Player name : %s, Player type : %d", p->name, p->type) ;
+    printf("Player name : %s", p->name) ;
     newline() ;
+    if (p->hand_size > 0)
+    {
+        printf("HAND     : ") ;
+        show_cards(p->hand, p->hand_size) ;
+    }
+    if (p->face_up_size > 0)
+    {
+        printf("FACE UP  : ") ;
+        show_cards(p->face_up, p->face_up_size) ;
+    }
+    if (p->hand_size > 0)
+    {
+        printf("FACE DOWN: ") ;
+        show_cards(p->face_down, p->face_down_size) ;
+    }
 }
 
 void show_players(player *players, int len) 
@@ -65,13 +80,13 @@ void request_player_name(char *name, int num)
     scanf("%s", name) ;
 }
 
-void show_deck(card *deck, int num_cards) 
+void show_cards(card *cards, int num_cards) 
 {
     int i ;
 
     for (i = 0 ; i < num_cards ; i++)
     {
-        printf("%s of %s", show_rank(deck[i].rank), show_suit(deck[i].suit)) ;
+        printf("%s of %s", show_rank(cards[i].rank), show_suit(cards[i].suit)) ;
         if (i < (num_cards - 1))
         {
             printf(", ") ;

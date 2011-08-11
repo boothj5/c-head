@@ -25,8 +25,15 @@ int main(void)
 
     shuffle(deck, deck_size) ;
     newline() ;
-    show_deck(deck, deck_size) ;
+    show_cards(deck, deck_size) ;
+    newline() ;
+    show_players(players, num_players) ;
 
+    deal_to_hand(&players[0], deck[0]) ;
+    deal_to_face_up(&players[0], deck[1]) ;
+    deal_to_face_down(&players[0], deck[2]) ;
+
+    show_players(players, num_players) ;
 }
 
 void create_players(player *players, int num_players)
