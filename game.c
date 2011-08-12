@@ -1,4 +1,4 @@
-#include "c-head.h"
+#include "game.h"
 
 int calc_decks_required(int, int) ;
 
@@ -24,6 +24,4 @@ int calc_decks_required(int n_players, int n_cards)
 
     return result ;
 }
-
-
 

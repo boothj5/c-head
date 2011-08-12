@@ -1,5 +1,5 @@
 #include <string.h>
-#include "c-head.h"
+#include "player.h"
 
 player make_player(char *name, int type) 
 {

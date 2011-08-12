@@ -1,5 +1,4 @@
-#include <stdlib.h>
-#include "c-head.h"
+#include "card.h"
 
 void shuffle(card *deck, size_t n)
 {
@@ -42,9 +41,9 @@ void create_deck(card *deck, int num_cards)
     }
 }
 
-char* show_rank(int rank)
+char* show_rank(card *c)
 {
-    switch(rank)
+    switch(c->rank)
     {
         case TWO:
             return "TWO" ;
@@ -77,9 +76,9 @@ char* show_rank(int rank)
     }
 }
 
-char* show_suit(int suit)
+char* show_suit(card *c)
 {
-    switch(suit)
+    switch(c->suit)
     {
         case HEARTS:
             return "HEARTS" ;

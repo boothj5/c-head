@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "c-head.h"
+#include "console.h"
 
 void newline()
 {
@@ -88,7 +88,7 @@ void show_cards(card *cards, int num_cards)
 
     for (i = (num_cards-1) ; i >= 0 ; i--)
     {
-        printf("(%d)%s of %s", j, show_rank(cards[i].rank), show_suit(cards[i].suit)) ;
+        printf("(%d)%s of %s", j, show_rank(&cards[i]), show_suit(&cards[i])) ;
         if (j <= (num_cards - 1))
         {
             printf(", ") ;

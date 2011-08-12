@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "c-head.h" 
+#include "player.h"
+#include "card.h"
+#include "game.h"
+#include "console.h"
 
 void create_players(player *, int) ;
 
