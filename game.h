@@ -5,6 +5,6 @@
 #define MAX_DECK_SIZE 260
 #define DECK_SIZE 52
 
-int cards_required(int, int) ;
+int cards_required(int nplayers, int ncards) ;
 
 #endif

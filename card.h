@@ -14,9 +14,9 @@ typedef struct {
     int suit ;
 } card ;
 
-char* show_rank(card *) ;
-char* show_suit(card *) ;
-void shuffle(card *, size_t) ;
-void create_deck(card *, int) ;
+char* show_rank(card *c) ;
+char* show_suit(card *c) ;
+void shuffle(card *deck, size_t n) ;
+void create_deck(card *deck, int num_cards) ;
 
 #endif

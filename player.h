@@ -21,9 +21,9 @@ typedef struct {
 
 } player ;
 
-player make_player(char *, int) ;
-void deal_to_hand(player *, card) ;
-void deal_to_face_up(player *, card) ;
-void deal_to_face_down(player *, card) ;
+player make_player(char *name, int type) ;
+void deal_to_hand(player *p, card c) ;
+void deal_to_face_up(player *p, card c) ;
+void deal_to_face_down(player *p, card c) ;
 
 #endif
