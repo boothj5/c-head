@@ -5,7 +5,7 @@
 #include "game.h"
 #include "console.h"
 
-void create_players(player *, int) ;
+static void create_players(player *players, int nplayers) ;
 
 int main(void)
 {
@@ -39,12 +39,12 @@ int main(void)
     show_cards(deck, deck_size) ;
 }
 
-void create_players(player *players, int num_players)
+static void create_players(player *players, int nplayers)
 {
     int i ;
     char name[MAX_NAME_LEN] ;
 
-    for (i = 0 ; i < num_players ; i++) {
+    for (i = 0 ; i < nplayers ; i++) {
         request_player_name(name, i+1) ;
         players[i] = make_player(name, HUMAN) ;
     }
