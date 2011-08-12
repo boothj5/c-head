@@ -1,21 +1,21 @@
 #include "card.h"
 #include "game.h"
 
-void shuffle(card *deck, size_t n)
+void shuffle(Card *deck, size_t n)
 {
     if (n > 1) {
         srand((unsigned)time(NULL)) ;
         size_t i;
         for (i = 0; i < n - 1; i++) {
           size_t j = i + rand() / (RAND_MAX / (n - i) + 1);
-          card t = deck[j];
+          Card t = deck[j];
           deck[j] = deck[i];
           deck[i] = t;
         }
     }
 }
 
-void create_deck(card *deck, int num_cards)
+void create_deck(Card *deck, int num_cards)
 {
     int num_decks ;
     int rank, suit ;
@@ -27,7 +27,7 @@ void create_deck(card *deck, int num_cards)
     for (j = 0 ; j < num_decks ; j++) {
         for (suit = 0 ; suit <= 3 ; suit++) {
             for (rank = 2 ; rank <= 14 ; rank++) {
-                card a_card ;
+                Card a_card ;
                 a_card.rank = rank ;
                 a_card.suit = suit ;
                 deck[i] = a_card ;
@@ -37,7 +37,7 @@ void create_deck(card *deck, int num_cards)
     }
 }
 
-char* show_rank(card *c)
+char* show_rank(Card *c)
 {
     switch(c->rank) {
     case TWO:
@@ -71,7 +71,7 @@ char* show_rank(card *c)
     }
 }
 
-char* show_suit(card *c)
+char* show_suit(Card *c)
 {
     switch(c->suit) {
     case HEARTS:

@@ -5,13 +5,13 @@
 #include "game.h"
 #include "console.h"
 
-static void create_players(player *players, int nplayers) ;
+static void create_players(Player *players, int nplayers) ;
 
 int main(void)
 {
     int num_players, num_cards_each, deck_size ;
-    player players[MAX_NUM_PLAYERS] ;
-    card deck[MAX_DECK_SIZE] ;
+    Player players[MAX_NUM_PLAYERS] ;
+    Card deck[MAX_DECK_SIZE] ;
 
     clearscreen() ;
     show_welcome_msg() ;
@@ -39,7 +39,7 @@ int main(void)
     show_cards(deck, deck_size) ;
 }
 
-static void create_players(player *players, int nplayers)
+static void create_players(Player *players, int nplayers)
 {
     int i ;
     char name[MAX_NAME_LEN] ;

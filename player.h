@@ -12,18 +12,17 @@ enum player_types { HUMAN, COMPUTER } ;
 typedef struct {
     char name[MAX_NAME_LEN] ;
     int type ;
-    card hand[MAX_HAND_SIZE] ;
+    Card hand[MAX_HAND_SIZE] ;
     int hand_size ;
-    card face_up[MAX_TABLE_HAND_SIZE] ;
+    Card face_up[MAX_TABLE_HAND_SIZE] ;
     int face_up_size ;
-    card face_down[MAX_TABLE_HAND_SIZE] ;
+    Card face_down[MAX_TABLE_HAND_SIZE] ;
     int face_down_size ;
+} Player ;
 
-} player ;
-
-player make_player(char *name, int type) ;
-void deal_to_hand(player *p, card c) ;
-void deal_to_face_up(player *p, card c) ;
-void deal_to_face_down(player *p, card c) ;
+Player make_player(char *name, int type) ;
+void deal_to_hand(Player *p, Card c) ;
+void deal_to_face_up(Player *p, Card c) ;
+void deal_to_face_down(Player *p, Card c) ;
 
 #endif

@@ -19,7 +19,7 @@ void show_welcome_msg()
     newlines(2) ;
 }
 
-void show_player(player *p)
+void show_player(Player *p)
 {
     printf("Player name : %s", p->name) ;
     newline() ;
@@ -37,7 +37,7 @@ void show_player(player *p)
     }
 }
 
-void show_players(player *players, int len) 
+void show_players(Player *players, int len) 
 {
     int i ;
     for (i = 0 ; i < len ; i++)  {
@@ -74,7 +74,7 @@ void request_player_name(char *name, int num)
     scanf("%s", name) ;
 }
 
-void show_cards(card *cards, int num_cards) 
+void show_cards(Card *cards, int num_cards) 
 {
     int i ;
     int j = 1 ;

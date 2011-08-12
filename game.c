@@ -12,7 +12,7 @@ int cards_required(int nplayers, int ncards)
     return result ;
 }
 
-void deal(int nplayers, int ncards, player *players, card *deck, int *deck_size)
+void deal(int nplayers, int ncards, Player *players, Card *deck, int *deck_size)
 {
     int i ;
     int k ;

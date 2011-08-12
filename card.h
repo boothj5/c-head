@@ -11,11 +11,11 @@ enum suits { HEARTS, SPADES, DIAMONDS, CLUBS } ;
 typedef struct {
     int rank ;
     int suit ;
-} card ;
+} Card ;
 
-char* show_rank(card *c) ;
-char* show_suit(card *c) ;
-void shuffle(card *deck, size_t n) ;
-void create_deck(card *deck, int num_cards) ;
+char* show_rank(Card *c) ;
+char* show_suit(Card *c) ;
+void shuffle(Card *deck, size_t n) ;
+void create_deck(Card *deck, int num_cards) ;
 
 #endif
