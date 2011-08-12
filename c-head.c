@@ -21,8 +21,8 @@ int main(void)
     calc_cards_required(&game) ;
     create_deck(&game) ;
     create_players(game.players, game.num_players) ;
-
     shuffle(&game) ;
+
     newline() ;
     printf("Initial deck\n") ;
     show_cards(game.deck, game.deck_size) ;
