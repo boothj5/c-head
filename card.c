@@ -1,20 +1,6 @@
 #include "card.h"
 #include "game.h"
 
-void shuffle(Card *deck, size_t n)
-{
-    if (n > 1) {
-        srand((unsigned)time(NULL)) ;
-        size_t i;
-        for (i = 0; i < n - 1; i++) {
-          size_t j = i + rand() / (RAND_MAX / (n - i) + 1);
-          Card t = deck[j];
-          deck[j] = deck[i];
-          deck[i] = t;
-        }
-    }
-}
-
 char* show_rank(Card *c)
 {
     switch(c->rank) {

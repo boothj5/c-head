@@ -19,5 +19,6 @@ typedef struct {
 void calc_cards_required(Game *game) ;
 void create_deck(Game *game) ;
 void deal(Game *game) ;
+void shuffle(Game *game) ;
 
 #endif

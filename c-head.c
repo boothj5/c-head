@@ -12,17 +12,17 @@ int main(void)
     Game game ;
     
     show_welcome_msg() ;
+
     game.num_players = request_num_players() ;
     game.num_cards_each = request_num_cards_each() ;
+
     newline() ;
 
     calc_cards_required(&game) ;
- 
     create_deck(&game) ;
-
     create_players(game.players, game.num_players) ;
 
-    shuffle(game.deck, game.deck_size) ;
+    shuffle(&game) ;
     newline() ;
     printf("Initial deck\n") ;
     show_cards(game.deck, game.deck_size) ;

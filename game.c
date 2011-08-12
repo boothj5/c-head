@@ -31,6 +31,20 @@ void create_deck(Game *game)
     }
 }
 
+void shuffle(Game *game)
+{
+    if (game->deck_size > 1) {
+        srand((unsigned)time(NULL)) ;
+        size_t i;
+        for (i = 0; i < game->deck_size - 1; i++) {
+          size_t j = i + rand() / (RAND_MAX / (game->deck_size - i) + 1);
+          Card t = game->deck[j];
+          game->deck[j] = game->deck[i];
+          game->deck[i] = t;
+        }
+    }
+}
+
 void deal(Game *game)
 {
     int i ;
