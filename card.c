@@ -15,28 +15,6 @@ void shuffle(Card *deck, size_t n)
     }
 }
 
-void create_deck(Card *deck, int num_cards)
-{
-    int num_decks ;
-    int rank, suit ;
-    int i = 0 ;
-    int j ;
-
-    num_decks = num_cards / DECK_SIZE ;
-
-    for (j = 0 ; j < num_decks ; j++) {
-        for (suit = 0 ; suit <= 3 ; suit++) {
-            for (rank = 2 ; rank <= 14 ; rank++) {
-                Card a_card ;
-                a_card.rank = rank ;
-                a_card.suit = suit ;
-                deck[i] = a_card ;
-                i++ ;
-            }
-        }
-    }
-}
-
 char* show_rank(Card *c)
 {
     switch(c->rank) {
