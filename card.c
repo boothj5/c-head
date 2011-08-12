@@ -1,5 +1,4 @@
 #include "card.h"
-#include "game.h"
 
 char* show_rank(Card *c)
 {
