@@ -18,7 +18,6 @@ int main(void)
 
     newline() ;
 
-    calc_cards_required(&game) ;
     create_deck(&game) ;
     create_players(game.players, game.num_players) ;
     shuffle(&game) ;

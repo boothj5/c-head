@@ -1,13 +1,7 @@
 #include "game.h"
 
 static int calc_decks_required(Game *game) ;
-
-void calc_cards_required(Game *game)
-{
-    int decks_required;
-    decks_required = calc_decks_required(game) ;
-    game->deck_size = decks_required * DECK_SIZE ;
-}
+static void calc_deck_size(Game *game) ;
 
 void create_deck(Game *game)
 {
@@ -15,6 +9,8 @@ void create_deck(Game *game)
     int rank, suit ;
     int i = 0 ;
     int j ;
+
+    calc_deck_size(game) ;
 
     num_decks = game->deck_size / DECK_SIZE ;
 
@@ -70,4 +66,11 @@ static int calc_decks_required(Game *game)
     result = div + add ;
 
     return result ;
+}
+
+static void calc_deck_size(Game *game)
+{
+    int decks_required;
+    decks_required = calc_decks_required(game) ;
+    game->deck_size = decks_required * DECK_SIZE ;
 }

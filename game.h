@@ -16,7 +16,6 @@ typedef struct {
     Card deck[MAX_DECK_SIZE] ;
 } Game ;
 
-void calc_cards_required(Game *game) ;
 void create_deck(Game *game) ;
 void deal(Game *game) ;
 void shuffle(Game *game) ;
