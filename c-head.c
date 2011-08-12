@@ -32,11 +32,10 @@ int main(void)
     newline() ;
 
     int i ;
-    for (i = 0 ; i < num_players ; i++)
-    {
+    int k ;
+    for (i = 0 ; i < num_players ; i++) {
         int j ;
-        for (j = 0 ; j < num_cards_each ; j++)
-        {
+        for (j = 0 ; j < num_cards_each ; j++) {
             deal_to_hand(&players[i], deck[--deck_size]) ;
             deal_to_face_up(&players[i], deck[--deck_size]) ;
             deal_to_face_down(&players[i], deck[--deck_size]) ;
@@ -54,8 +53,7 @@ void create_players(player *players, int num_players)
     int i ;
     char name[MAX_NAME_LEN] ;
 
-    for (i = 0 ; i < num_players ; i++) 
-    {
+    for (i = 0 ; i < num_players ; i++) {
         request_player_name(name, i+1) ;
         players[i] = make_player(name, HUMAN) ;
     }

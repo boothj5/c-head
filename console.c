@@ -10,9 +10,7 @@ void newlines(int num)
 {
     int i ;
     for (i = 0 ; i < num ; i++)
-    {
         newline() ;
-    }
 }
 
 void show_welcome_msg()
@@ -25,18 +23,15 @@ void show_player(player *p)
 {
     printf("Player name : %s", p->name) ;
     newline() ;
-    if (p->hand_size > 0)
-    {
+    if (p->hand_size > 0) {
         printf("HAND     : ") ;
         show_cards(p->hand, p->hand_size) ;
     }
-    if (p->face_up_size > 0)
-    {
+    if (p->face_up_size > 0) {
         printf("FACE UP  : ") ;
         show_cards(p->face_up, p->face_up_size) ;
     }
-    if (p->hand_size > 0)
-    {
+    if (p->hand_size > 0) {
         printf("FACE DOWN: ") ;
         show_cards(p->face_down, p->face_down_size) ;
     }
@@ -45,9 +40,7 @@ void show_player(player *p)
 void show_players(player *players, int len) 
 {
     int i ;
-
-    for (i = 0 ; i < len ; i++) 
-    {
+    for (i = 0 ; i < len ; i++)  {
         show_player(&players[i]) ;
         newline() ;
     }
@@ -86,17 +79,12 @@ void show_cards(card *cards, int num_cards)
     int i ;
     int j = 1 ;
 
-    for (i = (num_cards-1) ; i >= 0 ; i--)
-    {
+    for (i = (num_cards-1) ; i >= 0 ; i--) {
         printf("(%d)%s of %s", j, show_rank(&cards[i]), show_suit(&cards[i])) ;
         if (j <= (num_cards - 1))
-        {
             printf(", ") ;
-        }
         else
-        {
             printf("\n") ;
-        }
         j++ ;
     }
 }
