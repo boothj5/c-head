@@ -14,5 +14,6 @@ void show_player(Player *p) ;
 void show_players(Player *players, int len) ;
 void request_player_name(char *name, int num) ;
 void show_cards(Card *cards, int num_cards) ;
+void show_deck(int num_cards) ;
 
 #endif

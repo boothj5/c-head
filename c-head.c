@@ -11,6 +11,7 @@ int main(void)
 {
     Game game ;
     
+    clearscreen() ;
     show_welcome_msg() ;
 
     game.num_players = request_num_players() ;
@@ -22,17 +23,13 @@ int main(void)
     create_players(game.players, game.num_players) ;
     shuffle(&game) ;
 
-    newline() ;
-    printf("Initial deck\n") ;
-    show_cards(game.deck, game.deck_size) ;
-    newline() ;
 
     deal(&game) ;
 
-    show_players(game.players, game.num_players) ;
+    clearscreen() ;
+    show_deck(game.deck_size) ;
     newline() ;
-    printf("Deck after dealing\n") ;
-    show_cards(game.deck, game.deck_size) ;
+    show_players(game.players, game.num_players) ;
 }
 
 static void create_players(Player *players, int nplayers)

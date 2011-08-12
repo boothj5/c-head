@@ -88,3 +88,9 @@ void show_cards(Card *cards, int num_cards)
         j++ ;
     }
 }
+
+void show_deck(int num_cards) 
+{
+    printf("%d left on deck", num_cards) ;
+    newline() ;
+}
