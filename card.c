@@ -1,4 +1,5 @@
 #include "card.h"
+#include "game.h"
 
 void shuffle(card *deck, size_t n)
 {

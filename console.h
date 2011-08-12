@@ -1,9 +1,9 @@
 #ifndef CONSOLE_H
 #define CONSOLE_H
-     
+
 #include "player.h"
 #include "card.h"
-
+    
 void show_welcome_msg();
 void newline() ;
 void newlines(int num) ;

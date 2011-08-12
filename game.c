@@ -25,3 +25,17 @@ int calc_decks_required(int nplayers, int ncards)
     return result ;
 }
 
+void deal(int nplayers, int ncards, player *players, card *deck, int *deck_size)
+{
+    int i ;
+    int k ;
+    for (i = 0 ; i < nplayers ; i++) {
+        int j ;
+        for (j = 0 ; j < ncards ; j++) {
+            deal_to_hand(&players[i], deck[--*deck_size]) ;
+            deal_to_face_up(&players[i], deck[--*deck_size]) ;
+            deal_to_face_down(&players[i], deck[--*deck_size]) ;
+        }
+    }
+
+}

@@ -31,16 +31,18 @@ int main(void)
     show_cards(deck, deck_size) ;
     newline() ;
 
-    int i ;
-    int k ;
-    for (i = 0 ; i < num_players ; i++) {
-        int j ;
-        for (j = 0 ; j < num_cards_each ; j++) {
-            deal_to_hand(&players[i], deck[--deck_size]) ;
-            deal_to_face_up(&players[i], deck[--deck_size]) ;
-            deal_to_face_down(&players[i], deck[--deck_size]) ;
-        }
-    }
+//    int i ;
+//    int k ;
+//    for (i = 0 ; i < num_players ; i++) {
+//        int j ;
+//        for (j = 0 ; j < num_cards_each ; j++) {
+//            deal_to_hand(&players[i], deck[--deck_size]) ;
+//            deal_to_face_up(&players[i], deck[--deck_size]) ;
+//            deal_to_face_down(&players[i], deck[--deck_size]) ;
+//        }
+//   }
+
+    deal(num_players, num_cards_each, players, deck, &deck_size) ;
 
     show_players(players, num_players) ;
     newline() ;
