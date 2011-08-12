@@ -1,37 +1,35 @@
 #include "game.h"
 
-static int calc_decks_required(int nplayers, int ncards) ;
+static int calc_decks_required(Game *game) ;
 
-int cards_required(int nplayers, int ncards)
+void calc_cards_required(Game *game)
 {
-    int decks_required, result ;
-    
-    decks_required = calc_decks_required(nplayers, ncards) ;
-    result = decks_required * DECK_SIZE ;
-
-    return result ;
+    int decks_required;
+    decks_required = calc_decks_required(game) ;
+    game->deck_size = decks_required * DECK_SIZE ;
 }
 
-void deal(int nplayers, int ncards, Player *players, Card *deck, int *deck_size)
+void deal(Game *game)
 {
     int i ;
     int k ;
-    for (i = 0 ; i < nplayers ; i++) {
+    for (i = 0 ; i < game->num_players ; i++) {
         int j ;
-        for (j = 0 ; j < ncards ; j++) {
-            deal_to_hand(&players[i], deck[--*deck_size]) ;
-            deal_to_face_up(&players[i], deck[--*deck_size]) ;
-            deal_to_face_down(&players[i], deck[--*deck_size]) ;
+        for (j = 0 ; j < game->num_cards_each ; j++) {
+            deal_to_hand(&game->players[i], game->deck[--game->deck_size]) ;
+            deal_to_face_up(&game->players[i], game->deck[--game->deck_size]) ;
+            deal_to_face_down(&game->players[i], game->deck[--game->deck_size]) ;
         }
     }
 
 }
 
-static int calc_decks_required(int nplayers, int ncards)
+
+static int calc_decks_required(Game *game)
 {
     int total_cards, result, div, add ;
 
-    total_cards = nplayers * (ncards * 3) ;
+    total_cards = game->num_players * (game->num_cards_each * 3) ;
     div = total_cards / DECK_SIZE ;
     add = ((total_cards % DECK_SIZE) > 0) ;
     result = div + add ;
