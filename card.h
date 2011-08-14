@@ -14,6 +14,7 @@ typedef struct {
 } Card ;
 
 Card make_card(int rank, int suit) ;
+Card lowest(Card *cards, int ncards) ;
 char* show_rank(Card *c) ;
 char* show_suit(Card *c) ;
 
