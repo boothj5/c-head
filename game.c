@@ -17,10 +17,11 @@ void create_deck(Game *game)
     for (j = 0 ; j < num_decks ; j++) {
         for (suit = 0 ; suit <= 3 ; suit++) {
             for (rank = 2 ; rank <= 14 ; rank++) {
-                Card a_card ;
-                a_card.rank = rank ;
-                a_card.suit = suit ;
-                game->deck[i] = a_card ;
+                game->deck[i] = make_card(rank, suit) ;
+                //Card a_card ;
+                //a_card.rank = rank ;
+                //a_card.suit = suit ;
+                //game->deck[i] = a_card ;
                 i++ ;
             }
         }

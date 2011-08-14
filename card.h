@@ -13,6 +13,7 @@ typedef struct {
     int suit ;
 } Card ;
 
+Card make_card(int rank, int suit) ;
 char* show_rank(Card *c) ;
 char* show_suit(Card *c) ;
 

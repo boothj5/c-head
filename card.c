@@ -1,5 +1,25 @@
 #include "card.h"
 
+Card make_card(int rank, int suit)
+{
+    Card card ;
+    card.rank = rank ;
+    card.suit = suit ;
+    return card ;
+}
+
+Card lowest(Card *cards, int ncards)
+{
+    Card lowest = cards[0] ;
+    int i ;
+
+    for (i = 1 ; i < ncards ; i++) 
+        if (cards[i].rank < lowest.rank)
+            lowest = cards[i] ;
+    
+    return lowest ;
+}
+
 char* show_rank(Card *c)
 {
     switch(c->rank) {
