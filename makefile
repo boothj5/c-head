@@ -11,7 +11,7 @@ make-tests: test_card.o card.o
 	$(CC) test_card.o card.o -I ~/include -L ~/lib -o testsuite -l headunit
 
 test: make-tests
-	testsuit
+	testsuite
 
 clean:
 	rm -f *.o
