@@ -2,22 +2,7 @@
 #include "card.h"
 #include "jbtest.h" 
 
-#define NUM_TESTS 3
-
-static void test_three_lowest_when_last(void) ;
-static void test_three_lowest_when_middle(void) ;
-static void test_three_lowest_when_first(void) ;
-
-static Test tests[NUM_TESTS]  = 
-    { { test_three_lowest_when_last, "test_three_lowest_when_last" } ,  
-      { test_three_lowest_when_middle, "test_three_lowest_when_middle" } ,
-      { test_three_lowest_when_first, "test_three_lowest_when_first" } } ;
-
-int main(void)
-{
-    run_tests(tests, NUM_TESTS) ; 
-    return 0 ;
-}
+#define NUM_TESTS 4
 
 void test_three_lowest_when_last(void)
 {
@@ -60,3 +45,28 @@ void test_three_lowest_when_first(void)
 
     assert_true(lowest_card.rank == THREE) ;
 }
+
+void test_lowest_one_card(void)
+{
+    Card ten = make_card(TEN, HEARTS) ;
+
+    Card cards[] = { ten, } ;
+
+    Card lowest_card ;
+    lowest_card =  lowest(cards, 1) ;
+
+    assert_true(lowest_card.rank == TEN) ;
+}   
+
+static Test tests[NUM_TESTS]  = 
+    { { test_three_lowest_when_last, "test_three_lowest_when_last" } ,  
+      { test_three_lowest_when_middle, "test_three_lowest_when_middle" } ,
+      { test_three_lowest_when_first, "test_three_lowest_when_first" } , 
+      { test_lowest_one_card, "test_lowest_one_card" } } ;
+
+int main(void)
+{
+    run_tests(tests, NUM_TESTS) ; 
+    return 0 ;
+}
+
