@@ -2,24 +2,24 @@
 #include "card.h"
 #include "jbtest.h" 
 
-#define NUM_TESTS 2
+#define NUM_TESTS 3
 
-static void test_three_lowest(void) ;
-static void test_three_lowest_fail(void) ;
+static void test_three_lowest_when_last(void) ;
+static void test_three_lowest_when_middle(void) ;
+static void test_three_lowest_when_first(void) ;
 
-static void (*tests[NUM_TESTS]) (void)  = { test_three_lowest, 
-                                            test_three_lowest_fail } ;
+static Test tests[NUM_TESTS]  = 
+    { { test_three_lowest_when_last, "test_three_lowest_when_last" } ,  
+      { test_three_lowest_when_middle, "test_three_lowest_when_middle" } ,
+      { test_three_lowest_when_first, "test_three_lowest_when_first" } } ;
 
 int main(void)
 {
-    int i ;
-    for (i = 0 ; i < NUM_TESTS ; i++)
-        (*tests[i])() ;
-    
+    run_tests(tests, NUM_TESTS) ; 
     return 0 ;
 }
 
-void test_three_lowest(void)
+void test_three_lowest_when_last(void)
 {
     Card ten = make_card(TEN, HEARTS) ;
     Card six = make_card(SIX, CLUBS) ;
@@ -33,16 +33,30 @@ void test_three_lowest(void)
     assert_true(lowest_card.rank == THREE) ;
 }
 
-void test_three_lowest_fail(void)
+void test_three_lowest_when_middle(void)
 {
     Card ten = make_card(TEN, HEARTS) ;
-    Card six = make_card(SIX, CLUBS) ;
     Card three = make_card(THREE, DIAMONDS) ;
+    Card six = make_card(SIX, CLUBS) ;
 
-    Card cards[] = { ten, six, three } ;
+    Card cards[] = { ten, three, six } ;
 
     Card lowest_card ;
     lowest_card =  lowest(cards, 3) ;
 
-    assert_true(lowest_card.rank != THREE) ;
+    assert_true(lowest_card.rank == THREE) ;
+}
+
+void test_three_lowest_when_first(void)
+{
+    Card three = make_card(THREE, DIAMONDS) ;
+    Card ten = make_card(TEN, HEARTS) ;
+    Card six = make_card(SIX, CLUBS) ;
+
+    Card cards[] = { three, ten, six } ;
+
+    Card lowest_card ;
+    lowest_card =  lowest(cards, 3) ;
+
+    assert_true(lowest_card.rank == THREE) ;
 }
