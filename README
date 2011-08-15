@@ -1,1 +1,21 @@
 C implementation of the shithead card game
+
+To build:
+    
+    make
+
+To install (currently to ~/bin):
+
+    make install
+
+To build tests:
+
+    make make-tests
+
+To run tests:
+
+    make test
+
+To clean:
+
+    make clean
