@@ -8,7 +8,7 @@ install: make-c-head
 	cp c-head ~/bin/c-head
 
 make-tests: test_card.o card.o
-	$(CC) test_card.o card.o -I ~/include -L ~/lib -o testsuit -l headunit
+	$(CC) test_card.o card.o -I ~/include -L ~/lib -o testsuite -l headunit
 
 test: make-tests
 	testsuit
@@ -17,4 +17,4 @@ clean:
 	rm -f *.o
 	rm -f c-head
 	rm -f ~/bin/c-head
-	rm -f testsuit
+	rm -f testsuite
