@@ -13,11 +13,37 @@ Card lowest(Card *cards, int ncards)
     Card lowest = cards[0] ;
     int i ;
 
-    for (i = 1 ; i < ncards ; i++) 
-        if (cards[i].rank < lowest.rank)
+    for (i = 1 ; i < ncards ; i++)
+        if (card_cmp(&cards[i], &lowest) < 0)
             lowest = cards[i] ;
     
     return lowest ;
+}
+
+int special_card(Card card) 
+{
+    switch(card.rank) {
+    case TWO:
+        return 1 ;
+    case SEVEN:
+        return 1 ;
+    case TEN:
+        return 1 ;
+    default:
+        return 0 ;
+    }
+}
+
+int card_cmp(Card *c1, Card *c2)
+{   
+    if (special_card(*c1) && special_card(*c2))
+        return 0 ;
+    else if (special_card(*c1) && !special_card(*c2))
+        return 1 ;
+    else if (special_card(*c2))
+        return -1 ;
+    else
+        return c1->rank - c2->rank ;
 }
 
 char* show_rank(Card *c)

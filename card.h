@@ -15,6 +15,8 @@ typedef struct {
 
 Card make_card(int rank, int suit) ;
 Card lowest(Card *cards, int ncards) ;
+int special_card(Card card) ;
+int card_cmp(Card *c1, Card *c2) ;
 char* show_rank(Card *c) ;
 char* show_suit(Card *c) ;
 
