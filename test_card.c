@@ -2,7 +2,7 @@
 #include <head-unit.h>
 #include "card.h"
 
-#define NUM_TESTS 8
+#define NUM_TESTS 10
 
 void test_three_lowest_when_last(void)
 {
@@ -71,6 +71,32 @@ void test_three_lower_than_two(void)
     assert_true(lowest_card.rank == THREE) ;
 }
 
+void test_five_lower_than_two(void)
+{
+    Card five = make_card(FIVE, DIAMONDS) ;
+    Card two = make_card(TWO, HEARTS) ;
+
+    Card cards[] = { five, two } ;
+
+    Card lowest_card ;
+    lowest_card = lowest(cards, 2) ;
+    
+    assert_true(lowest_card.rank == FIVE) ;
+}
+
+void test_jack_lower_than_seven(void)
+{
+    Card jack = make_card(JACK, DIAMONDS) ;
+    Card seven = make_card(SEVEN, HEARTS) ;
+
+    Card cards[] = { jack, seven } ;
+
+    Card lowest_card ;
+    lowest_card = lowest(cards, 2) ;
+    
+    assert_true(lowest_card.rank == JACK) ;
+}
+
 void test_two_special(void)
 {
     assert_true(special_card(make_card(TWO, DIAMONDS))) ;
@@ -92,6 +118,8 @@ Test tests[NUM_TESTS] =
           { test_three_lowest_when_first, "test_three_lowest_when_first" } ,
           { test_lowest_one_card, "test_lowest_one_card" } ,
           { test_three_lower_than_two, "test_three_lower_than_two" } ,
+          { test_five_lower_than_two, "test_five_lower_than_two" } ,
+          { test_jack_lower_than_seven, "test_jack_lower_than_seven" } ,
           { test_two_special, "test_two_special" } ,
           { test_seven_special, "test_seven_special" } ,
           { test_ten_special, "test_ten_special" } } ;
