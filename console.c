@@ -82,6 +82,8 @@ void request_player_names(char names[MAX_NUM_PLAYERS][MAX_NAME_LEN], int nplayer
         scanf("%s", &name) ;
         strcpy(names[i], name) ;
     }
+    
+    newline() ;
 }
 
 void show_cards(Card *cards, int num_cards) 
@@ -102,5 +104,5 @@ void show_cards(Card *cards, int num_cards)
 void show_deck(int num_cards) 
 {
     printf("%d left on deck", num_cards) ;
-    newline() ;
+    newlines(2) ;
 }

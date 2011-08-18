@@ -18,13 +18,10 @@ int main(void)
     num_cards_each = request_num_cards_each() ;
     request_player_names(names, num_players) ;
 
-    newline() ;
-
     init(&game, num_players, names, num_cards_each) ;
 
     clearscreen() ;
     show_deck(game.deck_size) ;
-    newline() ;
     show_players(game.players, game.num_players) ;
 }
 
