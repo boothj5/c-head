@@ -2,8 +2,6 @@
 #include <head-unit.h>
 #include "card.h"
 
-#define NUM_TESTS 10
-
 void test_three_lowest_when_last(void)
 {
     Card ten = make_card(TEN, HEARTS) ;
@@ -112,22 +110,21 @@ void test_ten_special(void)
     assert_true(special_card(make_card(TEN, DIAMONDS))) ;
 }
 
-Test tests[NUM_TESTS] = 
-        { { test_three_lowest_when_last, "test_three_lowest_when_last" } ,
-          { test_three_lowest_when_middle, "test_three_lowest_when_middle" } ,
-          { test_three_lowest_when_first, "test_three_lowest_when_first" } ,
-          { test_lowest_one_card, "test_lowest_one_card" } ,
-          { test_three_lower_than_two, "test_three_lower_than_two" } ,
-          { test_five_lower_than_two, "test_five_lower_than_two" } ,
-          { test_jack_lower_than_seven, "test_jack_lower_than_seven" } ,
-          { test_two_special, "test_two_special" } ,
-          { test_seven_special, "test_seven_special" } ,
-          { test_ten_special, "test_ten_special" } } ;
-
 
 int main(void)
 {
-    run_tests(tests, NUM_TESTS) ; 
+    add_test(test_three_lowest_when_last, "test_three_lowest_when_last" ) ;
+    add_test(test_three_lowest_when_middle, "test_three_lowest_when_middle") ;
+    add_test(test_three_lowest_when_first, "test_three_lowest_when_first") ;
+    add_test(test_lowest_one_card, "test_lowest_one_card") ;
+    add_test(test_three_lower_than_two, "test_three_lower_than_two") ;
+    add_test(test_five_lower_than_two, "test_five_lower_than_two") ;
+    add_test(test_jack_lower_than_seven, "test_jack_lower_than_seven") ;
+    add_test(test_two_special, "test_two_special") ;
+    add_test(test_seven_special, "test_seven_special") ;
+    add_test(test_ten_special, "test_ten_special") ;
+
+    run_tests() ; 
     return 0 ;
 }
 
