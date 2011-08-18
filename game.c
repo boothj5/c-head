@@ -23,7 +23,7 @@ void init(Game *game, int nplayers, char names[MAX_NUM_PLAYERS][MAX_NAME_LEN], i
     deal(game) ;
 }
 
-void create_deck(Game *game)
+static void create_deck(Game *game)
 {
     int num_decks ;
     int rank, suit ;
@@ -44,7 +44,7 @@ void create_deck(Game *game)
     }
 }
 
-void shuffle(Game *game)
+static void shuffle(Game *game)
 {
     if (game->deck_size > 1) {
         srand((unsigned)time(NULL)) ;
@@ -58,7 +58,7 @@ void shuffle(Game *game)
     }
 }
 
-void deal(Game *game)
+static void deal(Game *game)
 {
     int i ;
     int k ;
