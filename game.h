@@ -17,8 +17,5 @@ typedef struct {
 } Game ;
 
 void init(Game *game, int nplayers, char names[MAX_NUM_PLAYERS][MAX_NAME_LEN], int ncards) ;
-void create_deck(Game *game) ;
-void deal(Game *game) ;
-void shuffle(Game *game) ;
 
 #endif

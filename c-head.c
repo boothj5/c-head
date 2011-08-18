@@ -21,9 +21,6 @@ int main(void)
     newline() ;
 
     init(&game, num_players, names, num_cards_each) ;
-    create_deck(&game) ;
-    shuffle(&game) ;
-    deal(&game) ;
 
     clearscreen() ;
     show_deck(game.deck_size) ;

@@ -3,6 +3,9 @@
 
 static int calc_decks_required(Game *game) ;
 static void calc_deck_size(Game *game) ;
+static void create_deck(Game *game) ;
+static void deal(Game *game) ;
+static void shuffle(Game *game) ;
 
 void init(Game *game, int nplayers, char names[MAX_NUM_PLAYERS][MAX_NAME_LEN], int ncards)
 {
@@ -14,6 +17,10 @@ void init(Game *game, int nplayers, char names[MAX_NUM_PLAYERS][MAX_NAME_LEN], i
     for(i = 0 ; i<nplayers ; i++) {
         game->players[i] = make_player(names[i], HUMAN) ;
     }
+    
+    create_deck(game) ;
+    shuffle(game) ;
+    deal(game) ;
 }
 
 void create_deck(Game *game)
