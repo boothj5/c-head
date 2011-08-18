@@ -1,4 +1,8 @@
 #include <stdio.h>
+#include <string.h>
+
+#include "player.h"
+#include "game.h"
 #include "console.h"
 
 void newline()
@@ -67,11 +71,17 @@ int request_num_cards_each()
     return result ;
 }
 
-void request_player_name(char *name, int num)
+void request_player_names(char names[MAX_NUM_PLAYERS][MAX_NAME_LEN], int nplayers)
 {
-    printf("Enter name for player %d :", num) ;
-    newline() ;
-    scanf("%s", name) ;
+    char name[MAX_NAME_LEN] ;
+    int i ;
+    
+    for (i = 0 ; i < nplayers ; i++) {
+        printf("Enter name for player %d :", i+1) ;
+        newline() ;
+        scanf("%s", &name) ;
+        strcpy(names[i], name) ;
+    }
 }
 
 void show_cards(Card *cards, int num_cards) 

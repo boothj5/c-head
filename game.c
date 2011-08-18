@@ -1,7 +1,20 @@
+#include <stdio.h>
 #include "game.h"
 
 static int calc_decks_required(Game *game) ;
 static void calc_deck_size(Game *game) ;
+
+void init(Game *game, int nplayers, char names[MAX_NUM_PLAYERS][MAX_NAME_LEN], int ncards)
+{
+    int i ;    
+
+    game->num_players = nplayers ;
+    game->num_cards_each = ncards ;
+    
+    for(i = 0 ; i<nplayers ; i++) {
+        game->players[i] = make_player(names[i], HUMAN) ;
+    }
+}
 
 void create_deck(Game *game)
 {
@@ -18,10 +31,6 @@ void create_deck(Game *game)
         for (suit = 0 ; suit <= 3 ; suit++) {
             for (rank = 2 ; rank <= 14 ; rank++) {
                 game->deck[i] = make_card(rank, suit) ;
-                //Card a_card ;
-                //a_card.rank = rank ;
-                //a_card.suit = suit ;
-                //game->deck[i] = a_card ;
                 i++ ;
             }
         }
