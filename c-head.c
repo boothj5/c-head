@@ -8,22 +8,22 @@
 int main(void)
 {
     Game game ;
-    int num_players, num_cards_each ;
+    int nplayers, ncards ;
     char names[MAX_NUM_PLAYERS][MAX_NAME_LEN] ;
     
     clearscreen() ;
     show_welcome_msg() ;
 
-    num_players = request_num_players() ;
-    num_cards_each = request_num_cards_each() ;
-    request_player_names(names, num_players) ;
+    nplayers = request_num_players() ;
+    ncards = request_num_cards_each() ;
+    request_player_names(names, nplayers) ;
 
-    init(&game, num_players, names, num_cards_each) ;
+    game = make_game(nplayers, names, ncards) ;
 
     clearscreen() ;
-    show_deck(game.deck_size) ;
-    show_players(game.players, game.num_players) ;
-    first_move(&game) ;
+    show_deck(deck_size(game)) ;
+    show_players(players(game), num_players(game)) ;
+    first_move(game) ;
 }
 
 

@@ -1,15 +1,24 @@
 #include <stdio.h>
 #include "game.h"
 
-static int calc_decks_required(Game *game) ;
-static void calc_deck_size(Game *game) ;
-static void create_deck(Game *game) ;
-static void deal(Game *game) ;
-static void shuffle(Game *game) ;
+struct game_t {
+    int num_players ;
+    int num_cards_each ;
+    int deck_size ;
+    Player players[MAX_NUM_PLAYERS] ;
+    Card deck[MAX_DECK_SIZE] ;
+} ;
 
-void init(Game *game, int nplayers, char names[MAX_NUM_PLAYERS][MAX_NAME_LEN], int ncards)
+static int calc_decks_required(Game game) ;
+static void calc_deck_size(Game game) ;
+static void create_deck(Game game) ;
+static void deal(Game game) ;
+static void shuffle(Game game) ;
+
+Game make_game(int nplayers, char names[MAX_NUM_PLAYERS][MAX_NAME_LEN], int ncards)
 {
     int i ;    
+    Game game = malloc(sizeof(struct game_t)) ;
 
     game->num_players = nplayers ;
     game->num_cards_each = ncards ;
@@ -21,9 +30,26 @@ void init(Game *game, int nplayers, char names[MAX_NUM_PLAYERS][MAX_NAME_LEN], i
     create_deck(game) ;
     shuffle(game) ;
     deal(game) ;
+    
+    return game ;
 }
 
-void first_move(Game *game)
+int deck_size(Game game) 
+{
+    return game->deck_size ;
+}
+
+Player *players(Game game)
+{
+    return game->players ;
+}
+
+int num_players(Game game)
+{
+    return game->num_players ;
+}
+
+void first_move(Game game)
 {
     int i ;
     Card lowest_by_player[game->num_players] ;
@@ -33,7 +59,7 @@ void first_move(Game *game)
 
 }
 
-static void create_deck(Game *game)
+static void create_deck(Game game)
 {
     int num_decks ;
     enum cardrank rank ;
@@ -53,7 +79,7 @@ static void create_deck(Game *game)
             }
 }
 
-static void shuffle(Game *game)
+static void shuffle(Game game)
 {
     if (game->deck_size > 1) {
         srand((unsigned)time(NULL)) ;
@@ -67,7 +93,7 @@ static void shuffle(Game *game)
     }
 }
 
-static void deal(Game *game)
+static void deal(Game game)
 {
     int i ;
     int k ;
@@ -82,7 +108,7 @@ static void deal(Game *game)
 
 }
 
-static int calc_decks_required(Game *game)
+static int calc_decks_required(Game game)
 {
     int total_cards, result, div, add ;
 
@@ -94,7 +120,7 @@ static int calc_decks_required(Game *game)
     return result ;
 }
 
-static void calc_deck_size(Game *game)
+static void calc_deck_size(Game game)
 {
     int decks_required;
     decks_required = calc_decks_required(game) ;

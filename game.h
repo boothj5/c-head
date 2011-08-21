@@ -8,14 +8,11 @@
 #define MAX_DECK_SIZE 260
 #define DECK_SIZE 52
 
-typedef struct {
-    int num_players ;
-    int num_cards_each ;
-    int deck_size ;
-    Player players[MAX_NUM_PLAYERS] ;
-    Card deck[MAX_DECK_SIZE] ;
-} Game ;
+typedef struct game_t *Game ;
 
-void init(Game *game, int nplayers, char names[MAX_NUM_PLAYERS][MAX_NAME_LEN], int ncards) ;
-void first_move(Game *game) ;
+Game make_game(int nplayers, char names[MAX_NUM_PLAYERS][MAX_NAME_LEN], int ncards) ;
+int deck_size(Game game) ;
+Player *players(Game game) ;
+int num_players(Game game) ;
+void first_move(Game game) ;
 #endif
