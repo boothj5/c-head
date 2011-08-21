@@ -23,6 +23,7 @@ int main(void)
     clearscreen() ;
     show_deck(game.deck_size) ;
     show_players(game.players, game.num_players) ;
+    first_move(&game) ;
 }
 
 

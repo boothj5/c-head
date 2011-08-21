@@ -17,5 +17,5 @@ typedef struct {
 } Game ;
 
 void init(Game *game, int nplayers, char names[MAX_NUM_PLAYERS][MAX_NAME_LEN], int ncards) ;
-
+void first_move(Game *game) ;
 #endif

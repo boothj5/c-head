@@ -23,10 +23,21 @@ void init(Game *game, int nplayers, char names[MAX_NUM_PLAYERS][MAX_NAME_LEN], i
     deal(game) ;
 }
 
+void first_move(Game *game)
+{
+    int i ;
+    Card *lowest_by_player[game->num_players] ;
+    
+    for(i = 0 ; i < game->num_players ; i++)
+        lowest_by_player[i] = lowest(game->players[i].hand, game->players[i].hand_size) ;
+
+}
+
 static void create_deck(Game *game)
 {
     int num_decks ;
-    int rank, suit ;
+    enum cardrank rank ;
+    enum cardsuit suit ;
     int i = 0 ;
     int j ;
 
@@ -34,14 +45,12 @@ static void create_deck(Game *game)
 
     num_decks = game->deck_size / DECK_SIZE ;
 
-    for (j = 0 ; j < num_decks ; j++) {
-        for (suit = 0 ; suit <= 3 ; suit++) {
-            for (rank = 2 ; rank <= 14 ; rank++) {
+    for (j = 0 ; j < num_decks ; j++)
+        for (suit = HEARTS ; suit <= CLUBS ; suit++)
+            for (rank = TWO ; rank <= ACE ; rank++) {
                 game->deck[i] = make_card(rank, suit) ;
                 i++ ;
             }
-        }
-    }
 }
 
 static void shuffle(Game *game)

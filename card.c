@@ -1,6 +1,6 @@
 #include "card.h"
 
-Card make_card(int rank, int suit)
+Card make_card(enum cardrank rank, enum cardsuit suit)
 {
     Card card ;
     card.rank = rank ;
@@ -8,14 +8,15 @@ Card make_card(int rank, int suit)
     return card ;
 }
 
-Card lowest(Card *cards, int ncards)
+Card *lowest(Card *cards, int ncards)
 {
-    Card lowest = cards[0] ;
+    Card *lowest ;
+    lowest = &cards[0] ;
     int i ;
 
     for (i = 1 ; i < ncards ; i++)
-        if (card_cmp(&cards[i], &lowest) < 0)
-            lowest = cards[i] ;
+        if (card_cmp(&cards[i], lowest) < 0)
+            lowest = &cards[i] ;
     
     return lowest ;
 }
