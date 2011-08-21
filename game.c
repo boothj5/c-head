@@ -26,7 +26,7 @@ void init(Game *game, int nplayers, char names[MAX_NUM_PLAYERS][MAX_NAME_LEN], i
 void first_move(Game *game)
 {
     int i ;
-    Card *lowest_by_player[game->num_players] ;
+    Card lowest_by_player[game->num_players] ;
     
     for(i = 0 ; i < game->num_players ; i++)
         lowest_by_player[i] = lowest(game->players[i].hand, game->players[i].hand_size) ;

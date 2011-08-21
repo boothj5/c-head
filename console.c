@@ -92,7 +92,7 @@ void show_cards(Card *cards, int num_cards)
     int j = 1 ;
 
     for (i = (num_cards-1) ; i >= 0 ; i--) {
-        printf("(%d)%s of %s", j, show_rank(&cards[i]), show_suit(&cards[i])) ;
+        printf("(%d)%s of %s", j, show_rank(cards[i]), show_suit(cards[i])) ;
         if (j <= (num_cards - 1))
             printf(", ") ;
         else
