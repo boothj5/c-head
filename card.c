@@ -20,7 +20,8 @@ enum cardrank rank(Card c)
 
 Card lowest(Card *cards, int ncards)
 {
-    Card lowest = cards[0] ;
+    Card lowest = cards[0] ; //malloc(sizeof(struct card_t)) ;
+    //lowest = cards[0] ;
     int i ;
 
     for (i = 1 ; i < ncards ; i++)
@@ -54,6 +55,11 @@ int card_cmp(Card c1, Card c2)
         return -1 ;
     else
         return c1->rank - c2->rank ;
+}
+
+int equals(Card c1, Card c2) 
+{
+    return ((c1->rank == c2->rank) && (c1->suit == c2->suit)) ;
 }
 
 char* show_rank(Card c)

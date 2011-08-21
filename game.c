@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "game.h"
+#include "card.h"
 
 struct game_t {
     int num_players ;
@@ -53,9 +54,25 @@ void first_move(Game game)
 {
     int i ;
     Card lowest_by_player[game->num_players] ;
-    
-    for(i = 0 ; i < game->num_players ; i++)
+    Card lowest_card ;
+    Player lowest_player ;
+    Card to_lay[MAX_HAND_SIZE] ;
+     
+
+    for(i = 0 ; i < game->num_players ; i++) {
         lowest_by_player[i] = lowest(hand(game->players[i]), hand_size(game->players[i])) ;
+    }
+
+    lowest_card = lowest(lowest_by_player, game->num_players) ;
+
+    for(i = 0 ; i < game->num_players ; i++) {
+        if (equals(lowest_card, lowest_by_player[i])) {
+            lowest_player = game->players[i] ;
+        }
+    }
+
+    printf("Lowest player = %s\n", player_name(lowest_player)) ;
+    printf("Lowest card = %s of %s\n", show_rank(lowest_card), show_suit(lowest_card)) ;
 
 }
 
