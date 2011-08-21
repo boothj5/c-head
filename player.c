@@ -72,3 +72,15 @@ Card *face_down(Player p)
 {
     return p->face_down ;
 }  
+
+void remove_from_hand(Player p, Card c)
+{
+    int i, j ;
+    for (i = 0 ; i < p->hand_size ; i++)
+        if (equals(p->hand[i], c)) {
+            for (j = i+1 ; j < p->hand_size ; j++)
+                p->hand[j-1] = p->hand[j] ;
+            p->hand_size-- ;
+            break ;
+        }
+}

@@ -22,5 +22,7 @@ int face_down_size(Player p) ;
 Card *hand(Player p) ;
 Card *face_up(Player p) ;
 Card *face_down(Player p) ;
+void remove_from_hand(Player p, Card c) ;
+
 
 #endif

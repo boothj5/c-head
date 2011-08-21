@@ -106,3 +106,14 @@ void show_deck(int num_cards)
     printf("%d left on deck", num_cards) ;
     newlines(2) ;
 }
+
+void show_pile(Card *cards, int ncards)
+{
+    printf("Pile : ") ;
+    show_cards(cards, ncards) ;
+}
+
+void show_last_move(char *move) 
+{
+    printf(move) ;
+}
