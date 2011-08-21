@@ -113,6 +113,9 @@ static void play_from_hand(Game game, Player player, Card *to_lay, int ncards)
     
     for (i = 0 ; i < ncards ; i++)
         remove_from_hand(player, to_lay[i]) ;
+    
+    for (i = 0 ; i < ncards ; i++)
+        deal_to_hand(player, game->deck[game->deck_size--]) ;
 }
 
 static void create_deck(Game game)
