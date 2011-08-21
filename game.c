@@ -57,23 +57,23 @@ void first_move(Game game)
     Card lowest_card ;
     Player lowest_player ;
     Card to_lay[MAX_HAND_SIZE] ;
-     
+    int num_to_lay = 0 ;
 
-    for(i = 0 ; i < game->num_players ; i++) {
+    for (i = 0 ; i < game->num_players ; i++)
         lowest_by_player[i] = lowest(hand(game->players[i]), hand_size(game->players[i])) ;
-    }
 
     lowest_card = lowest(lowest_by_player, game->num_players) ;
-
-    for(i = 0 ; i < game->num_players ; i++) {
-        if (equals(lowest_card, lowest_by_player[i])) {
+    for (i = 0 ; i < game->num_players ; i++)
+        if (equals(lowest_card, lowest_by_player[i]))
             lowest_player = game->players[i] ;
-        }
-    }
+    
+    for (i = 0 ; i < game->num_cards_each ; i++)
+        if (rank(lowest_card) == rank(hand(lowest_player)[i]))
+            to_lay[num_to_lay++] = hand(lowest_player)[i] ;
 
     printf("Lowest player = %s\n", player_name(lowest_player)) ;
-    printf("Lowest card = %s of %s\n", show_rank(lowest_card), show_suit(lowest_card)) ;
-
+    for (i = 0 ; i < num_to_lay ; i++)
+        printf("\tCard = %s of %s\n", show_rank(to_lay[i]), show_suit(to_lay[i])) ;
 }
 
 static void create_deck(Game game)
