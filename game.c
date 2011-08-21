@@ -29,7 +29,7 @@ void first_move(Game *game)
     Card lowest_by_player[game->num_players] ;
     
     for(i = 0 ; i < game->num_players ; i++)
-        lowest_by_player[i] = lowest(game->players[i].hand, game->players[i].hand_size) ;
+        lowest_by_player[i] = lowest(hand(game->players[i]), hand_size(game->players[i])) ;
 
 }
 
@@ -74,9 +74,9 @@ static void deal(Game *game)
     for (i = 0 ; i < game->num_players ; i++) {
         int j ;
         for (j = 0 ; j < game->num_cards_each ; j++) {
-            deal_to_hand(&game->players[i], game->deck[--game->deck_size]) ;
-            deal_to_face_up(&game->players[i], game->deck[--game->deck_size]) ;
-            deal_to_face_down(&game->players[i], game->deck[--game->deck_size]) ;
+            deal_to_hand(game->players[i], game->deck[--game->deck_size]) ;
+            deal_to_face_up(game->players[i], game->deck[--game->deck_size]) ;
+            deal_to_face_down(game->players[i], game->deck[--game->deck_size]) ;
         }
     }
 

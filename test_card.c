@@ -10,10 +10,10 @@ void test_three_lowest_when_last(void)
 
     Card cards[] = { ten, six, three } ;
 
-    Card *lowest_card ;
+    Card lowest_card ;
     lowest_card =  lowest(cards, 3) ;
 
-    assert_true(lowest_card->rank == THREE) ;
+    assert_true(rank(lowest_card) == THREE) ;
 }
 
 void test_three_lowest_when_middle(void)
@@ -24,10 +24,10 @@ void test_three_lowest_when_middle(void)
 
     Card cards[] = { ten, three, six } ;
 
-    Card *lowest_card ;
+    Card lowest_card ;
     lowest_card =  lowest(cards, 3) ;
 
-    assert_true(lowest_card->rank == THREE) ;
+    assert_true(rank(lowest_card) == THREE) ;
 }
 
 void test_three_lowest_when_first(void)
@@ -38,10 +38,10 @@ void test_three_lowest_when_first(void)
 
     Card cards[] = { three, ten, six } ;
 
-    Card *lowest_card ;
+    Card lowest_card ;
     lowest_card =  lowest(cards, 3) ;
 
-    assert_true(lowest_card->rank == THREE) ;
+    assert_true(rank(lowest_card) == THREE) ;
 }
 
 void test_lowest_one_card(void)
@@ -50,10 +50,10 @@ void test_lowest_one_card(void)
 
     Card cards[] = { ten } ;
 
-    Card *lowest_card ;
+    Card lowest_card ;
     lowest_card =  lowest(cards, 1) ;
 
-    assert_true(lowest_card->rank == TEN) ;
+    assert_true(rank(lowest_card) == TEN) ;
 }   
 
 void test_three_lower_than_two(void)
@@ -63,10 +63,10 @@ void test_three_lower_than_two(void)
 
     Card cards[] = { three, two } ;
 
-    Card *lowest_card ;
+    Card lowest_card ;
     lowest_card = lowest(cards, 2) ;
     
-    assert_true(lowest_card->rank == THREE) ;
+    assert_true(rank(lowest_card) == THREE) ;
 }
 
 void test_five_lower_than_two(void)
@@ -76,10 +76,10 @@ void test_five_lower_than_two(void)
 
     Card cards[] = { five, two } ;
 
-    Card *lowest_card ;
+    Card lowest_card ;
     lowest_card = lowest(cards, 2) ;
     
-    assert_true(lowest_card->rank == FIVE) ;
+    assert_true(rank(lowest_card) == FIVE) ;
 }
 
 void test_jack_lower_than_seven(void)
@@ -89,10 +89,10 @@ void test_jack_lower_than_seven(void)
 
     Card cards[] = { jack, seven } ;
 
-    Card *lowest_card ;
+    Card lowest_card ;
     lowest_card = lowest(cards, 2) ;
     
-    assert_true(lowest_card->rank == JACK) ;
+    assert_true(rank(lowest_card) == JACK) ;
 }
 
 void test_two_special(void)

@@ -11,7 +11,7 @@ void newlines(int num) ;
 void clearscreen() ;
 int request_num_players() ;
 int request_num_cards_each() ;
-void show_player(Player *p) ;
+void show_player(Player p) ;
 void show_players(Player *players, int len) ;
 void request_player_names(char names[MAX_NUM_PLAYERS][MAX_NAME_LEN], int nplayers) ;
 void show_cards(Card *cards, int num_cards) ;

@@ -13,6 +13,11 @@ Card make_card(enum cardrank rank, enum cardsuit suit)
     return card ;
 }
 
+enum cardrank rank(Card c)
+{
+    return c->rank ;
+}
+
 Card lowest(Card *cards, int ncards)
 {
     Card lowest = cards[0] ;

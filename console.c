@@ -23,21 +23,21 @@ void show_welcome_msg()
     newlines(2) ;
 }
 
-void show_player(Player *p)
+void show_player(Player p)
 {
-    printf("Player name : %s", p->name) ;
+    printf("Player name : %s", player_name(p)) ;
     newline() ;
-    if (p->hand_size > 0) {
+    if (hand_size(p) > 0) {
         printf("HAND     : ") ;
-        show_cards(p->hand, p->hand_size) ;
+        show_cards(hand(p), hand_size(p)) ;
     }
-    if (p->face_up_size > 0) {
+    if (face_up_size(p) > 0) {
         printf("FACE UP  : ") ;
-        show_cards(p->face_up, p->face_up_size) ;
+        show_cards(face_up(p), face_up_size(p)) ;
     }
-    if (p->hand_size > 0) {
+    if (hand_size(p) > 0) {
         printf("FACE DOWN: ") ;
-        show_cards(p->face_down, p->face_down_size) ;
+        show_cards(face_down(p), face_down_size(p)) ;
     }
 }
 
@@ -45,7 +45,7 @@ void show_players(Player *players, int len)
 {
     int i ;
     for (i = 0 ; i < len ; i++)  {
-        show_player(&players[i]) ;
+        show_player(players[i]) ;
         newline() ;
     }
 }
