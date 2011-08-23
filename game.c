@@ -21,6 +21,7 @@ static void create_deck(Game game) ;
 static void deal(Game game) ;
 static void shuffle(Game game) ;
 static void play_from_hand(Game game, Player player, Card *to_lay, int ncards) ;
+static void find_lowest_by_player(Game game, Card *lowest_by_player) ;
 
 Game make_game(int nplayers, char names[MAX_NUM_PLAYERS][MAX_NAME_LEN], int ncards)
 {
@@ -81,8 +82,10 @@ void first_move(Game game)
     Card to_lay[MAX_HAND_SIZE] ;
     int num_to_lay = 0 ;
 
-    for (i = 0 ; i < game->num_players ; i++)
-        lowest_by_player[i] = lowest(hand(game->players[i]), hand_size(game->players[i])) ;
+    find_lowest_by_player(game, lowest_by_player) ;
+
+//    for (i = 0 ; i < game->num_players ; i++)
+//        lowest_by_player[i] = lowest(hand(game->players[i]), hand_size(game->players[i])) ;
 
     lowest_card = lowest(lowest_by_player, game->num_players) ;
     for (i = 0 ; i < game->num_players ; i++)
@@ -106,18 +109,21 @@ void first_move(Game game)
     }
 }
 
+static void find_lowest_by_player(Game game, Card *lowest_by_player)
+{
+    int i ;
+    for (i = 0 ; i < game->num_players ; i++)
+        lowest_by_player[i] = lowest(hand(game->players[i]), hand_size(game->players[i])) ;
+}
+
 static void play_from_hand(Game game, Player player, Card *to_lay, int ncards)
 {
     int i ;
-    for (i = 0 ; i < ncards ; i++)
+    for (i = 0 ; i < ncards ; i++) {
         add_to_pile(game, to_lay[i]) ;
-//        game->pile[game->pile_size++] = to_lay[i] ;
-    
-    for (i = 0 ; i < ncards ; i++)
         remove_from_hand(player, to_lay[i]) ;
-    
-    for (i = 0 ; i < ncards ; i++)
         deal_to_hand(player, game->deck[game->deck_size--]) ;
+    }
 }
 
 static void add_to_pile(Game game, Card c)
