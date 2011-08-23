@@ -22,8 +22,8 @@ static void deal(Game game) ;
 static void shuffle(Game game) ;
 static void play_from_hand(Game game, Player player, struct card_s *to_lay, int ncards) ;
 static void find_lowest_by_player(Game game, struct card_s *lowest_by_player) ;
-static Player find_lowest_player(Game game, struct card_s lowest_card, struct card_s *lowest_by_player) ;
-static void add_similar_cards(Game game, struct card_s lowest_card, 
+static Player find_lowest_player(Game game, struct card_s lowest, struct card_s *lowest_by_player) ;
+static void add_similar_cards(Game game, struct card_s lowest, 
                                 Player lowest_player, struct card_s *to_lay, int *ncards) ;
 
 Game make_game(int nplayers, char names[MAX_NUM_PLAYERS][MAX_NAME_LEN], int ncards)
@@ -80,15 +80,15 @@ void first_move(Game game)
 {
     int i ;
     struct card_s lowest_by_player[game->num_players] ;
-    struct card_s lowest_card ;
+    struct card_s lowest ;
     Player lowest_player ;
     struct card_s to_lay[MAX_HAND_SIZE] ;
     int num_to_lay = 0 ;
 
     find_lowest_by_player(game, lowest_by_player) ;
-    lowest_card = lowest(lowest_by_player, game->num_players) ;
-    lowest_player = find_lowest_player(game, lowest_card, lowest_by_player) ;
-    add_similar_cards(game, lowest_card, lowest_player, to_lay, &num_to_lay) ;
+    lowest = lowest_card(lowest_by_player, game->num_players) ;
+    lowest_player = find_lowest_player(game, lowest, lowest_by_player) ;
+    add_similar_cards(game, lowest, lowest_player, to_lay, &num_to_lay) ;
     play_from_hand(game, lowest_player, to_lay, num_to_lay) ;
     
     strcpy(game->last_move, "") ;
@@ -102,21 +102,21 @@ void first_move(Game game)
     }
 }
 
-static void add_similar_cards(Game game, struct card_s lowest_card, 
+static void add_similar_cards(Game game, struct card_s lowest, 
                                 Player lowest_player, struct card_s *to_lay, int *ncards)
 {
     int i ;
     for (i = 0 ; i < game->num_cards_each ; i++)
-        if (lowest_card.rank == hand(lowest_player)[i].rank)
+        if (lowest.rank == hand(lowest_player)[i].rank)
             to_lay[(*ncards)++] = hand(lowest_player)[i] ;
 }
 
-static Player find_lowest_player(Game game, struct card_s lowest_card, struct card_s *lowest_by_player)
+static Player find_lowest_player(Game game, struct card_s lowest, struct card_s *lowest_by_player)
 {
     Player result = game->players[0] ;
     int i ;
     for (i = 0 ; i < game->num_players ; i++)
-        if (equals(lowest_card, lowest_by_player[i])) {
+        if (equals(lowest, lowest_by_player[i])) {
             result = game->players[i] ;
             break ;
         }
@@ -128,7 +128,7 @@ static void find_lowest_by_player(Game game, struct card_s *lowest_by_player)
 {
     int i ;
     for (i = 0 ; i < game->num_players ; i++)
-        lowest_by_player[i] = lowest(hand(game->players[i]), hand_size(game->players[i])) ;
+        lowest_by_player[i] = lowest_card(hand(game->players[i]), hand_size(game->players[i])) ;
 }
 
 static void play_from_hand(Game game, Player player, struct card_s *to_lay, int ncards)
