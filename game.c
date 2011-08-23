@@ -16,6 +16,7 @@ struct game_t {
 
 static int calc_decks_required(Game game) ;
 static void calc_deck_size(Game game) ;
+static void add_to_pile(Game game, Card c) ;
 static void create_deck(Game game) ;
 static void deal(Game game) ;
 static void shuffle(Game game) ;
@@ -109,13 +110,19 @@ static void play_from_hand(Game game, Player player, Card *to_lay, int ncards)
 {
     int i ;
     for (i = 0 ; i < ncards ; i++)
-        game->pile[game->pile_size++] = to_lay[i] ;
+        add_to_pile(game, to_lay[i]) ;
+//        game->pile[game->pile_size++] = to_lay[i] ;
     
     for (i = 0 ; i < ncards ; i++)
         remove_from_hand(player, to_lay[i]) ;
     
     for (i = 0 ; i < ncards ; i++)
         deal_to_hand(player, game->deck[game->deck_size--]) ;
+}
+
+static void add_to_pile(Game game, Card c)
+{
+    game->pile[game->pile_size++] = c ;
 }
 
 static void create_deck(Game game)
