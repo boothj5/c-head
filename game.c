@@ -22,6 +22,9 @@ static void deal(Game game) ;
 static void shuffle(Game game) ;
 static void play_from_hand(Game game, Player player, Card *to_lay, int ncards) ;
 static void find_lowest_by_player(Game game, Card *lowest_by_player) ;
+static Player find_lowest_player(Game game, Card lowest_card, Card *lowest_by_player) ;
+static void add_similar_cards(Game game, Card lowest_card, 
+                                Player lowest_player, Card *to_lay, int *ncards) ;
 
 Game make_game(int nplayers, char names[MAX_NUM_PLAYERS][MAX_NAME_LEN], int ncards)
 {
@@ -83,19 +86,9 @@ void first_move(Game game)
     int num_to_lay = 0 ;
 
     find_lowest_by_player(game, lowest_by_player) ;
-
-//    for (i = 0 ; i < game->num_players ; i++)
-//        lowest_by_player[i] = lowest(hand(game->players[i]), hand_size(game->players[i])) ;
-
     lowest_card = lowest(lowest_by_player, game->num_players) ;
-    for (i = 0 ; i < game->num_players ; i++)
-        if (equals(lowest_card, lowest_by_player[i]))
-            lowest_player = game->players[i] ;
-    
-    for (i = 0 ; i < game->num_cards_each ; i++)
-        if (rank(lowest_card) == rank(hand(lowest_player)[i]))
-            to_lay[num_to_lay++] = hand(lowest_player)[i] ;
-
+    lowest_player = find_lowest_player(game, lowest_card, lowest_by_player) ;
+    add_similar_cards(game, lowest_card, lowest_player, to_lay, &num_to_lay) ;
     play_from_hand(game, lowest_player, to_lay, num_to_lay) ;
     
     strcpy(game->last_move, "") ;
@@ -107,6 +100,28 @@ void first_move(Game game)
         strcat(game->last_move, show_suit(to_lay[i])) ;
         strcat(game->last_move, "\n") ;
     }
+}
+
+static void add_similar_cards(Game game, Card lowest_card, 
+                                Player lowest_player, Card *to_lay, int *ncards)
+{
+    int i ;
+    for (i = 0 ; i < game->num_cards_each ; i++)
+        if (rank(lowest_card) == rank(hand(lowest_player)[i]))
+            to_lay[(*ncards)++] = hand(lowest_player)[i] ;
+}
+
+static Player find_lowest_player(Game game, Card lowest_card, Card *lowest_by_player)
+{
+    Player result = game->players[0] ;
+    int i ;
+    for (i = 0 ; i < game->num_players ; i++)
+        if (equals(lowest_card, lowest_by_player[i])) {
+            result = game->players[i] ;
+            break ;
+        }
+   
+    return result ;
 }
 
 static void find_lowest_by_player(Game game, Card *lowest_by_player)
