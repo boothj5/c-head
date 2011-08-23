@@ -86,7 +86,7 @@ void request_player_names(char names[MAX_NUM_PLAYERS][MAX_NAME_LEN], int nplayer
     newline() ;
 }
 
-void show_cards(Card *cards, int num_cards) 
+void show_cards(struct card_s *cards, int num_cards) 
 {
     int i ;
     int j = 1 ;
@@ -107,7 +107,7 @@ void show_deck(int num_cards)
     newlines(2) ;
 }
 
-void show_pile(Card *cards, int ncards)
+void show_pile(struct card_s *cards, int ncards)
 {
     printf("Pile : ") ;
     show_cards(cards, ncards) ;

@@ -8,15 +8,18 @@ enum cardrank { TWO = 2, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN,
 
 enum cardsuit { HEARTS, SPADES, DIAMONDS, CLUBS } ;
 
-typedef struct card_t *Card ;
+struct card_s {
+    enum cardrank rank ;
+    enum cardsuit suit ;
+} ;
 
-Card make_card(enum cardrank rank, enum cardsuit suit) ;
-enum cardrank rank(Card c) ;
-Card lowest(Card *cards, int ncards) ;
-int special_card(Card card) ;
-int card_cmp(Card c1, Card c2) ;
-int equals(Card c1, Card c2) ;
-char* show_rank(Card c) ;
-char* show_suit(Card c) ;
+struct card_s make_card(enum cardrank rank, enum cardsuit suit) ;
+struct card_s lowest(struct card_s *cards, int ncards) ;
+int special_card(struct card_s c) ;
+
+int card_cmp(struct card_s c1, struct card_s c2) ;
+int equals(struct card_s c1, struct card_s c2) ;
+char* show_rank(struct card_s c) ;
+char* show_suit(struct card_s c) ;
 
 #endif

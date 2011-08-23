@@ -1,39 +1,26 @@
 #include "card.h"
 
-struct card_t {
-    enum cardrank rank ;
-    enum cardsuit suit ;
-} ;
-
-Card make_card(enum cardrank rank, enum cardsuit suit)
+struct card_s make_card(enum cardrank rank, enum cardsuit suit)
 {
-    Card card = malloc(sizeof(struct card_t)) ;
-    card->rank = rank ;
-    card->suit = suit ;
+    struct card_s card ; 
+    card.rank = rank ;
+    card.suit = suit ;
     return card ;
 }
 
-enum cardrank rank(Card c)
+struct card_s lowest(struct card_s *cards, int ncards)
 {
-    return c->rank ;
-}
-
-Card lowest(Card *cards, int ncards)
-{
-    Card lowest = cards[0] ; //malloc(sizeof(struct card_t)) ;
-    //lowest = cards[0] ;
+    struct card_s lowest = cards[0] ; 
     int i ;
-
     for (i = 1 ; i < ncards ; i++)
         if (card_cmp(cards[i], lowest) < 0)
             lowest = cards[i] ;
-    
     return lowest ;
 }
 
-int special_card(Card card) 
+int special_card(struct card_s c) 
 {
-    switch(card->rank) {
+    switch(c.rank) {
     case TWO:
         return 1 ;
     case SEVEN:
@@ -45,7 +32,7 @@ int special_card(Card card)
     }
 }
 
-int card_cmp(Card c1, Card c2)
+int card_cmp(struct card_s c1, struct card_s c2)
 {   
     if (special_card(c1) && special_card(c2))
         return 0 ;
@@ -54,17 +41,17 @@ int card_cmp(Card c1, Card c2)
     else if (special_card(c2))
         return -1 ;
     else
-        return c1->rank - c2->rank ;
+        return c1.rank - c2.rank ;
 }
 
-int equals(Card c1, Card c2) 
+int equals(struct card_s c1, struct card_s c2) 
 {
-    return ((c1->rank == c2->rank) && (c1->suit == c2->suit)) ;
+    return ((c1.rank == c2.rank) && (c1.suit == c2.suit)) ;
 }
 
-char* show_rank(Card c)
+char* show_rank(struct card_s c)
 {
-    switch(c->rank) {
+    switch(c.rank) {
     case TWO:
         return "TWO" ;
     case THREE:
@@ -96,9 +83,9 @@ char* show_rank(Card c)
     }
 }
 
-char* show_suit(Card c)
+char* show_suit(struct card_s c)
 {
-    switch(c->suit) {
+    switch(c.suit) {
     case HEARTS:
         return "HEARTS" ;
     case DIAMONDS:

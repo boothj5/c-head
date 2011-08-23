@@ -4,95 +4,74 @@
 
 void test_three_lowest_when_last(void)
 {
-    Card ten = make_card(TEN, HEARTS) ;
-    Card six = make_card(SIX, CLUBS) ;
-    Card three = make_card(THREE, DIAMONDS) ;
+    struct card_s ten = make_card(TEN, HEARTS) ;
+    struct card_s six = make_card(SIX, CLUBS) ;
+    struct card_s three = make_card(THREE, DIAMONDS) ;
+    struct card_s cards[] = { ten, six, three } ;
 
-    Card cards[] = { ten, six, three } ;
-
-    Card lowest_card ;
-    lowest_card =  lowest(cards, 3) ;
-
-    assert_true(rank(lowest_card) == THREE) ;
+    struct card_s lowest_card =  lowest(cards, 3) ;
+    assert_true(lowest_card.rank == THREE) ;
 }
 
 void test_three_lowest_when_middle(void)
 {
-    Card ten = make_card(TEN, HEARTS) ;
-    Card three = make_card(THREE, DIAMONDS) ;
-    Card six = make_card(SIX, CLUBS) ;
+    struct card_s ten = make_card(TEN, HEARTS) ;
+    struct card_s three = make_card(THREE, DIAMONDS) ;
+    struct card_s six = make_card(SIX, CLUBS) ;
+    struct card_s cards[] = { ten, three, six } ;
 
-    Card cards[] = { ten, three, six } ;
-
-    Card lowest_card ;
-    lowest_card =  lowest(cards, 3) ;
-
-    assert_true(rank(lowest_card) == THREE) ;
+    struct card_s lowest_card =  lowest(cards, 3) ;
+    assert_true(lowest_card.rank == THREE) ;
 }
 
 void test_three_lowest_when_first(void)
 {
-    Card three = make_card(THREE, DIAMONDS) ;
-    Card ten = make_card(TEN, HEARTS) ;
-    Card six = make_card(SIX, CLUBS) ;
+    struct card_s three = make_card(THREE, DIAMONDS) ;
+    struct card_s ten = make_card(TEN, HEARTS) ;
+    struct card_s six = make_card(SIX, CLUBS) ;
+    struct card_s cards[] = { three, ten, six } ;
 
-    Card cards[] = { three, ten, six } ;
-
-    Card lowest_card ;
-    lowest_card =  lowest(cards, 3) ;
-
-    assert_true(rank(lowest_card) == THREE) ;
+    struct card_s lowest_card =  lowest(cards, 3) ;
+    assert_true(lowest_card.rank == THREE) ;
 }
 
 void test_lowest_one_card(void)
 {
-    Card ten = make_card(TEN, HEARTS) ;
+    struct card_s ten = make_card(TEN, HEARTS) ;
+    struct card_s cards[] = { ten } ;
 
-    Card cards[] = { ten } ;
-
-    Card lowest_card ;
-    lowest_card =  lowest(cards, 1) ;
-
-    assert_true(rank(lowest_card) == TEN) ;
+    struct card_s lowest_card =  lowest(cards, 1) ;
+    assert_true(lowest_card.rank == TEN) ;
 }   
 
 void test_three_lower_than_two(void)
 {
-    Card three = make_card(THREE, DIAMONDS) ;
-    Card two = make_card(TWO, HEARTS) ;
+    struct card_s three = make_card(THREE, DIAMONDS) ;
+    struct card_s two = make_card(TWO, HEARTS) ;
+    struct card_s cards[] = { three, two } ;
 
-    Card cards[] = { three, two } ;
-
-    Card lowest_card ;
-    lowest_card = lowest(cards, 2) ;
-    
-    assert_true(rank(lowest_card) == THREE) ;
+    struct card_s lowest_card = lowest(cards, 2) ;
+    assert_true(lowest_card.rank == THREE) ;
 }
 
 void test_five_lower_than_two(void)
 {
-    Card five = make_card(FIVE, DIAMONDS) ;
-    Card two = make_card(TWO, HEARTS) ;
+    struct card_s five = make_card(FIVE, DIAMONDS) ;
+    struct card_s two = make_card(TWO, HEARTS) ;
+    struct card_s cards[] = { five, two } ;
 
-    Card cards[] = { five, two } ;
-
-    Card lowest_card ;
-    lowest_card = lowest(cards, 2) ;
-    
-    assert_true(rank(lowest_card) == FIVE) ;
+    struct card_s lowest_card = lowest(cards, 2) ;
+    assert_true(lowest_card.rank == FIVE) ;
 }
 
 void test_jack_lower_than_seven(void)
 {
-    Card jack = make_card(JACK, DIAMONDS) ;
-    Card seven = make_card(SEVEN, HEARTS) ;
+    struct card_s jack = make_card(JACK, DIAMONDS) ;
+    struct card_s seven = make_card(SEVEN, HEARTS) ;
+    struct card_s cards[] = { jack, seven } ;
 
-    Card cards[] = { jack, seven } ;
-
-    Card lowest_card ;
-    lowest_card = lowest(cards, 2) ;
-    
-    assert_true(rank(lowest_card) == JACK) ;
+    struct card_s lowest_card = lowest(cards, 2) ;
+    assert_true(lowest_card.rank == JACK) ;
 }
 
 void test_two_special(void)

@@ -14,7 +14,7 @@ typedef struct game_t *Game ;
 Game make_game(int nplayers, char names[MAX_NUM_PLAYERS][MAX_NAME_LEN], int ncards) ;
 int deck_size(Game game) ;
 int pile_size(Game game) ;
-Card *pile(Game game) ;
+struct card_s *pile(Game game) ;
 Player *players(Game game) ;
 int num_players(Game game) ;
 void first_move(Game game) ;

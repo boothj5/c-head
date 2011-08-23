@@ -4,11 +4,11 @@
 struct player_t {
     char name[MAX_NAME_LEN] ;
     int type ;
-    Card hand[MAX_HAND_SIZE] ;
+    struct card_s hand[MAX_HAND_SIZE] ;
+    struct card_s face_up[MAX_TABLE_HAND_SIZE] ;
+    struct card_s face_down[MAX_TABLE_HAND_SIZE] ;
     int hand_size ;
-    Card face_up[MAX_TABLE_HAND_SIZE] ;
     int face_up_size ;
-    Card face_down[MAX_TABLE_HAND_SIZE] ;
     int face_down_size ;
 } ;
 
@@ -23,17 +23,17 @@ Player make_player(char *name, int type)
     return player ;
 }
 
-void deal_to_hand(Player p, Card c)
+void deal_to_hand(Player p, struct card_s c)
 {
     p->hand[p->hand_size++] = c ;
 }
 
-void deal_to_face_up(Player p, Card c)
+void deal_to_face_up(Player p, struct card_s c)
 {
     p->face_up[p->face_up_size++] = c ;
 }
 
-void deal_to_face_down(Player p, Card c)
+void deal_to_face_down(Player p, struct card_s c)
 {
     p->face_down[p->face_down_size++] = c ;
 }
@@ -58,22 +58,22 @@ int face_down_size(Player p)
     return p->face_down_size ;
 }
 
-Card *hand(Player p)
+struct card_s *hand(Player p)
 {
     return p->hand ;
 }
 
-Card *face_up(Player p)
+struct card_s *face_up(Player p)
 {
     return p->face_up ;
 } 
 
-Card *face_down(Player p)
+struct card_s *face_down(Player p)
 {
     return p->face_down ;
 }  
 
-void remove_from_hand(Player p, Card c)
+void remove_from_hand(Player p, struct card_s c)
 {
     int i, j ;
     for (i = 0 ; i < p->hand_size ; i++)
