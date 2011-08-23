@@ -9,20 +9,21 @@
 
 enum player_types { HUMAN, COMPUTER } ;
 
-typedef struct player_t *Player ;
+struct player_t {
+    char name[MAX_NAME_LEN] ;
+    int type ;
+    struct card_t hand[MAX_HAND_SIZE] ;
+    struct card_t face_up[MAX_TABLE_HAND_SIZE] ;
+    struct card_t face_down[MAX_TABLE_HAND_SIZE] ;
+    int hand_size ;
+    int face_up_size ;
+    int face_down_size ;
+} ;
 
-Player make_player(char *name, int type) ;
-void deal_to_hand(Player p, struct card_s c) ;
-void deal_to_face_up(Player p, struct card_s c) ;
-void deal_to_face_down(Player p, struct card_s c) ;
-char *player_name(Player p) ;
-int hand_size(Player p) ;
-int face_up_size(Player p) ;
-int face_down_size(Player p) ;
-struct card_s *hand(Player p) ;
-struct card_s *face_up(Player p) ;
-struct card_s *face_down(Player p) ;
-void remove_from_hand(Player p, struct card_s c) ;
-
+struct player_t make_player(char *name, int type) ;
+void deal_to_hand(struct player_t *p, struct card_t c) ;
+void deal_to_face_up(struct player_t *p, struct card_t c) ;
+void deal_to_face_down(struct player_t *p, struct card_t c) ;
+void remove_from_hand(struct player_t *p, struct card_t c) ;
 
 #endif

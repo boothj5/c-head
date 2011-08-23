@@ -23,25 +23,25 @@ void show_welcome_msg()
     newlines(2) ;
 }
 
-void show_player(Player p)
+void show_player(struct player_t p)
 {
-    printf("Player name : %s", player_name(p)) ;
+    printf("Player name : %s", p.name) ;
     newline() ;
-    if (hand_size(p) > 0) {
+    if (p.hand_size > 0) {
         printf("HAND     : ") ;
-        show_cards(hand(p), hand_size(p)) ;
+        show_cards(p.hand, p.hand_size) ;
     }
-    if (face_up_size(p) > 0) {
+    if (p.face_up_size > 0) {
         printf("FACE UP  : ") ;
-        show_cards(face_up(p), face_up_size(p)) ;
+        show_cards(p.face_up, p.face_up_size) ;
     }
-    if (hand_size(p) > 0) {
+    if (p.hand_size > 0) {
         printf("FACE DOWN: ") ;
-        show_cards(face_down(p), face_down_size(p)) ;
+        show_cards(p.face_down, p.face_down_size) ;
     }
 }
 
-void show_players(Player *players, int len) 
+void show_players(struct player_t *players, int len) 
 {
     int i ;
     for (i = 0 ; i < len ; i++)  {
@@ -86,7 +86,7 @@ void request_player_names(char names[MAX_NUM_PLAYERS][MAX_NAME_LEN], int nplayer
     newline() ;
 }
 
-void show_cards(struct card_s *cards, int num_cards) 
+void show_cards(struct card_t *cards, int num_cards) 
 {
     int i ;
     int j = 1 ;
@@ -107,7 +107,7 @@ void show_deck(int num_cards)
     newlines(2) ;
 }
 
-void show_pile(struct card_s *cards, int ncards)
+void show_pile(struct card_t *cards, int ncards)
 {
     printf("Pile : ") ;
     show_cards(cards, ncards) ;

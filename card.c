@@ -1,16 +1,16 @@
 #include "card.h"
 
-struct card_s make_card(enum cardrank rank, enum cardsuit suit)
+struct card_t make_card(enum cardrank rank, enum cardsuit suit)
 {
-    struct card_s card ; 
+    struct card_t card ; 
     card.rank = rank ;
     card.suit = suit ;
     return card ;
 }
 
-struct card_s lowest_card(struct card_s *cards, int ncards)
+struct card_t lowest_card(struct card_t *cards, int ncards)
 {
-    struct card_s lowest = cards[0] ; 
+    struct card_t lowest = cards[0] ; 
     int i ;
     for (i = 1 ; i < ncards ; i++)
         if (card_cmp(cards[i], lowest) < 0)
@@ -18,7 +18,7 @@ struct card_s lowest_card(struct card_s *cards, int ncards)
     return lowest ;
 }
 
-int special_card(struct card_s c) 
+int special_card(struct card_t c) 
 {
     switch(c.rank) {
     case TWO:
@@ -32,7 +32,7 @@ int special_card(struct card_s c)
     }
 }
 
-int card_cmp(struct card_s c1, struct card_s c2)
+int card_cmp(struct card_t c1, struct card_t c2)
 {   
     if (special_card(c1) && special_card(c2))
         return 0 ;
@@ -44,12 +44,12 @@ int card_cmp(struct card_s c1, struct card_s c2)
         return c1.rank - c2.rank ;
 }
 
-int equals(struct card_s c1, struct card_s c2) 
+int equals(struct card_t c1, struct card_t c2) 
 {
     return ((c1.rank == c2.rank) && (c1.suit == c2.suit)) ;
 }
 
-char* show_rank(struct card_s c)
+char* show_rank(struct card_t c)
 {
     switch(c.rank) {
     case TWO:
@@ -83,7 +83,7 @@ char* show_rank(struct card_s c)
     }
 }
 
-char* show_suit(struct card_s c)
+char* show_suit(struct card_t c)
 {
     switch(c.suit) {
     case HEARTS:
