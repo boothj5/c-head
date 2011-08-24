@@ -20,7 +20,10 @@ struct game_t {
     char last_move[MAX_LAST_MOVE] ;
 } ;
 
-struct game_t *make_game(int nplayers, char names[MAX_NUM_PLAYERS][MAX_NAME_LEN], int ncards) ;
+struct game_t make_game(int nplayers, 
+                        char names[MAX_NUM_PLAYERS][MAX_NAME_LEN], 
+                        int ncards) ;
+
 void first_move(struct game_t *game) ;
 
 #endif

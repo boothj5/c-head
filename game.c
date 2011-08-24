@@ -9,30 +9,47 @@ static void add_to_pile(struct game_t *game, struct card_t c) ;
 static void create_deck(struct game_t *game) ;
 static void deal(struct game_t *game) ;
 static void shuffle(struct game_t *game) ;
-static void play_from_hand(struct game_t *game, struct player_t *player, struct card_t *to_lay, int ncards) ;
-static void find_lowest_by_player(struct game_t *game, struct card_t *lowest_by_player) ;
-static struct player_t *find_lowest_player(struct game_t *game, struct card_t lowest, 
-                                            struct card_t *lowest_by_player) ;
-static void add_similar_cards(struct game_t *game, struct card_t lowest, 
-                                struct player_t *lowest_player, struct card_t *to_lay, int *ncards) ;
-static void set_last_move(struct game_t *game, char *name, struct card_t *cards, int ncards) ;
 
-struct game_t *make_game(int nplayers, char names[MAX_NUM_PLAYERS][MAX_NAME_LEN], int ncards)
+static void play_from_hand(struct game_t *game, 
+                           struct player_t *player,
+                           struct card_t *to_lay, int ncards) ;
+
+static void find_lowest_by_player(struct game_t *game, 
+                                  struct card_t *lowest_by_player) ;
+
+static struct player_t *find_lowest_player(struct game_t *game,
+                                           struct card_t lowest, 
+                                           struct card_t *lowest_by_player) ;
+
+static void add_similar_cards(struct game_t *game, 
+                              struct card_t lowest, 
+                              struct player_t *lowest_player, 
+                              struct card_t *to_lay, 
+                              int *ncards) ;
+
+static void set_last_move(struct game_t *game, 
+                          char *name, 
+                          struct card_t *cards, 
+                          int ncards) ;
+
+struct game_t make_game(int nplayers, 
+                        char names[MAX_NUM_PLAYERS][MAX_NAME_LEN], 
+                        int ncards)
 {
     int i ;    
-    struct game_t *game = malloc(sizeof(struct game_t)) ;
+    struct game_t game ;
 
-    game->num_players = nplayers ;
-    game->num_cards_each = ncards ;
-    game->pile_size = 0 ;
+    game.num_players = nplayers ;
+    game.num_cards_each = ncards ;
+    game.pile_size = 0 ;
     
     for(i = 0 ; i<nplayers ; i++) {
-        game->players[i] = make_player(names[i], HUMAN) ;
+        game.players[i] = make_player(names[i], HUMAN) ;
     }
     
-    create_deck(game) ;
-    shuffle(game) ;
-    deal(game) ;
+    create_deck(&game) ;
+    shuffle(&game) ;
+    deal(&game) ;
     
     return game ;
 }
