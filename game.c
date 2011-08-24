@@ -58,10 +58,10 @@ void first_move(struct game_t *game)
 {
     int i ;
     int num_to_lay = 0 ;
-    struct card_t *lowest_by_player ;
+    struct card_t *lowest_by_player = NULL;
     struct card_t lowest ;
     struct card_t to_lay[MAX_HAND_SIZE] ;
-    struct player_t *lowest_player ;
+    struct player_t *lowest_player = NULL ;
 
     lowest_by_player = lowest_cards_by_player(game->players, game->num_players) ;
     lowest = lowest_card(lowest_by_player, game->num_players) ;
@@ -69,6 +69,8 @@ void first_move(struct game_t *game)
     add_similar_cards(game, lowest, lowest_player, to_lay, &num_to_lay) ;
     play_from_hand(game, lowest_player, to_lay, num_to_lay) ;
     set_last_move(game, lowest_player->name, to_lay, num_to_lay) ;
+    
+    free(lowest_by_player) ;
 }
 
 static struct card_t *lowest_cards_by_player(struct player_t *players, 
