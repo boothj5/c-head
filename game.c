@@ -3,29 +3,29 @@
 #include "game.h"
 #include "card.h"
 
-static int calc_decks_required(struct game_t *game) ;
-static void calc_deck_size(struct game_t *game) ;
-static void add_to_pile(struct game_t *game, struct card_t c) ;
+static int calc_deck_size(struct game_t game) ;
 static void create_deck(struct game_t *game) ;
 static void deal(struct game_t *game) ;
 static void shuffle(struct game_t *game) ;
 
-static void play_from_hand(struct game_t *game, 
-                           struct player_t *player,
-                           struct card_t *to_lay, int ncards) ;
-
 static void find_lowest_by_player(struct game_t *game, 
-                                  struct card_t *lowest_by_player) ;
+                                    struct card_t *lowest_by_player) ;
 
 static struct player_t *find_lowest_player(struct game_t *game,
                                            struct card_t lowest, 
                                            struct card_t *lowest_by_player) ;
+
+static void add_to_pile(struct game_t *game, struct card_t c) ;
 
 static void add_similar_cards(struct game_t *game, 
                               struct card_t lowest, 
                               struct player_t *lowest_player, 
                               struct card_t *to_lay, 
                               int *ncards) ;
+
+static void play_from_hand(struct game_t *game, 
+                           struct player_t *player,
+                           struct card_t *to_lay, int ncards) ;
 
 static void set_last_move(struct game_t *game, 
                           char *name, 
@@ -140,7 +140,7 @@ static void create_deck(struct game_t *game)
     int i = 0 ;
     int j ;
 
-    calc_deck_size(game) ;
+    game->deck_size = calc_deck_size(*game) ;
     num_decks = game->deck_size / DECK_SIZE ;
     
     for (j = 0 ; j < num_decks ; j++)
@@ -179,22 +179,12 @@ static void deal(struct game_t *game)
     }
 }
 
-static int calc_decks_required(struct game_t *game)
+static int calc_deck_size(struct game_t game)
 {
-    int total_cards, result, div, add ;
-
-    total_cards = game->num_players * (game->num_cards_each * 3) ;
+    int decks_required, total_cards, result, div, add ;
+    total_cards = game.num_players * (game.num_cards_each * 3) ;
     div = total_cards / DECK_SIZE ;
     add = ((total_cards % DECK_SIZE) > 0) ;
-    result = div + add ;
-
-    return result ;
-}
-
-static void calc_deck_size(struct game_t *game)
-{
-    int decks_required;
-
-    decks_required = calc_decks_required(game) ;
-    game->deck_size = decks_required * DECK_SIZE ;
+    decks_required = div + add ;
+    return (decks_required * DECK_SIZE) ;
 }
