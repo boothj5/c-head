@@ -9,14 +9,18 @@
 #define DECK_SIZE 52
 #define MAX_LAST_MOVE 100
 
-typedef struct game_t *Game ;
+struct game_t {
+    int num_players ;
+    int num_cards_each ;
+    int deck_size ;
+    int pile_size ;
+    struct player_t players[MAX_NUM_PLAYERS] ;
+    struct card_t deck[MAX_DECK_SIZE] ;
+    struct card_t pile[MAX_DECK_SIZE] ;
+    char last_move[MAX_LAST_MOVE] ;
+} ;
 
-Game make_game(int nplayers, char names[MAX_NUM_PLAYERS][MAX_NAME_LEN], int ncards) ;
-int deck_size(Game game) ;
-int pile_size(Game game) ;
-struct card_t *pile(Game game) ;
-struct player_t *players(Game game) ;
-int num_players(Game game) ;
-void first_move(Game game) ;
-char *last_move(Game game) ;
+struct game_t *make_game(int nplayers, char names[MAX_NUM_PLAYERS][MAX_NAME_LEN], int ncards) ;
+void first_move(struct game_t *game) ;
+
 #endif

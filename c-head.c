@@ -7,7 +7,7 @@
 
 int main(void)
 {
-    Game game ;
+    struct game_t *game ;
     int nplayers, ncards ;
     char names[MAX_NUM_PLAYERS][MAX_NAME_LEN] ;
     
@@ -22,10 +22,10 @@ int main(void)
     first_move(game) ;
 
     clearscreen() ;
-    show_pile(pile(game), pile_size(game)) ;
-    show_deck(deck_size(game)) ;
-    show_players(players(game), num_players(game)) ;
-    show_last_move(last_move(game)) ;
+    show_pile(game->pile, game->pile_size) ;
+    show_deck(game->deck_size) ;
+    show_players(game->players, game->num_players) ;
+    show_last_move(game->last_move) ;
 }
 
 
