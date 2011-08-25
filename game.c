@@ -8,9 +8,6 @@ static void create_deck(struct game_t *game) ;
 static void deal(struct game_t *game) ;
 static void shuffle(struct game_t *game) ;
 
-static struct card_t *lowest_cards_by_player(struct player_t *players, 
-                                             int nplayers) ;
-
 static struct player_t *find_lowest_player(struct game_t *game,
                                            struct card_t lowest, 
                                            struct card_t *lowest_by_player) ;
@@ -42,11 +39,8 @@ struct game_t make_game(int nplayers,
     game.num_players = nplayers ;
     game.num_cards_each = ncards ;
     game.pile_size = 0 ;
-    
-    for(i = 0 ; i<nplayers ; i++) {
+    for(i = 0 ; i<nplayers ; i++)
         game.players[i] = make_player(names[i], HUMAN) ;
-    }
-    
     create_deck(&game) ;
     shuffle(&game) ;
     deal(&game) ;
@@ -58,31 +52,17 @@ void first_move(struct game_t *game)
 {
     int i ;
     int num_to_lay = 0 ;
-    struct card_t *lowest_by_player = NULL;
+    struct card_t lowest_by_player[game->num_players] ;
     struct card_t lowest ;
     struct card_t to_lay[MAX_HAND_SIZE] ;
     struct player_t *lowest_player = NULL ;
 
-    lowest_by_player = lowest_cards_by_player(game->players, game->num_players) ;
+    find_lowest_card_by_player(game->players, game->num_players, lowest_by_player) ;
     lowest = lowest_card(lowest_by_player, game->num_players) ;
     lowest_player = find_lowest_player(game, lowest, lowest_by_player) ;
     add_similar_cards(game, lowest, lowest_player, to_lay, &num_to_lay) ;
     play_from_hand(game, lowest_player, to_lay, num_to_lay) ;
     set_last_move(game, lowest_player->name, to_lay, num_to_lay) ;
-    
-    free(lowest_by_player) ;
-}
-
-static struct card_t *lowest_cards_by_player(struct player_t *players, 
-                                             int nplayers)
-{
-    int i ;
-    struct card_t *cards = malloc(sizeof(struct card_t) * nplayers) ;
-    
-    for (i = 0 ; i < nplayers ; i++)
-        cards[i] = lowest_card(players[i].hand, players[i].hand_size) ;
-
-    return cards ;
 }
 
 static void set_last_move(struct game_t *game, char *name, struct card_t *cards, int ncards)
