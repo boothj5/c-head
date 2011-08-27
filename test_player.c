@@ -53,13 +53,10 @@ void swap_first_two_cards(void)
     assert_true(equals(james.face_up[0], make_card(TEN, DIAMONDS))) ;
 }
 
-int main(void)
+void test_player(void)
 {
     add_suite("test_player") ;
     add_test(test_lowest_card_by_player, "test_lowest_card_by_player" ) ;
     add_test(swap_first_two_cards, "swap_first_two_cards" ) ;
-
-    run_tests() ; 
-    return 0 ;
 }
 

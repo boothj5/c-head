@@ -90,7 +90,7 @@ void test_ten_special(void)
 }
 
 
-int main(void)
+void test_card()
 {
     add_suite("test_card") ;
     add_test(test_three_lowest_when_last, "test_three_lowest_when_last" ) ;
@@ -103,8 +103,5 @@ int main(void)
     add_test(test_two_special, "test_two_special") ;
     add_test(test_seven_special, "test_seven_special") ;
     add_test(test_ten_special, "test_ten_special") ;
-
-    run_tests() ; 
-    return 0 ;
 }
 
