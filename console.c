@@ -91,6 +91,21 @@ void show_cards(struct card_t *cards, int num_cards)
     int i ;
     int j = 1 ;
 
+    for (i = 0 ; i< num_cards ; i++) {
+        printf("(%d)%s of %s", j, show_rank(cards[i]), show_suit(cards[i])) ;
+        if (j <= (num_cards - 1))
+            printf(", ") ;
+        else
+            printf("\n") ;
+        j++ ;
+    }
+}
+
+void show_cards_in_reverse(struct card_t *cards, int num_cards) 
+{
+    int i ;
+    int j = 1 ;
+
     for (i = (num_cards-1) ; i >= 0 ; i--) {
         printf("(%d)%s of %s", j, show_rank(cards[i]), show_suit(cards[i])) ;
         if (j <= (num_cards - 1))
@@ -110,7 +125,7 @@ void show_deck(int num_cards)
 void show_pile(struct card_t *cards, int ncards)
 {
     printf("Pile : ") ;
-    show_cards(cards, ncards) ;
+    show_cards_in_reverse(cards, ncards) ;
 }
 
 void show_last_move(char *move) 
@@ -126,4 +141,30 @@ int request_swap_cards(char *name)
     scanf("%s", &choice) ; 
 
     return ((strcmp(choice, "y") == 0) | (strcmp(choice, "Y") == 0)) ;
+}
+
+int request_swap_more(char *name)
+{
+    char choice[2] ;
+    newline() ;
+    printf("%s, swap more (y/n) : ", name) ;
+    scanf("%s", &choice) ; 
+
+    return ((strcmp(choice, "y") == 0) | (strcmp(choice, "Y") == 0)) ;
+}
+
+int request_hand_swap(int size)
+{
+    int choice ;
+    printf("Hand card to swap (1-%d): ", size) ;
+    scanf("%d", &choice) ;
+    return choice ;
+}
+
+int request_faceup_swap(int size)
+{
+    int choice ;
+    printf("Face up card to swap (1-%d): ", size) ;
+    scanf("%d", &choice) ;
+    return choice ;
 }

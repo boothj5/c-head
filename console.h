@@ -15,9 +15,13 @@ void show_player(struct player_t p) ;
 void show_players(struct player_t *players, int len) ;
 void request_player_names(char names[MAX_NUM_PLAYERS][MAX_NAME_LEN], int nplayers) ;
 void show_cards(struct card_t *cards, int num_cards) ;
+void show_cards_in_reverse(struct card_t *cards, int num_cards) ;
 void show_deck(int num_cards) ;
 void show_pile(struct card_t *cards, int ncards) ;
 void show_last_move(char *move) ;
 int request_swap_cards(char *name) ;
+int request_swap_more(char *name) ;
+int request_hand_swap(int size) ;
+int request_faceup_swap(int size) ;
 
 #endif

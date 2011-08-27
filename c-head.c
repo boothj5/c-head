@@ -5,6 +5,8 @@
 #include "game.h"
 #include "console.h"
 
+static void perform_swap(struct game_t *game) ;
+
 int main(void)
 {
     struct game_t game ;
@@ -20,15 +22,7 @@ int main(void)
     
     game = make_game(nplayers, names, ncards) ;
 
-    for (i = 0 ; i < game.num_players ; i++) {
-        clearscreen() ;
-        show_player(game.players[i]) ;
-        if (request_swap_cards(game.players[i].name))
-            printf("YOU WANT TO SWAP\n") ;
-        else
-            printf("YOU DONT WANT TO SWAP\n") ;
-    }
-
+    perform_swap(&game) ;
     first_move(&game) ;
 
     clearscreen() ;
@@ -36,6 +30,28 @@ int main(void)
     show_deck(game.deck_size) ;
     show_players(game.players, game.num_players) ;
     show_last_move(game.last_move) ;
+}
+
+static void perform_swap(struct game_t *game)
+{
+    int i, do_swap, hand_choice, face_up_choice ;
+    struct player_t *player ;
+
+    for (i = 0 ; i < game->num_players ; i++) {
+        player = &game->players[i] ;
+        clearscreen() ;
+        show_player(*player) ;
+        do_swap = request_swap_cards(player->name) ;
+        while (do_swap) {
+            clearscreen() ;
+            show_player(*player) ;
+            newline() ;
+            hand_choice = request_hand_swap(player->hand_size) ;
+            face_up_choice = request_faceup_swap(player->face_up_size) ;
+            swap(player, hand_choice, face_up_choice) ;
+            do_swap = request_swap_more(player->name) ;
+       }
+    }
 }
 
 

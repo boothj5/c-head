@@ -28,5 +28,6 @@ void remove_from_hand(struct player_t *p, struct card_t c) ;
 void find_lowest_card_by_player(struct player_t *ps, 
                                 int nplayers, 
                                 struct card_t *cs) ;
+void swap(struct player_t *p, int hand_c, int faceup_c) ;
 
 #endif

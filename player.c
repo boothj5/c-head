@@ -48,3 +48,11 @@ void find_lowest_card_by_player(struct player_t *ps,
         cs[i] = find_lowest_card(ps[i].hand, ps[i].hand_size) ;
 }
 
+void swap(struct player_t *p, int hand_c, int faceup_c)
+{
+    struct card_t temp ;
+
+    temp = p->hand[hand_c-1] ;
+    p->hand[hand_c-1] = p->face_up[faceup_c-1] ;
+    p->face_up[faceup_c-1] = temp ;
+}
