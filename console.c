@@ -117,3 +117,13 @@ void show_last_move(char *move)
 {
     printf(move) ;
 }
+
+int request_swap_cards(char *name)
+{
+    char choice[2] ;
+    newline() ;
+    printf("%s, would you like to swap cards (y/n) : ", name) ;
+    scanf("%s", &choice) ; 
+
+    return ((strcmp(choice, "y") == 0) | (strcmp(choice, "Y") == 0)) ;
+}

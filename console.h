@@ -18,5 +18,6 @@ void show_cards(struct card_t *cards, int num_cards) ;
 void show_deck(int num_cards) ;
 void show_pile(struct card_t *cards, int ncards) ;
 void show_last_move(char *move) ;
+int request_swap_cards(char *name) ;
 
 #endif

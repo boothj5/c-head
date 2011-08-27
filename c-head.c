@@ -8,7 +8,7 @@
 int main(void)
 {
     struct game_t game ;
-    int nplayers, ncards ;
+    int nplayers, ncards, i ;
     char names[MAX_NUM_PLAYERS][MAX_NAME_LEN] ;
     
     clearscreen() ;
@@ -19,6 +19,16 @@ int main(void)
     request_player_names(names, nplayers) ;
     
     game = make_game(nplayers, names, ncards) ;
+
+    for (i = 0 ; i < game.num_players ; i++) {
+        clearscreen() ;
+        show_player(game.players[i]) ;
+        if (request_swap_cards(game.players[i].name))
+            printf("YOU WANT TO SWAP\n") ;
+        else
+            printf("YOU DONT WANT TO SWAP\n") ;
+    }
+
     first_move(&game) ;
 
     clearscreen() ;
