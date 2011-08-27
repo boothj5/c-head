@@ -8,7 +8,7 @@ struct card_t make_card(enum cardrank rank, enum cardsuit suit)
     return card ;
 }
 
-struct card_t lowest_card(struct card_t *cards, int ncards)
+struct card_t find_lowest_card(struct card_t *cards, int ncards)
 {
     struct card_t lowest = cards[0] ; 
     int i ;

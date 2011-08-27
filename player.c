@@ -45,6 +45,6 @@ void find_lowest_card_by_player(struct player_t *ps,
 {
     int i ;
     for (i = 0 ; i < nplayers ; i++)
-        cs[i] = lowest_card(ps[i].hand, ps[i].hand_size) ;
+        cs[i] = find_lowest_card(ps[i].hand, ps[i].hand_size) ;
 }
 

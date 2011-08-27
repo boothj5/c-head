@@ -14,7 +14,7 @@ struct card_t {
 } ;
 
 struct card_t make_card(enum cardrank rank, enum cardsuit suit) ;
-struct card_t lowest_card(struct card_t *cards, int ncards) ;
+struct card_t find_lowest_card(struct card_t *cards, int ncards) ;
 int special_card(struct card_t c) ;
 
 int card_cmp(struct card_t c1, struct card_t c2) ;

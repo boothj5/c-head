@@ -58,7 +58,7 @@ void first_move(struct game_t *game)
     struct player_t *lowest_player = NULL ;
 
     find_lowest_card_by_player(game->players, game->num_players, lowest_by_player) ;
-    lowest = lowest_card(lowest_by_player, game->num_players) ;
+    lowest = find_lowest_card(lowest_by_player, game->num_players) ;
     lowest_player = find_lowest_player(game, lowest, lowest_by_player) ;
     add_similar_cards(game, lowest, lowest_player, to_lay, &num_to_lay) ;
     play_from_hand(game, lowest_player, to_lay, num_to_lay) ;
