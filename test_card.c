@@ -92,6 +92,7 @@ void test_ten_special(void)
 
 int main(void)
 {
+    add_suite("test_card") ;
     add_test(test_three_lowest_when_last, "test_three_lowest_when_last" ) ;
     add_test(test_three_lowest_when_middle, "test_three_lowest_when_middle") ;
     add_test(test_three_lowest_when_first, "test_three_lowest_when_first") ;

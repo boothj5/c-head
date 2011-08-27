@@ -55,6 +55,7 @@ void swap_first_two_cards(void)
 
 int main(void)
 {
+    add_suite("test_player") ;
     add_test(test_lowest_card_by_player, "test_lowest_card_by_player" ) ;
     add_test(swap_first_two_cards, "swap_first_two_cards" ) ;
 
