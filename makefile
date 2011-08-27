@@ -19,4 +19,5 @@ clean:
 	rm -f *.o
 	rm -f c-head
 	rm -f ~/bin/c-head
-	rm -f testsuite
+	rm -f test_card
+	rm -f test_player
