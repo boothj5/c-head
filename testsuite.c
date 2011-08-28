@@ -2,8 +2,8 @@
 
 int main(void)
 {
-    test_card() ;
-    test_player() ;
+    register_card_tests() ;
+    register_player_tests() ;
     run_tests() ;
     return 0 ;
 }

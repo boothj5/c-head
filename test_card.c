@@ -90,7 +90,7 @@ void test_ten_special(void)
 }
 
 
-void test_card()
+void register_card_tests()
 {
     add_suite("test_card") ;
     add_test(test_three_lowest_when_last, "test_three_lowest_when_last" ) ;
