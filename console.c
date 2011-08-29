@@ -101,21 +101,6 @@ void show_cards(struct card_t *cards, int num_cards)
     }
 }
 
-void show_cards_in_reverse(struct card_t *cards, int num_cards) 
-{
-    int i ;
-    int j = 1 ;
-
-    for (i = (num_cards-1) ; i >= 0 ; i--) {
-        printf("(%d)%s of %s", j, show_rank(cards[i]), show_suit(cards[i])) ;
-        if (j <= (num_cards - 1))
-            printf(", ") ;
-        else
-            printf("\n") ;
-        j++ ;
-    }
-}
-
 void show_deck(int num_cards) 
 {
     printf("%d left on deck", num_cards) ;
@@ -123,9 +108,23 @@ void show_deck(int num_cards)
 }
 
 void show_pile(struct card_t *cards, int ncards)
-{
-    printf("Pile : ") ;
-    show_cards_in_reverse(cards, ncards) ;
+{   
+    int i ;
+    int j = 1 ;
+
+    printf("%d on pile:\n", ncards) ;
+    
+    for (i = (ncards-1) ; i >= 0 ; i--) {
+        printf("\t") ;
+        if (i == (ncards-1))
+            printf("(*)") ;
+        printf("%s of %s", show_rank(cards[i]), show_suit(cards[i])) ;
+        if (j <= (ncards - 1))
+            printf("\n") ;
+        else
+            printf("\n") ;
+        j++ ;
+    }
 }
 
 void show_last_move(char *move) 

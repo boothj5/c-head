@@ -49,6 +49,9 @@ static void perform_swap(struct game_t *game)
             hand_choice = request_hand_swap(player->hand_size) ;
             face_up_choice = request_faceup_swap(player->face_up_size) ;
             swap(player, hand_choice, face_up_choice) ;
+            clearscreen() ;
+            show_player(*player) ;
+            newline() ;
             do_swap = request_swap_more(player->name) ;
        }
     }
