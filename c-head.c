@@ -10,7 +10,7 @@ static void perform_swap(struct game_t *game) ;
 int main(void)
 {
     struct game_t game ;
-    int nplayers, ncards, i ;
+    int nplayers, ncards ;
     char names[MAX_NUM_PLAYERS][MAX_NAME_LEN] ;
     
     clearscreen() ;
@@ -30,6 +30,7 @@ int main(void)
     show_deck(game.deck_size) ;
     show_players(game.players, game.num_players) ;
     show_last_move(game.last_move) ;
+    return 0 ;
 }
 
 static void perform_swap(struct game_t *game)

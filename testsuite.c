@@ -1,4 +1,5 @@
 #include <head-unit.h>
+#include "testsuite.h"
 
 int main(void)
 {

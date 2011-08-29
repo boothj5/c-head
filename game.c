@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
 #include "game.h"
 #include "card.h"
 
@@ -50,7 +51,6 @@ struct game_t make_game(int nplayers,
 
 void first_move(struct game_t *game)
 {
-    int i ;
     int num_to_lay = 0 ;
     struct card_t lowest_by_player[game->num_players] ;
     struct card_t lowest ;
@@ -138,7 +138,7 @@ static void create_deck(struct game_t *game)
 
 static void shuffle(struct game_t *game)
 {
-    size_t i, j ;
+    int i, j ;
     struct card_t t ;
 
     if (game->deck_size > 1) {
@@ -154,7 +154,7 @@ static void shuffle(struct game_t *game)
 
 static void deal(struct game_t *game)
 {
-    int i, j, k ;
+    int i, j ;
 
     for (i = 0 ; i < game->num_players ; i++) {
         for (j = 0 ; j < game->num_cards_each ; j++) {
@@ -168,7 +168,7 @@ static void deal(struct game_t *game)
 
 static int calc_deck_size(struct game_t game)
 {
-    int decks_required, total_cards, result, div, add ;
+    int decks_required, total_cards, div, add ;
     total_cards = game.num_players * (game.num_cards_each * 3) ;
     div = total_cards / DECK_SIZE ;
     add = ((total_cards % DECK_SIZE) > 0) ;

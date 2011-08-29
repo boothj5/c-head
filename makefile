@@ -1,15 +1,14 @@
 CC=gcc
-CCARGS=-Werror -Wall -Wextra
-CFLAGS=-I ~/include
+CFLAGS=-I ~/include -Werror -Wall -Wextra
 
 make-c-head: card.o player.o console.o game.o c-head.o
-	$(CC) $(CCARGS)  -o c-head card.o player.o console.o game.o c-head.o
+	$(CC) -o c-head card.o player.o console.o game.o c-head.o
 
 install: make-c-head
 	cp c-head ~/bin/c-head
 
 make-tests: testsuite.o test_card.o test_player.o card.o player.o
-	$(CC) $(CCARGS) testsuite.o test_card.o test_player.o card.o player.o -I ~/include -L ~/lib -o testsuite -l headunit
+	$(CC) testsuite.o test_card.o test_player.o card.o player.o -I ~/include -L ~/lib -o testsuite -l headunit
 
 test: make-tests
 	./testsuite

@@ -73,13 +73,13 @@ int request_num_cards_each()
 
 void request_player_names(char names[MAX_NUM_PLAYERS][MAX_NAME_LEN], int nplayers)
 {
-    char name[MAX_NAME_LEN] ;
+    char *name = malloc(sizeof(char) * MAX_NAME_LEN) ;
     int i ;
     
     for (i = 0 ; i < nplayers ; i++) {
         printf("Enter name for player %d :", i+1) ;
         newline() ;
-        scanf("%s", &name) ;
+        scanf("%s", name) ;
         strcpy(names[i], name) ;
     }
     
@@ -134,20 +134,20 @@ void show_last_move(char *move)
 
 int request_swap_cards(char *name)
 {
-    char choice[2] ;
+    char *choice = malloc(sizeof(char) * 2) ;
     newline() ;
     printf("%s, would you like to swap cards (y/n) : ", name) ;
-    scanf("%s", &choice) ; 
+    scanf("%s", choice) ; 
 
     return ((strcmp(choice, "y") == 0) | (strcmp(choice, "Y") == 0)) ;
 }
 
 int request_swap_more(char *name)
 {
-    char choice[2] ;
+    char *choice = malloc(sizeof(char) * 2) ;
     newline() ;
     printf("%s, swap more (y/n) : ", name) ;
-    scanf("%s", &choice) ; 
+    scanf("%s", choice) ; 
 
     return ((strcmp(choice, "y") == 0) | (strcmp(choice, "Y") == 0)) ;
 }
