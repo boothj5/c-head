@@ -31,7 +31,7 @@ static void set_last_move(struct game_t *game,
                           int ncards) ;
 
 struct game_t make_game(int nplayers, 
-                        char names[MAX_NUM_PLAYERS][MAX_NAME_LEN], 
+                        char names[][MAX_NAME_LEN], 
                         int ncards)
 {
     int i ;    

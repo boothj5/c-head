@@ -21,7 +21,7 @@ struct game_t {
 } ;
 
 struct game_t make_game(int nplayers, 
-                        char names[MAX_NUM_PLAYERS][MAX_NAME_LEN], 
+                        char names[][MAX_NAME_LEN], 
                         int ncards) ;
 
 void first_move(struct game_t *game) ;

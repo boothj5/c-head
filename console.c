@@ -71,7 +71,7 @@ int request_num_cards_each()
     return result ;
 }
 
-void request_player_names(char names[MAX_NUM_PLAYERS][MAX_NAME_LEN], int nplayers)
+void request_player_names(char names[][MAX_NAME_LEN], int nplayers)
 {
     char *name = malloc(sizeof(char) * MAX_NAME_LEN) ;
     int i ;
@@ -82,6 +82,7 @@ void request_player_names(char names[MAX_NUM_PLAYERS][MAX_NAME_LEN], int nplayer
         scanf("%s", name) ;
         strcpy(names[i], name) ;
     }
+    free(name) ;
     
     newline() ;
 }
@@ -134,22 +135,27 @@ void show_last_move(char *move)
 
 int request_swap_cards(char *name)
 {
+    int result ;    
     char *choice = malloc(sizeof(char) * 2) ;
     newline() ;
     printf("%s, would you like to swap cards (y/n) : ", name) ;
     scanf("%s", choice) ; 
-
-    return ((strcmp(choice, "y") == 0) | (strcmp(choice, "Y") == 0)) ;
+    result = ((strcmp(choice, "y") == 0) | (strcmp(choice, "Y") == 0)) ;
+    free(choice) ;
+    return result ;
 }
 
 int request_swap_more(char *name)
 {
+    int result = 0 ;
     char *choice = malloc(sizeof(char) * 2) ;
     newline() ;
     printf("%s, swap more (y/n) : ", name) ;
     scanf("%s", choice) ; 
+    result = ((strcmp(choice, "y") == 0) | (strcmp(choice, "Y") == 0)) ;
+    free(choice) ;
 
-    return ((strcmp(choice, "y") == 0) | (strcmp(choice, "Y") == 0)) ;
+    return result ;
 }
 
 int request_hand_swap(int size)

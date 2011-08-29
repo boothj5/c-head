@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <head-unit.h>
+
+#include "testsuite.h"
 #include "card.h"
 
 void test_three_lowest_when_last(void)
