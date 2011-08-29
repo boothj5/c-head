@@ -1,16 +1,16 @@
 CC=gcc
 CFLAGS=-I ~/include -Werror -Wall -Wextra
 
-make-c-head: card.o player.o console.o game.o c-head.o
+compile: card.o player.o console.o game.o c-head.o
 	$(CC) -o c-head card.o player.o console.o game.o c-head.o
 
-install: make-c-head
+install: compile
 	cp c-head ~/bin/c-head
 
-make-tests: testsuite.o test_card.o test_player.o card.o player.o
+compile-tests: testsuite.o test_card.o test_player.o card.o player.o
 	$(CC) testsuite.o test_card.o test_player.o card.o player.o -I ~/include -L ~/lib -o testsuite -l headunit
 
-test: make-tests
+test: compile-tests
 	./testsuite
 
 clean:
