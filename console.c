@@ -5,6 +5,11 @@
 #include "game.h"
 #include "console.h"
 
+static void show_players(struct player_t *players, int len) ;
+static void show_pile(struct card_t *cards, int ncards) ;
+static void show_deck(int num_cards) ;
+static void show_last_move(char *move) ;
+
 void newline()
 {
     printf("\n") ;
@@ -41,7 +46,7 @@ void show_player(struct player_t p)
     }
 }
 
-void show_players(struct player_t *players, int len) 
+static void show_players(struct player_t *players, int len) 
 {
     int i ;
     for (i = 0 ; i < len ; i++)  {
@@ -102,13 +107,13 @@ void show_cards(struct card_t *cards, int num_cards)
     }
 }
 
-void show_deck(int num_cards) 
+static void show_deck(int num_cards) 
 {
     printf("%d left on deck", num_cards) ;
     newlines(2) ;
 }
 
-void show_pile(struct card_t *cards, int ncards)
+static void show_pile(struct card_t *cards, int ncards)
 {   
     int i ;
     int j = 1 ;
@@ -126,9 +131,10 @@ void show_pile(struct card_t *cards, int ncards)
             printf("\n") ;
         j++ ;
     }
+    newline() ;
 }
 
-void show_last_move(char *move) 
+static void show_last_move(char *move) 
 {
     printf(move) ;
 }
@@ -172,4 +178,12 @@ int request_faceup_swap(int size)
     printf("Face up card to swap (1-%d): ", size) ;
     scanf("%d", &choice) ;
     return choice ;
+}
+
+void show_game_summary(struct game_t game)
+{
+    show_pile(game.pile, game.pile_size) ;
+    show_deck(game.deck_size) ;
+    show_players(game.players, game.num_players) ;
+    show_last_move(game.last_move) ;
 }

@@ -40,6 +40,7 @@ struct game_t make_game(int nplayers,
     game.num_players = nplayers ;
     game.num_cards_each = ncards ;
     game.pile_size = 0 ;
+    game.current_player = 0 ;
     for(i = 0 ; i<nplayers ; i++)
         game.players[i] = make_player(names[i], HUMAN) ;
     create_deck(&game) ;

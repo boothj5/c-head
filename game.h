@@ -15,6 +15,7 @@ struct game_t {
     int deck_size ;
     int pile_size ;
     struct player_t players[MAX_NUM_PLAYERS] ;
+    int current_player ;
     struct card_t deck[MAX_DECK_SIZE] ;
     struct card_t pile[MAX_DECK_SIZE] ;
     char last_move[MAX_LAST_MOVE] ;
