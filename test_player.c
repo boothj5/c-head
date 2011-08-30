@@ -40,7 +40,7 @@ void test_lowest_card_by_player(void)
     assert_true(equals(lowest_cards[0], make_card(FOUR, SPADES))) ;
     assert_true(equals(lowest_cards[1], make_card(FOUR, SPADES))) ;
     assert_true(equals(lowest_cards[2], make_card(JACK, DIAMONDS))) ;
-    assert_true(lowest_cards[3].rank == ACE) ;
+    assert_int_equals(ACE, lowest_cards[3].rank) ;
 }
 
 void swap_first_two_cards(void)

@@ -12,7 +12,7 @@ void test_three_lowest_when_last(void)
     struct card_t cards[] = { ten, six, three } ;
 
     struct card_t lowest = find_lowest_card(cards, 3) ;
-    assert_true(lowest.rank == THREE) ;
+    assert_int_equals(THREE, lowest.rank) ;
 }
 
 void test_three_lowest_when_middle(void)
@@ -23,7 +23,7 @@ void test_three_lowest_when_middle(void)
     struct card_t cards[] = { ten, three, six } ;
 
     struct card_t lowest =  find_lowest_card(cards, 3) ;
-    assert_true(lowest.rank == THREE) ;
+    assert_int_equals(THREE, lowest.rank) ;
 }
 
 void test_three_lowest_when_first(void)
@@ -34,7 +34,7 @@ void test_three_lowest_when_first(void)
     struct card_t cards[] = { three, ten, six } ;
 
     struct card_t lowest =  find_lowest_card(cards, 3) ;
-    assert_true(lowest.rank == THREE) ;
+    assert_int_equals(THREE, lowest.rank) ;
 }
 
 void test_lowest_one_card(void)
@@ -43,7 +43,7 @@ void test_lowest_one_card(void)
     struct card_t cards[] = { ten } ;
 
     struct card_t lowest =  find_lowest_card(cards, 1) ;
-    assert_true(lowest.rank == TEN) ;
+    assert_int_equals(TEN, lowest.rank) ;
 }   
 
 void test_three_lower_than_two(void)
@@ -53,7 +53,7 @@ void test_three_lower_than_two(void)
     struct card_t cards[] = { three, two } ;
 
     struct card_t lowest = find_lowest_card(cards, 2) ;
-    assert_true(lowest.rank == THREE) ;
+    assert_int_equals(THREE, lowest.rank) ;
 }
 
 void test_five_lower_than_two(void)
@@ -63,7 +63,7 @@ void test_five_lower_than_two(void)
     struct card_t cards[] = { five, two } ;
 
     struct card_t lowest = find_lowest_card(cards, 2) ;
-    assert_true(lowest.rank == FIVE) ;
+    assert_int_equals(FIVE, lowest.rank) ;
 }
 
 void test_jack_lower_than_seven(void)
@@ -73,7 +73,7 @@ void test_jack_lower_than_seven(void)
     struct card_t cards[] = { jack, seven } ;
 
     struct card_t lowest = find_lowest_card(cards, 2) ;
-    assert_true(lowest.rank == JACK) ;
+    assert_int_equals(JACK, lowest.rank) ;
 }
 
 void test_two_special(void)
