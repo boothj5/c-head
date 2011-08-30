@@ -9,9 +9,9 @@ static void create_deck(struct game_t *game) ;
 static void deal(struct game_t *game) ;
 static void shuffle(struct game_t *game) ;
 
-static struct player_t *find_lowest_player(struct game_t *game,
-                                           struct card_t lowest, 
-                                           struct card_t *lowest_by_player) ;
+static int find_lowest_player(struct game_t *game,
+                              struct card_t lowest, 
+                              struct card_t *lowest_by_player) ;
 
 static void add_to_pile(struct game_t *game, struct card_t c) ;
 
@@ -56,14 +56,16 @@ void first_move(struct game_t *game)
     struct card_t lowest_by_player[game->num_players] ;
     struct card_t lowest ;
     struct card_t to_lay[MAX_HAND_SIZE] ;
-    struct player_t *lowest_player = NULL ;
+    int i_player = 0 ;
+    struct player_t *player ;
 
     find_lowest_card_by_player(game->players, game->num_players, lowest_by_player) ;
     lowest = find_lowest_card(lowest_by_player, game->num_players) ;
-    lowest_player = find_lowest_player(game, lowest, lowest_by_player) ;
-    add_similar_cards(game, lowest, lowest_player, to_lay, &num_to_lay) ;
-    play_from_hand(game, lowest_player, to_lay, num_to_lay) ;
-    set_last_move(game, lowest_player->name, to_lay, num_to_lay) ;
+    i_player = find_lowest_player(game, lowest, lowest_by_player) ;
+    player = &(game->players[i_player]) ;
+    add_similar_cards(game, lowest, player, to_lay, &num_to_lay) ;
+    play_from_hand(game, player, to_lay, num_to_lay) ;
+    set_last_move(game, player->name, to_lay, num_to_lay) ;
 }
 
 static void set_last_move(struct game_t *game, char *name, struct card_t *cards, int ncards)
@@ -91,15 +93,15 @@ static void add_similar_cards(struct game_t *game, struct card_t lowest,
             to_lay[(*ncards)++] = lowest_player->hand[i] ;
 }
 
-static struct player_t *find_lowest_player(struct game_t *game, struct card_t lowest,
-                                            struct card_t *lowest_by_player)
+static int find_lowest_player(struct game_t *game, struct card_t lowest,
+                                struct card_t *lowest_by_player)
 {
     int i ;
-    struct player_t *result = &(game->players[0]) ;
+    int result = 0 ;
 
     for (i = 0 ; i < game->num_players ; i++)
         if (equals(lowest, lowest_by_player[i])) {
-            result = &(game->players[i]) ;
+            result = i ;
             break ;
         }
     return result ;

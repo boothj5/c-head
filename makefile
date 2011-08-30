@@ -18,3 +18,10 @@ clean:
 	rm -f c-head
 	rm -f ~/bin/c-head
 	rm -f testsuite
+
+run: clean install
+	c-head
+
+memcheck: clean install
+	valgrind --leak-check=full c-head
+
