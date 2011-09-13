@@ -187,3 +187,11 @@ void show_game_summary(struct game_t game)
     show_players(game.players, game.num_players) ;
     show_last_move(game.last_move) ;
 }
+
+int request_move(struct player_t player)
+{
+    int choice ;
+    printf("%s, choose cards to lay: ", player.name) ;
+    scanf("%d", &choice) ;
+    return choice ;
+}

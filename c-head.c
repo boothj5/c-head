@@ -12,6 +12,7 @@ int main(void)
     struct game_t game ;
     int nplayers, ncards ;
     char names[MAX_NUM_PLAYERS][MAX_NAME_LEN] ;
+    int choice ;
     
     clearscreen() ;
     show_welcome_msg() ;
@@ -24,6 +25,10 @@ int main(void)
     clearscreen() ;
     show_game_summary(game) ;
     printf("Current player is %s\n", game.players[game.current_player].name) ;
+
+    choice = request_move(game.players[game.current_player]) ;
+    show_cards(&game.players[game.current_player].hand[choice-1], 1) ;
+    
 
     return 0 ;
 }

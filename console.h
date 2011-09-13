@@ -19,5 +19,6 @@ int request_swap_cards(char *name) ;
 int request_swap_more(char *name) ;
 int request_hand_swap(int size) ;
 int request_faceup_swap(int size) ;
+int request_move(struct player_t player) ;
 
 #endif
