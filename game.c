@@ -9,30 +9,23 @@ static void create_deck(struct game_t *game) ;
 static void deal(struct game_t *game) ;
 static void shuffle(struct game_t *game) ;
 
-static int find_lowest_player(struct game_t *game,
-                              struct card_t lowest, 
-                              struct card_t *lowest_by_player) ;
+static int find_lowest_player(struct game_t *game, struct card_t lowest, 
+                                        struct card_t *lowest_by_player) ;
 
 static void add_to_pile(struct game_t *game, struct card_t c) ;
 
-static void add_similar_cards(struct game_t *game, 
-                              struct card_t lowest, 
-                              struct player_t *lowest_player, 
-                              struct card_t *to_lay, 
-                              int *ncards) ;
+static void add_similar_cards(struct game_t *game, struct card_t lowest, 
+    struct player_t *lowest_player, struct card_t *to_lay, int *ncards) ;
 
-static void play_from_hand(struct game_t *game, 
-                           struct player_t *player,
-                           struct card_t *to_lay, int ncards) ;
+static void play_from_hand(struct game_t *game, struct player_t *player,
+                                        struct card_t *to_lay, int ncards) ;
 
-static void set_last_move(struct game_t *game, 
-                          char *name, 
-                          struct card_t *cards, 
-                          int ncards) ;
+static void set_last_move(struct game_t *game, char *name, struct card_t *cards, 
+                                                                   int ncards) ;
 
-struct game_t make_game(int nplayers, 
-                        char names[][MAX_NAME_LEN], 
-                        int ncards)
+static void move_to_next_player(struct game_t *game) ;
+
+struct game_t make_game(int nplayers, char names[][MAX_NAME_LEN], int ncards)
 {
     int i ;    
     struct game_t game ;
@@ -56,19 +49,20 @@ void first_move(struct game_t *game)
     struct card_t lowest_by_player[game->num_players] ;
     struct card_t lowest ;
     struct card_t to_lay[MAX_HAND_SIZE] ;
-    int i_player = 0 ;
     struct player_t *player ;
 
     find_lowest_card_by_player(game->players, game->num_players, lowest_by_player) ;
     lowest = find_lowest_card(lowest_by_player, game->num_players) ;
-    i_player = find_lowest_player(game, lowest, lowest_by_player) ;
-    player = &(game->players[i_player]) ;
+    game->current_player = find_lowest_player(game, lowest, lowest_by_player) ;
+    player = &(game->players[game->current_player]) ;
     add_similar_cards(game, lowest, player, to_lay, &num_to_lay) ;
     play_from_hand(game, player, to_lay, num_to_lay) ;
+    move_to_next_player(game) ;
     set_last_move(game, player->name, to_lay, num_to_lay) ;
 }
 
-static void set_last_move(struct game_t *game, char *name, struct card_t *cards, int ncards)
+static void set_last_move(struct game_t *game, char *name, 
+                            struct card_t *cards, int ncards)
 {
     int i ;
     
@@ -84,7 +78,7 @@ static void set_last_move(struct game_t *game, char *name, struct card_t *cards,
 }
 
 static void add_similar_cards(struct game_t *game, struct card_t lowest, 
-                                struct player_t *lowest_player, struct card_t *to_lay, int *ncards)
+        struct player_t *lowest_player, struct card_t *to_lay, int *ncards)
 {
     int i ;
 
@@ -94,7 +88,7 @@ static void add_similar_cards(struct game_t *game, struct card_t lowest,
 }
 
 static int find_lowest_player(struct game_t *game, struct card_t lowest,
-                                struct card_t *lowest_by_player)
+                                            struct card_t *lowest_by_player)
 {
     int i ;
     int result = 0 ;
@@ -107,7 +101,8 @@ static int find_lowest_player(struct game_t *game, struct card_t lowest,
     return result ;
 }
 
-static void play_from_hand(struct game_t *game, struct player_t *player, struct card_t *to_lay, int ncards)
+static void play_from_hand(struct game_t *game, struct player_t *player, 
+                                        struct card_t *to_lay, int ncards)
 {
     int i ;
     for (i = 0 ; i < ncards ; i++) {
@@ -177,4 +172,11 @@ static int calc_deck_size(struct game_t game)
     add = ((total_cards % DECK_SIZE) > 0) ;
     decks_required = div + add ;
     return (decks_required * DECK_SIZE) ;
+}
+
+static void move_to_next_player(struct game_t *game) {
+    if (game->current_player == game->num_players -1)
+        game->current_player = 0 ;
+    else
+        game->current_player++ ;
 }

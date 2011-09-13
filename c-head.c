@@ -23,6 +23,7 @@ int main(void)
     first_move(&game) ;
     clearscreen() ;
     show_game_summary(game) ;
+    printf("Current player is %s\n", game.players[game.current_player].name) ;
 
     return 0 ;
 }
