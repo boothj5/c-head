@@ -61,6 +61,31 @@ void first_move(struct game_t *game)
     set_last_move(game, player->name, to_lay, num_to_lay) ;
 }
 
+void make_move(struct game_t *game, int card_choice)
+{
+    struct card_t to_lay[1] ;
+    struct card_t card = game->players[game->current_player].hand[card_choice] ;
+    struct player_t *player ;
+
+    to_lay[0] = card ;
+    player = &game->players[game->current_player] ;
+
+    play_from_hand(game, player, to_lay, 1) ;
+    move_to_next_player(game) ;
+    set_last_move(game, player->name, to_lay, 1) ;
+}
+
+int continue_play(struct game_t game)
+{
+    int i ;
+
+    for (i = 0 ; i < game.num_players  ; i++)
+        if (has_cards(game.players[i]))
+            return 1 ;
+    
+    return 0 ;
+}
+
 static void set_last_move(struct game_t *game, char *name, 
                             struct card_t *cards, int ncards)
 {

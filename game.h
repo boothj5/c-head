@@ -26,5 +26,7 @@ struct game_t make_game(int nplayers,
                         int ncards) ;
 
 void first_move(struct game_t *game) ;
+void make_move(struct game_t *game, int card_choice) ;
+int continue_play(struct game_t game) ;
 
 #endif

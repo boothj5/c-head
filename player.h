@@ -29,5 +29,6 @@ void find_lowest_card_by_player(struct player_t *ps,
                                 int nplayers, 
                                 struct card_t *cs) ;
 void swap(struct player_t *p, int hand_c, int faceup_c) ;
+int has_cards(struct player_t player) ;
 
 #endif

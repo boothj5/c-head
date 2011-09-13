@@ -111,6 +111,31 @@ void swap_middle_cards(void)
     assert_true(equals(james.face_up[1], make_card(SEVEN, HEARTS))) ;
 }
 
+void test_has_cards_when_does(void)
+{
+    struct player_t james = make_player("James", HUMAN) ;    
+    deal_to_hand(&james, make_card(TEN, DIAMONDS)) ;
+    deal_to_hand(&james, make_card(SEVEN, HEARTS)) ;
+    deal_to_hand(&james, make_card(FOUR, SPADES)) ;   
+
+    assert_true(has_cards(james)) ;
+} 
+
+void test_has_cards_when_one(void)
+{
+    struct player_t james = make_player("James", HUMAN) ;    
+    deal_to_hand(&james, make_card(TEN, DIAMONDS)) ;
+
+    assert_true(has_cards(james)) ;
+}
+
+void test_not_has_cards_when_none(void)
+{
+    struct player_t james = make_player("James", HUMAN) ;    
+
+    assert_false(has_cards(james)) ;
+}
+
 void register_player_tests(void)
 {
     add_suite("test_player") ;
@@ -119,5 +144,8 @@ void register_player_tests(void)
     add_test(swap_last_two_cards, "swap_last_two_cards" ) ;
     add_test(swap_first_and_last, "swap_first_and_last" ) ;
     add_test(swap_middle_cards, "swap_middle_cards" ) ;
+    add_test(test_has_cards_when_does, "test_has_cards_when_does") ;
+    add_test(test_has_cards_when_one, "test_has_cards_when_one") ;
+    add_test(test_not_has_cards_when_none, "test_not_has_cards_when_none") ;
 }
 

@@ -24,11 +24,15 @@ int main(void)
     first_move(&game) ;
     clearscreen() ;
     show_game_summary(game) ;
-    printf("Current player is %s\n", game.players[game.current_player].name) ;
 
-    choice = request_move(game.players[game.current_player]) ;
-    show_cards(&game.players[game.current_player].hand[choice-1], 1) ;
-    
+    while (continue_play(game)) {
+        newline() ;
+        choice = request_move(game.players[game.current_player]) ;
+        show_cards(&game.players[game.current_player].hand[choice-1], 1) ;
+        make_move(&game, choice-1) ;    
+        clearscreen() ;
+        show_game_summary(game) ;
+    }
 
     return 0 ;
 }

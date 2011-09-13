@@ -56,3 +56,12 @@ void swap(struct player_t *p, int hand_c, int faceup_c)
     p->hand[hand_c-1] = p->face_up[faceup_c-1] ;
     p->face_up[faceup_c-1] = temp ;
 }
+
+int has_cards(struct player_t player)
+{
+    if (player.hand_size == 0)
+        return 0 ;
+    else
+        return 1 ;
+}
+
