@@ -40,7 +40,7 @@ void show_player(struct player_t p)
         printf("FACE UP  : ") ;
         show_cards(p.face_up, p.face_up_size) ;
     }
-    if (p.hand_size > 0) {
+    if (p.face_down_size > 0) {
         printf("FACE DOWN: ") ;
         show_cards(p.face_down, p.face_down_size) ;
     }
