@@ -133,7 +133,8 @@ static void play_from_hand(struct game_t *game, struct player_t *player,
     for (i = 0 ; i < ncards ; i++) {
         add_to_pile(game, to_lay[i]) ;
         remove_from_hand(player, to_lay[i]) ;
-        deal_to_hand(player, game->deck[game->deck_size--]) ;
+        if (game->deck_size > 0)
+            deal_to_hand(player, game->deck[game->deck_size--]) ;
     }
 }
 
