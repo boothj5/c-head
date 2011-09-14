@@ -59,9 +59,12 @@ void swap(struct player_t *p, int hand_c, int faceup_c)
 
 int has_cards(struct player_t player)
 {
-    if (player.hand_size == 0)
-        return 0 ;
-    else
+    if (player.hand_size > 0)
         return 1 ;
+    if (player.face_up_size > 0)
+        return 1 ;
+    if (player.face_down_size > 0)
+        return 1 ;
+    return 0 ;
 }
 
