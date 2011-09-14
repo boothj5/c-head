@@ -169,6 +169,32 @@ void test_remove_from_hand(void)
     assert_false(equals(james.hand[1], make_card(TEN, DIAMONDS))) ;
 }
 
+void test_remove_from_face_up(void)
+{
+    struct player_t james = make_player("James", HUMAN) ;    
+    deal_to_face_up(&james, make_card(TEN, DIAMONDS)) ;
+    deal_to_face_up(&james, make_card(SEVEN, HEARTS)) ;
+    deal_to_face_up(&james, make_card(FOUR, SPADES)) ;   
+    remove_from_face_up(&james, make_card(TEN, DIAMONDS)) ;   
+
+    assert_int_equals(james.face_up_size, 2) ;
+    assert_false(equals(james.face_up[0], make_card(TEN, DIAMONDS))) ;
+    assert_false(equals(james.face_up[1], make_card(TEN, DIAMONDS))) ;
+}
+
+void test_remove_from_face_down(void)
+{
+    struct player_t james = make_player("James", HUMAN) ;    
+    deal_to_face_down(&james, make_card(TEN, DIAMONDS)) ;
+    deal_to_face_down(&james, make_card(SEVEN, HEARTS)) ;
+    deal_to_face_down(&james, make_card(FOUR, SPADES)) ;   
+    remove_from_face_down(&james, make_card(TEN, DIAMONDS)) ;   
+
+    assert_int_equals(james.face_down_size, 2) ;
+    assert_false(equals(james.face_down[0], make_card(TEN, DIAMONDS))) ;
+    assert_false(equals(james.face_down[1], make_card(TEN, DIAMONDS))) ;
+}
+
 void register_player_tests(void)
 {
     add_suite("test_player") ;
@@ -183,5 +209,7 @@ void register_player_tests(void)
     add_test(test_has_cards_when_one, "test_has_cards_when_one") ;
     add_test(test_not_has_cards_when_none, "test_not_has_cards_when_none") ;
     add_test(test_remove_from_hand, "test_remove_from_hand") ;
+    add_test(test_remove_from_face_up, "test_remove_from_face_up") ;
+    add_test(test_remove_from_face_down, "test_remove_from_face_down") ;
 }
 
