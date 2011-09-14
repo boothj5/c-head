@@ -111,7 +111,7 @@ void swap_middle_cards(void)
     assert_true(equals(james.face_up[1], make_card(SEVEN, HEARTS))) ;
 }
 
-void test_has_cards_when_does(void)
+void test_has_cards_when_hand_does(void)
 {
     struct player_t james = make_player("James", HUMAN) ;    
     deal_to_hand(&james, make_card(TEN, DIAMONDS)) ;
@@ -120,6 +120,26 @@ void test_has_cards_when_does(void)
 
     assert_true(has_cards(james)) ;
 } 
+
+void test_has_cards_when_face_up_does(void)
+{
+    struct player_t james = make_player("James", HUMAN) ;    
+    deal_to_face_up(&james, make_card(TEN, DIAMONDS)) ;
+    deal_to_face_up(&james, make_card(SEVEN, HEARTS)) ;
+    deal_to_face_up(&james, make_card(FOUR, SPADES)) ;   
+
+    assert_true(has_cards(james)) ;
+}
+
+void test_has_cards_when_face_down_does(void)
+{
+    struct player_t james = make_player("James", HUMAN) ;    
+    deal_to_face_down(&james, make_card(TEN, DIAMONDS)) ;
+    deal_to_face_down(&james, make_card(SEVEN, HEARTS)) ;
+    deal_to_face_down(&james, make_card(FOUR, SPADES)) ;   
+
+    assert_true(has_cards(james)) ;
+}
 
 void test_has_cards_when_one(void)
 {
@@ -136,6 +156,19 @@ void test_not_has_cards_when_none(void)
     assert_false(has_cards(james)) ;
 }
 
+void test_remove_from_hand(void)
+{
+    struct player_t james = make_player("James", HUMAN) ;    
+    deal_to_hand(&james, make_card(TEN, DIAMONDS)) ;
+    deal_to_hand(&james, make_card(SEVEN, HEARTS)) ;
+    deal_to_hand(&james, make_card(FOUR, SPADES)) ;   
+    remove_from_hand(&james, make_card(TEN, DIAMONDS)) ;   
+
+    assert_int_equals(james.hand_size, 2) ;
+    assert_false(equals(james.hand[0], make_card(TEN, DIAMONDS))) ;
+    assert_false(equals(james.hand[1], make_card(TEN, DIAMONDS))) ;
+}
+
 void register_player_tests(void)
 {
     add_suite("test_player") ;
@@ -144,8 +177,11 @@ void register_player_tests(void)
     add_test(swap_last_two_cards, "swap_last_two_cards" ) ;
     add_test(swap_first_and_last, "swap_first_and_last" ) ;
     add_test(swap_middle_cards, "swap_middle_cards" ) ;
-    add_test(test_has_cards_when_does, "test_has_cards_when_does") ;
+    add_test(test_has_cards_when_hand_does, "test_has_cards_when_hand_does") ;
+    add_test(test_has_cards_when_face_up_does, "test_has_cards_when_face_up_does") ;
+    add_test(test_has_cards_when_face_down_does, "test_has_cards_when_face_down_does") ;
     add_test(test_has_cards_when_one, "test_has_cards_when_one") ;
     add_test(test_not_has_cards_when_none, "test_not_has_cards_when_none") ;
+    add_test(test_remove_from_hand, "test_remove_from_hand") ;
 }
 

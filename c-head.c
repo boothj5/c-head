@@ -13,6 +13,7 @@ int main(void)
     int nplayers, ncards ;
     char names[MAX_NUM_PLAYERS][MAX_NAME_LEN] ;
     int choice ;
+    struct player_t shithead ;
     
     clearscreen() ;
     show_welcome_msg() ;
@@ -33,6 +34,9 @@ int main(void)
         clearscreen() ;
         show_game_summary(game) ;
     }
+
+    shithead = get_shithead(game) ;
+    show_shithead(shithead) ;
 
     return 0 ;
 }

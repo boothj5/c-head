@@ -195,3 +195,9 @@ int request_move(struct player_t player)
     scanf("%d", &choice) ;
     return choice ;
 }
+
+void show_shithead(struct player_t player)
+{
+    printf("\n!!!! GAME OVER !!!!\n") ;
+    printf("\nSHITHEAD == %s\n\n", player.name) ;
+}
