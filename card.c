@@ -49,6 +49,23 @@ int equals(struct card_t c1, struct card_t c2)
     return ((c1.rank == c2.rank) && (c1.suit == c2.suit)) ;
 }
 
+int ranks_equal(struct card_t c1, struct card_t c2)
+{
+    return ((c1.rank == c2.rank)) ;
+}
+
+int all_ranks_equal(struct card_t *cards, int num_cards) 
+{
+    struct card_t first_card = cards[0] ;
+    int i = 0 ;
+
+    for (i = 1 ; i < num_cards ; i++)
+        if (!ranks_equal(cards[i], first_card))
+            return 0 ;
+
+    return 1 ;
+}
+
 char* show_rank(struct card_t c)
 {
     switch(c.rank) {

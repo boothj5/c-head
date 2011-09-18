@@ -91,6 +91,43 @@ void test_ten_special(void)
     assert_true(special_card(make_card(TEN, DIAMONDS))) ;
 }
 
+void test_ranks_equal(void)
+{
+    struct card_t tend = make_card(TEN, DIAMONDS) ;
+    struct card_t tenh = make_card(TEN, HEARTS) ;
+
+    assert_true(ranks_equal(tend, tenh)) ;
+}
+
+void test_ranks_not_equal(void)
+{
+    struct card_t ten = make_card(TEN, DIAMONDS) ;
+    struct card_t ace = make_card(ACE, HEARTS) ;
+
+    assert_false(ranks_equal(ten, ace)) ;
+}
+
+void test_all_ranks_equal(void)
+{
+    struct card_t threed = make_card(THREE, DIAMONDS) ;     
+    struct card_t threes = make_card(THREE, SPADES) ;     
+    struct card_t threeh = make_card(THREE, HEARTS) ;     
+    struct card_t threec = make_card(THREE, CLUBS) ; 
+    struct card_t cards[4] = { threed, threes, threeh, threec } ;
+
+    assert_true(all_ranks_equal(cards, 4)) ;
+}
+
+void test_all_ranks_not_equal(void)
+{
+    struct card_t threed = make_card(THREE, DIAMONDS) ;     
+    struct card_t threes = make_card(THREE, SPADES) ;     
+    struct card_t threeh = make_card(THREE, HEARTS) ;     
+    struct card_t fourc = make_card(FOUR, CLUBS) ; 
+    struct card_t cards[4] = { threed, threes, threeh, fourc } ;
+
+    assert_false(all_ranks_equal(cards, 4)) ;
+}
 
 void register_card_tests()
 {
@@ -105,5 +142,9 @@ void register_card_tests()
     add_test(test_two_special, "test_two_special") ;
     add_test(test_seven_special, "test_seven_special") ;
     add_test(test_ten_special, "test_ten_special") ;
+    add_test(test_ranks_equal, "test_ranks_equal") ;
+    add_test(test_ranks_not_equal, "test_ranks_not_equal") ;
+    add_test(test_all_ranks_equal, "test_all_ranks_equal") ;
+    add_test(test_all_ranks_not_equal, "test_all_ranks_not_equal") ;
 }
 
