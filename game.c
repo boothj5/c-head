@@ -73,23 +73,21 @@ void make_move(struct game_t *game, int card_choices[], int num_choices)
 {
     int i = 0 ;
     struct card_t to_lay[num_choices] ;
-    struct player_t *player ;
-
-    player = &game->players[game->current_player] ;
+    struct player_t *player = &game->players[game->current_player] ;
 
     if (player->hand_size > 0) {
         for (i = 0 ; i < num_choices ; i++) 
-            to_lay[i] = game->players[game->current_player].hand[card_choices[i]] ;
+            to_lay[i] = player->hand[card_choices[i]] ;
         play_from_hand(game, player, to_lay, num_choices) ;
     }
     else if (player->face_up_size > 0) {
         for (i = 0 ; i < num_choices ; i++) 
-            to_lay[i] = game->players[game->current_player].face_up[card_choices[i]] ;
+            to_lay[i] = player->face_up[card_choices[i]] ;
         play_from_face_up(game, player, to_lay, num_choices) ;
     }
     else {
         for (i = 0 ; i < num_choices ; i++) 
-            to_lay[i] = game->players[game->current_player].face_down[card_choices[i]] ;
+            to_lay[i] = player->face_down[card_choices[i]] ;
         play_from_face_down(game, player, to_lay, num_choices) ;
     }
     move_to_next_player(game) ;
