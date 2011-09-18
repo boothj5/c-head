@@ -28,17 +28,25 @@ int main(void)
     show_game_summary(game) ;
 
     while (continue_play(game)) {
-        newline() ;
-        request_move(game.players[game.current_player], card_choices, &num_choices) ;
-        if (valid_move(game, card_choices, num_choices)) {
-            make_move(&game, card_choices, num_choices) ;    
-            num_choices = 0 ;
-            clearscreen() ;
-            show_game_summary(game) ;
+        if (can_move(game)) {
+            newline() ;
+            request_move(game.players[game.current_player], card_choices, &num_choices) ;
+            if (valid_move(game, card_choices, num_choices)) {
+                make_move(&game, card_choices, num_choices) ;    
+                num_choices = 0 ;
+                clearscreen() ;
+                show_game_summary(game) ;
+            }
+            else {
+                num_choices = 0 ;
+                printf("\nINVALID MOVE, please try again\n") ;
+            }
         }
         else {
-            num_choices = 0 ;
-            printf("\nINVALID MOVE, please try again\n") ;
+            printf("\nOh dear, %s has to pick up, press enter.\n", 
+                            game.players[game.current_player].name) ;
+
+            // pick up cards
         }
     }
 

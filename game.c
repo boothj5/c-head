@@ -148,6 +148,23 @@ int valid_move(struct game_t game, int card_choices[], int num_choices)
     return 1 ;
 }
 
+int can_move(struct game_t game)
+{
+    int i = 0 ;    
+    struct player_t player = game.players[game.current_player] ;
+
+    if (player.hand_size > 0) 
+        for (i = 0 ; i < player.hand_size ; i++) 
+            if (can_lay(player.hand[i], game.pile, game.pile_size))
+                return 1 ;
+    else if (player.face_up_size > 0)
+        for (i = 0 ; i < player.face_up_size ; i++)
+            if (can_lay(player.face_up[i], game.pile, game.pile_size))
+                return 1 ;
+
+    return 0 ;
+}
+
 static int can_lay(struct card_t card, struct card_t *pile, int pile_size)
 {
     if (pile_size == 0)
