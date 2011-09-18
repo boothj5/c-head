@@ -31,6 +31,8 @@ static void set_last_move(struct game_t *game, char *name, struct card_t *cards,
 
 static void move_to_next_player(struct game_t *game) ;
 
+static int can_lay(struct card_t card, struct card_t *pile, int pile_size) ;
+
 struct game_t make_game(int nplayers, char names[][MAX_NAME_LEN], int ncards)
 {
     int i ;    
@@ -120,30 +122,42 @@ int valid_move(struct game_t game, int card_choices[], int num_choices)
 {
     struct card_t to_lay[50] ;
     int num_to_lay = 0 ;
-
     int i ;
+    struct player_t *player = &game.players[game.current_player] ;
 
     // return false if number chosen greater than hand size
-    if (num_choices > game.players[game.current_player].hand_size) {
+    if (num_choices > player->hand_size) {
         return 0 ;
     }
     // return false if any of the choices are bigger than the hand size    
     for (i = 0 ; i < num_choices ; i++) 
-        if (card_choices[i] >= game.players[game.current_player].hand_size)
+        if (card_choices[i] >= player->hand_size)
             return 0 ;
     
     // get the cards to lay
     for (i = 0 ; i < num_choices ; i++)
-        to_lay[num_to_lay++] = game.players[game.current_player].hand[card_choices[i]] ;
+        to_lay[num_to_lay++] = player->hand[card_choices[i]] ;
     
-    for (i = 0 ; i < num_to_lay ; i++ )
-        printf("Card = %s of %s\n", show_rank(to_lay[i]), show_suit(to_lay[i])) ;
-
     // return false if the cards are not of the same rank
+    if (!all_ranks_equal(to_lay, num_to_lay))
+        return 0 ;
 
+    // return false if the first card cannot be laid
+    if (!can_lay(player->hand[card_choices[0]], game.pile, game.pile_size))
+        return 0 ;
   
     // return true otherwise    
     return 1 ;
+}
+
+static int can_lay(struct card_t card, struct card_t *pile, int pile_size)
+{
+    if (pile_size == 0)
+        return 1 ;
+    else if (card.rank > pile[pile_size-1].rank)
+        return 1 ;
+    else
+        return 0 ;
 }
 
 static void set_last_move(struct game_t *game, char *name, 
