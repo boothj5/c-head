@@ -12,7 +12,8 @@ int main(void)
     struct game_t game ;
     int nplayers, ncards ;
     char names[MAX_NUM_PLAYERS][MAX_NAME_LEN] ;
-    int choice ;
+    int card_choices[20] ;
+    int num_choices = 0 ;
     struct player_t shithead ;
     
     clearscreen() ;
@@ -28,11 +29,17 @@ int main(void)
 
     while (continue_play(game)) {
         newline() ;
-        choice = request_move(game.players[game.current_player]) ;
-        show_cards(&game.players[game.current_player].hand[choice-1], 1) ;
-        make_move(&game, choice-1) ;    
-        clearscreen() ;
-        show_game_summary(game) ;
+        request_move(game.players[game.current_player], card_choices, &num_choices) ;
+        if (valid_move(game, card_choices, num_choices)) {
+            make_move(&game, card_choices, num_choices) ;    
+            num_choices = 0 ;
+            clearscreen() ;
+            show_game_summary(game) ;
+        }
+        else {
+            num_choices = 0 ;
+            printf("\nINVALID MOVE, please try again\n") ;
+        }
     }
 
     shithead = get_shithead(game) ;

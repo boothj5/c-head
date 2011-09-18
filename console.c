@@ -9,6 +9,7 @@ static void show_players(struct player_t *players, int len) ;
 static void show_pile(struct card_t *cards, int ncards) ;
 static void show_deck(int num_cards) ;
 static void show_last_move(char *move) ;
+static int parse_choice(char choice[], int card_choices[], int *num_choices) ;
 
 void newline()
 {
@@ -188,12 +189,18 @@ void show_game_summary(struct game_t game)
     show_last_move(game.last_move) ;
 }
 
-int request_move(struct player_t player)
+void request_move(struct player_t player, int card_choices[], int *num_choices)
 {
-    int choice ;
+    char entered[10] ;
     printf("%s, choose cards to lay: ", player.name) ;
-    scanf("%d", &choice) ;
-    return choice ;
+    scanf("%s", entered) ;
+
+    while (!parse_choice(entered, card_choices, num_choices)) {
+        *num_choices = 0 ;
+        printf("\nEnter card choices seperated by commas.\n") ;
+        printf("%s, choose cards to lay: ", player.name) ;
+        scanf("%s", entered) ;
+    }
 }
 
 void show_shithead(struct player_t player)
@@ -201,3 +208,22 @@ void show_shithead(struct player_t player)
     printf("\n!!!! GAME OVER !!!!\n") ;
     printf("\nSHITHEAD == %s\n\n", player.name) ;
 }
+
+static int parse_choice(char choice[], int card_choices[], int *num_choices)
+{
+    char *result = NULL;
+    int to_int ;
+    result = strtok( choice, "," );
+    while( result != NULL ) {
+        to_int = atoi(result) ;
+        if (to_int == 0) {
+            return 0 ;
+        }
+        else {
+            card_choices[(*num_choices)++] = to_int-1 ;
+            result = strtok( NULL, "," );
+        }
+    }
+    return 1 ;
+}
+

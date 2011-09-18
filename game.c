@@ -67,31 +67,31 @@ void first_move(struct game_t *game)
     set_last_move(game, player->name, to_lay, num_to_lay) ;
 }
 
-void make_move(struct game_t *game, int card_choice)
+void make_move(struct game_t *game, int card_choices[], int num_choices)
 {
-    struct card_t to_lay[1] ;
-    struct card_t card ;
+    int i = 0 ;
+    struct card_t to_lay[num_choices] ;
     struct player_t *player ;
 
     player = &game->players[game->current_player] ;
 
     if (player->hand_size > 0) {
-        card = game->players[game->current_player].hand[card_choice] ;
-        to_lay[0] = card ;
-        play_from_hand(game, player, to_lay, 1) ;
+        for (i = 0 ; i < num_choices ; i++) 
+            to_lay[i] = game->players[game->current_player].hand[card_choices[i]] ;
+        play_from_hand(game, player, to_lay, num_choices) ;
     }
     else if (player->face_up_size > 0) {
-        card = game->players[game->current_player].face_up[card_choice] ;
-        to_lay[0] = card ;
-        play_from_face_up(game, player, to_lay, 1) ;
+        for (i = 0 ; i < num_choices ; i++) 
+            to_lay[i] = game->players[game->current_player].face_up[card_choices[i]] ;
+        play_from_face_up(game, player, to_lay, num_choices) ;
     }
     else {
-        card = game->players[game->current_player].face_down[card_choice] ;
-        to_lay[0] = card ;
-        play_from_face_down(game, player, to_lay, 1) ;
+        for (i = 0 ; i < num_choices ; i++) 
+            to_lay[i] = game->players[game->current_player].face_down[card_choices[i]] ;
+        play_from_face_down(game, player, to_lay, num_choices) ;
     }
     move_to_next_player(game) ;
-    set_last_move(game, player->name, to_lay, 1) ;
+    set_last_move(game, player->name, to_lay, num_choices) ;
 }
 
 int continue_play(struct game_t game)
@@ -116,7 +116,35 @@ struct player_t get_shithead(struct game_t game)
     return game.players[0] ;
 }
 
+int valid_move(struct game_t game, int card_choices[], int num_choices)
+{
+    struct card_t to_lay[50] ;
+    int num_to_lay = 0 ;
 
+    int i ;
+
+    // return false if number chosen greater than hand size
+    if (num_choices > game.players[game.current_player].hand_size) {
+        return 0 ;
+    }
+    // return false if any of the choices are bigger than the hand size    
+    for (i = 0 ; i < num_choices ; i++) 
+        if (card_choices[i] >= game.players[game.current_player].hand_size)
+            return 0 ;
+    
+    // get the cards to lay
+    for (i = 0 ; i < num_choices ; i++)
+        to_lay[num_to_lay++] = game.players[game.current_player].hand[card_choices[i]] ;
+    
+    for (i = 0 ; i < num_to_lay ; i++ )
+        printf("Card = %s of %s\n", show_rank(to_lay[i]), show_suit(to_lay[i])) ;
+
+    // return false if the cards are not of the same rank
+
+  
+    // return true otherwise    
+    return 1 ;
+}
 
 static void set_last_move(struct game_t *game, char *name, 
                             struct card_t *cards, int ncards)
@@ -130,8 +158,9 @@ static void set_last_move(struct game_t *game, char *name,
         strcat(game->last_move, show_rank(cards[i])) ;
         strcat(game->last_move, " of ") ;
         strcat(game->last_move, show_suit(cards[i])) ;
-        strcat(game->last_move, "\n") ;
+        strcat(game->last_move, ", ") ;
     }
+    strcat(game->last_move, "\n") ;
 }
 
 static void add_similar_cards(struct game_t *game, struct card_t lowest, 
