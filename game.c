@@ -189,6 +189,8 @@ static int can_lay(struct card_t card, struct card_t *pile, int pile_size)
 {
     if (pile_size == 0)
         return 1 ;
+    else if (pile[pile_size-1].rank == INVISIBLE)
+        return can_lay(card, pile, pile_size-1) ;
     else if (card_cmp(card, pile[pile_size-1]) == 0)
         return 1 ;
     else if (card_cmp(card, pile[pile_size-1]) > 0)

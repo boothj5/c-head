@@ -3,6 +3,11 @@
 
 #include <stdlib.h>
 
+#define INVISIBLE 7
+#define RESET     2
+#define BURN      10
+#define MISSGO    8
+
 enum cardrank { TWO = 2, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN,
                 JACK, QUEEN, KING, ACE } ;
 
