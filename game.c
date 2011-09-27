@@ -174,8 +174,6 @@ int can_move(struct game_t game)
         return 0 ;
 }
 
-
-
 void pick_up_pile(struct game_t *game)
 {
     struct player_t *player = &game->players[game->current_player] ;
@@ -191,7 +189,9 @@ static int can_lay(struct card_t card, struct card_t *pile, int pile_size)
 {
     if (pile_size == 0)
         return 1 ;
-    else if (card.rank >= pile[pile_size-1].rank)
+    else if (card_cmp(card, pile[pile_size-1]) == 0)
+        return 1 ;
+    else if (card_cmp(card, pile[pile_size-1]) > 0)
         return 1 ;
     else
         return 0 ;
