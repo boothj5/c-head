@@ -197,7 +197,9 @@ void request_move(struct player_t player, int card_choices[], int *num_choices)
 
     while (!parse_choice(entered, card_choices, num_choices)) {
         *num_choices = 0 ;
-        printf("\nEnter card choices seperated by commas.\n") ;
+        newline() ;
+        printf("Enter card choices seperated by commas.") ;
+        newlines(2) ;
         printf("%s, choose cards to lay: ", player.name) ;
         scanf("%s", entered) ;
     }
@@ -239,4 +241,16 @@ void wait_user()
     getchar() ;
 }
 
+void show_bad_move(void)
+{
+    newline() ;
+    printf("You can't do that, try again") ;
+    newline() ;
+}
 
+void show_pickup(char *name)
+{
+    newline() ;
+    printf("Oh dear, %s, you must pick up, press enter.", name) ;
+    newline() ;
+}

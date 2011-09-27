@@ -22,4 +22,7 @@ int request_faceup_swap(int size) ;
 void request_move(struct player_t player, int card_choices[], int *num_choices) ;
 void show_shithead(struct player_t player) ;
 void wait_user() ;
+void show_bad_move(void) ;
+void show_pickup(char *name) ;
+
 #endif

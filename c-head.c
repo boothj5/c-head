@@ -40,12 +40,11 @@ int main(void)
             }
             else {
                 num_choices = 0 ;
-                printf("\nYou can't do that, try again\n") ;
+                show_bad_move() ;
             }
         }
         else {
-            printf("\nOh dear, %s, you must pick up, press enter.\n", 
-                            game.players[game.current_player].name) ;
+            show_pickup(game.players[game.current_player].name) ;
             wait_user() ;
             pick_up_pile(&game) ;
             num_choices = 0 ;
