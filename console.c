@@ -227,3 +227,16 @@ static int parse_choice(char choice[], int card_choices[], int *num_choices)
     return 1 ;
 }
 
+void wait_user()
+{
+    int ch;
+
+    do
+        ch = fgetc(stdin) ; 
+    while (ch != EOF && ch != '\n'); 
+    clearerr(stdin);
+    fflush(stdout);
+    getchar() ;
+}
+
+

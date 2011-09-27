@@ -36,17 +36,23 @@ int main(void)
                 num_choices = 0 ;
                 clearscreen() ;
                 show_game_summary(game) ;
+                move_to_next_player(&game) ;
             }
             else {
                 num_choices = 0 ;
-                printf("\nINVALID MOVE, please try again\n") ;
+                printf("\nYou can't do that, try again\n") ;
             }
         }
         else {
-            printf("\nOh dear, %s has to pick up, press enter.\n", 
+            printf("\nOh dear, %s, you must pick up, press enter.\n", 
                             game.players[game.current_player].name) ;
-
-            // pick up cards
+            wait_user() ;
+            pick_up_pile(&game) ;
+            num_choices = 0 ;
+            clearscreen() ;
+            show_game_summary(game) ;
+            move_to_next_player(&game) ;
+                
         }
     }
 

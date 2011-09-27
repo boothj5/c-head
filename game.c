@@ -29,9 +29,11 @@ static void play_from_face_down(struct game_t *game, struct player_t *player,
 static void set_last_move(struct game_t *game, char *name, struct card_t *cards, 
                                                                    int ncards) ;
 
-static void move_to_next_player(struct game_t *game) ;
-
 static int can_lay(struct card_t card, struct card_t *pile, int pile_size) ;
+
+static int can_move_with_hand(struct player_t player, struct card_t *pile, int pile_size) ;
+
+static int can_move_with_face_up(struct player_t player, struct card_t *pile, int pile_size) ;
 
 struct game_t make_game(int nplayers, char names[][MAX_NAME_LEN], int ncards)
 {
@@ -90,7 +92,6 @@ void make_move(struct game_t *game, int card_choices[], int num_choices)
             to_lay[i] = player->face_down[card_choices[i]] ;
         play_from_face_down(game, player, to_lay, num_choices) ;
     }
-    move_to_next_player(game) ;
     set_last_move(game, player->name, to_lay, num_choices) ;
 }
 
@@ -114,6 +115,13 @@ struct player_t get_shithead(struct game_t game)
             return game.players[i] ;
 
     return game.players[0] ;
+}
+
+void move_to_next_player(struct game_t *game) {
+    if (game->current_player == game->num_players -1)
+        game->current_player = 0 ;
+    else
+        game->current_player++ ;
 }
 
 int valid_move(struct game_t game, int card_choices[], int num_choices)
@@ -150,29 +158,51 @@ int valid_move(struct game_t game, int card_choices[], int num_choices)
 
 int can_move(struct game_t game)
 {
-    int i = 0 ;    
     struct player_t player = game.players[game.current_player] ;
 
-    if (player.hand_size > 0) 
-        for (i = 0 ; i < player.hand_size ; i++) 
-            if (can_lay(player.hand[i], game.pile, game.pile_size))
-                return 1 ;
-    else if (player.face_up_size > 0)
-        for (i = 0 ; i < player.face_up_size ; i++)
-            if (can_lay(player.face_up[i], game.pile, game.pile_size))
-                return 1 ;
+    printf("\nTesting if can lay: %s\n", player.name) ;
 
-    return 0 ;
+    if (player.hand_size > 0) 
+        if (can_move_with_hand(player, game.pile, game.pile_size))
+            return 1 ;
+        else
+            return 0 ;
+    else if (player.face_up_size > 0) 
+        if (can_move_with_face_up(player, game.pile, game.pile_size))
+            return 1 ;
+        else
+            return 0 ;
+    else 
+        return 0 ;
+}
+
+
+
+void pick_up_pile(struct game_t *game)
+{
+    struct player_t *player = &game->players[game->current_player] ;
+    int i ;
+
+    for (i = 0 ; i < game->pile_size ; i++) 
+        deal_to_hand(player, game->pile[i]) ;
+
+    game->pile_size = 0 ;
 }
 
 static int can_lay(struct card_t card, struct card_t *pile, int pile_size)
 {
-    if (pile_size == 0)
+    if (pile_size == 0) {
+        printf("Can lay, no pile\n") ;   
         return 1 ;
-    else if (card.rank > pile[pile_size-1].rank)
+    }
+    else if (card.rank >= pile[pile_size-1].rank) {
+        printf("Can lay, card.rank:%d >= pile.rank:%d\n", card.rank, pile[pile_size-1].rank) ;
         return 1 ;
-    else
+    }
+    else {
+        printf("Cannot lay, card.rank:%d >= pile.rank:%d\n", card.rank, pile[pile_size-1].rank) ;
         return 0 ;
+    }
 }
 
 static void set_last_move(struct game_t *game, char *name, 
@@ -310,9 +340,24 @@ static int calc_deck_size(struct game_t game)
     return (decks_required * DECK_SIZE) ;
 }
 
-static void move_to_next_player(struct game_t *game) {
-    if (game->current_player == game->num_players -1)
-        game->current_player = 0 ;
-    else
-        game->current_player++ ;
+static int can_move_with_hand(struct player_t player, struct card_t *pile, int pile_size)
+{
+    int i ;
+
+    for (i = 0 ; i < player.hand_size ; i++)
+        if (can_lay(player.hand[i], pile, pile_size))
+            return 1 ;
+
+    return 0 ;
+}
+
+static int can_move_with_face_up(struct player_t player, struct card_t *pile, int pile_size)
+{
+    int i ;
+
+    for (i = 0 ; i < player.face_up_size ; i++)
+        if (can_lay(player.face_up[i], pile, pile_size))
+            return 1 ;
+
+    return 0 ;
 }
