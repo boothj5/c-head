@@ -7,8 +7,8 @@ compile: card.o player.o console.o game.o c-head.o
 install: compile
 	cp c-head ~/bin/c-head
 
-compile-tests: testsuite.o test_card.o test_player.o card.o player.o
-	$(CC) testsuite.o test_card.o test_player.o card.o player.o -I ~/include -L ~/lib -o testsuite -l headunit
+compile-tests: testsuite.o test_card.o test_player.o test_game.o card.o player.o game.o
+	$(CC) testsuite.o test_card.o test_player.o test_game.o card.o player.o game.o -I ~/include -L ~/lib -o testsuite -l headunit
 
 test: compile-tests
 	./testsuite

@@ -131,6 +131,10 @@ int valid_move(struct game_t game, int card_choices[], int num_choices)
     int i ;
     struct player_t *player = &game.players[game.current_player] ;
 
+    // return false if no choices
+    if (num_choices == 0)
+        return 0 ;
+
     // return false if number chosen greater than hand size
     if (num_choices > player->hand_size) {
         return 0 ;
