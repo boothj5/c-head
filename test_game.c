@@ -132,6 +132,17 @@ void test_valid_two_on_seven(void)
     test_valid_card_on_card(make_card(TWO, HEARTS), make_card(SEVEN, CLUBS)) ;
 }
 
+void test_valid_six_on_seven_on_nothing(void)
+{
+    setup() ;
+    num_choices = 1 ;
+    game.pile[game.pile_size++] = make_card(SEVEN, HEARTS) ;
+    player->hand[player->hand_size++] = make_card(SIX, HEARTS) ;
+    choices[0] = 0 ;
+    
+    assert_true(valid_move(game, choices, num_choices)) ;
+}
+
 void test_valid_five_on_seven_on_three(void)
 {
     setup() ;
@@ -159,6 +170,7 @@ void register_game_tests(void)
     add_test(test_valid_seven_on_queen, "test_valid_seven_on_queen" ) ;
     add_test(test_valid_ten_on_jack, "test_valid_ten_on_jack" ) ;
     add_test(test_valid_two_on_seven, "test_valid_two_on_seven" ) ;
+    add_test(test_valid_six_on_seven_on_nothing, "test_valid_six_on_seven_on_nothing" ) ;
     add_test(test_valid_five_on_seven_on_three, "test_valid_five_on_seven_on_three" ) ;
 }
 
