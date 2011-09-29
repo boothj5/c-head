@@ -6,14 +6,13 @@
 #include "console.h"
 
 static void perform_swap(struct game_t *game) ;
+static void perform_move(struct game_t *game) ;
 
 int main(void)
 {
     struct game_t game ;
     int nplayers, ncards ;
     char names[MAX_NUM_PLAYERS][MAX_NAME_LEN] ;
-    int card_choices[20] ;
-    int num_choices = 0 ;
     struct player_t shithead ;
     
     clearscreen() ;
@@ -29,37 +28,45 @@ int main(void)
     show_game_summary(game) ;
 
     while (continue_play(game)) {
-        if (can_move(game)) {
-            newline() ;
-            request_move(game.players[game.current_player], card_choices, &num_choices) ;
-            if (valid_move(game, card_choices, num_choices)) {
-                make_move(&game, card_choices, num_choices) ;    
-                num_choices = 0 ;
-                clearscreen() ;
-                show_game_summary(game) ;
-                move_to_next_player(&game) ;
-            }
-            else {
-                num_choices = 0 ;
-                show_bad_move() ;
-            }
-        }
-        else {
-            show_pickup(game.players[game.current_player].name) ;
-            wait_user() ;
-            pick_up_pile(&game) ;
-            num_choices = 0 ;
-            clearscreen() ;
-            show_game_summary(game) ;
-            move_to_next_player(&game) ;
-                
-        }
+        perform_move(&game) ;
     }
 
     shithead = get_shithead(game) ;
     show_shithead(shithead) ;
 
     return 0 ;
+}
+
+static void perform_move(struct game_t *game)
+{
+    int card_choices[20] ;
+    int num_choices = 0 ;
+
+    if (can_move(*game)) {
+        newline() ;
+        request_move(game->players[game->current_player], card_choices, &num_choices) ;
+        if (valid_move(*game, card_choices, num_choices)) {
+            make_move(game, card_choices, num_choices) ;    
+            num_choices = 0 ;
+            clearscreen() ;
+            show_game_summary(*game) ;
+            move_to_next_player(game) ;
+        }
+        else {
+            num_choices = 0 ;
+            show_bad_move() ;
+        }
+    }
+    else {
+        show_pickup(game->players[game->current_player].name) ;
+        wait_user() ;
+        pick_up_pile(game) ;
+        num_choices = 0 ;
+        clearscreen() ;
+        show_game_summary(*game) ;
+        move_to_next_player(game) ;
+            
+    }
 }
 
 static void perform_swap(struct game_t *game)
