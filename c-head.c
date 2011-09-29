@@ -22,6 +22,7 @@ int main(void)
     ncards = request_num_cards_each() ;
     request_player_names(names, nplayers) ;
     game = make_game(nplayers, names, ncards) ;
+    init_game(&game) ;
     perform_swap(&game) ;
     first_move(&game) ;
     clearscreen() ;

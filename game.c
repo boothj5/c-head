@@ -46,11 +46,15 @@ struct game_t make_game(int nplayers, char names[][MAX_NAME_LEN], int ncards)
     game.current_player = 0 ;
     for(i = 0 ; i<nplayers ; i++)
         game.players[i] = make_player(names[i], HUMAN) ;
-    create_deck(&game) ;
-    shuffle(&game) ;
-    deal(&game) ;
     
     return game ;
+}
+
+void init_game(struct game_t *game)
+{
+    create_deck(game) ;
+    shuffle(game) ;
+    deal(game) ;
 }
 
 void first_move(struct game_t *game)
@@ -132,13 +136,12 @@ int valid_move(struct game_t game, int card_choices[], int num_choices)
     struct player_t *player = &game.players[game.current_player] ;
 
     // return false if no choices
-    if (num_choices == 0)
+    if (num_choices == 0) 
         return 0 ;
 
     // return false if number chosen greater than hand size
-    if (num_choices > player->hand_size) {
+    if (num_choices > player->hand_size) 
         return 0 ;
-    }
     // return false if any of the choices are bigger than the hand size    
     for (i = 0 ; i < num_choices ; i++) 
         if (card_choices[i] >= player->hand_size)

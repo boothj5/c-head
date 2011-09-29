@@ -25,6 +25,7 @@ struct game_t make_game(int nplayers,
                         char names[][MAX_NAME_LEN], 
                         int ncards) ;
 
+void init_game(struct game_t *game) ;
 void first_move(struct game_t *game) ;
 void make_move(struct game_t *game, int card_choices[], int num_choices) ;
 int continue_play(struct game_t game) ;
