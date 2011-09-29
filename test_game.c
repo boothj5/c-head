@@ -113,6 +113,16 @@ void test_valid_seven_on_queen(void)
     test_valid_card_on_card(make_card(SEVEN, DIAMONDS), make_card(QUEEN, SPADES)) ; 
 }
 
+void test_valid_ten_on_jack(void)
+{
+    test_valid_card_on_card(make_card(TEN, CLUBS), make_card(JACK, DIAMONDS)) ;
+}
+
+void test_valid_two_on_seven(void)
+{
+    test_valid_card_on_card(make_card(TWO, HEARTS), make_card(SEVEN, CLUBS)) ;
+}
+
 void register_game_tests(void)
 {
     add_suite("test_game") ;
@@ -125,5 +135,7 @@ void register_game_tests(void)
     add_test(test_not_valid_three_on_four, "test_not_valid_three_on_four" ) ;
     add_test(test_valid_two_on_nine, "test_valid_two_on_nine" ) ;
     add_test(test_valid_seven_on_queen, "test_valid_seven_on_queen" ) ;
+    add_test(test_valid_ten_on_jack, "test_valid_ten_on_jack" ) ;
+    add_test(test_valid_two_on_seven, "test_valid_two_on_seven" ) ;
 }
 
