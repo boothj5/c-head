@@ -11,14 +11,18 @@ struct player_t *player ;
 int choices[2] ;
 int num_choices ;
 
-void test_not_valid_move_no_cards(void)
+static void setup(void)
 {
-    num_choices = 1 ;
     strcpy(names[0],"James") ;
     game = make_game(1, names, 3) ; 
     game.current_player = 0 ;
     player = &game.players[game.current_player] ;
+}
 
+void test_not_valid_move_no_cards(void)
+{
+    setup() ;
+    num_choices = 1 ;
     game.pile[game.pile_size++] = make_card(NINE, HEARTS) ;
     player->hand[player->hand_size++] = make_card(FOUR, SPADES) ;
 
@@ -27,11 +31,8 @@ void test_not_valid_move_no_cards(void)
 
 void test_not_valid_more_cards_than_hand(void)
 {
+    setup() ;
     num_choices = 2 ;
-    strcpy(names[0],"James") ;
-    game = make_game(1, names, 3) ; 
-    game.current_player = 0 ;
-    player = &game.players[game.current_player] ;
 
     game.pile[game.pile_size++] = make_card(THREE, HEARTS) ;
     player->hand[player->hand_size++] = make_card(FOUR, SPADES) ;
@@ -43,11 +44,8 @@ void test_not_valid_more_cards_than_hand(void)
 
 void test_not_valid_when_rank_not_equal(void) 
 {   
+    setup() ;
     num_choices = 2 ;
-    strcpy(names[0],"James") ;
-    game = make_game(1, names, 3) ; 
-    game.current_player = 0 ;
-    player = &game.players[game.current_player] ;
 
     game.pile[game.pile_size++] = make_card(THREE, HEARTS) ;
     player->hand[player->hand_size++] = make_card(FOUR, SPADES) ;
@@ -60,11 +58,8 @@ void test_not_valid_when_rank_not_equal(void)
 
 void test_not_valid_when_not_in_hand(void) 
 {   
+    setup() ;
     num_choices = 2 ;
-    strcpy(names[0],"James") ;
-    game = make_game(1, names, 3) ; 
-    game.current_player = 0 ;
-    player = &game.players[game.current_player] ;
 
     game.pile[game.pile_size++] = make_card(THREE, HEARTS) ;
     player->hand[player->hand_size++] = make_card(FOUR, SPADES) ;
@@ -77,11 +72,8 @@ void test_not_valid_when_not_in_hand(void)
 
 void test_valid_four_on_three(void)
 {
+    setup() ;
     num_choices = 1 ;
-    strcpy(names[0],"James") ;
-    game = make_game(1, names, 3) ; 
-    game.current_player = 0 ;
-    player = &game.players[game.current_player] ;
 
     game.pile[game.pile_size++] = make_card(THREE, HEARTS) ;
     player->hand[player->hand_size++] = make_card(FOUR, SPADES) ;
@@ -92,11 +84,8 @@ void test_valid_four_on_three(void)
 
 void test_valid_three_on_three(void)
 {
+    setup() ;
     num_choices = 1 ;
-    strcpy(names[0],"James") ;
-    game = make_game(1, names, 3) ; 
-    game.current_player = 0 ;
-    player = &game.players[game.current_player] ;
 
     game.pile[game.pile_size++] = make_card(THREE, HEARTS) ;
     player->hand[player->hand_size++] = make_card(THREE, SPADES) ;
@@ -107,11 +96,8 @@ void test_valid_three_on_three(void)
 
 void test_not_valid_three_on_four(void)
 {
+    setup() ;
     num_choices = 1 ;
-    strcpy(names[0],"James") ;
-    game = make_game(1, names, 3) ; 
-    game.current_player = 0 ;
-    player = &game.players[game.current_player] ;
 
     game.pile[game.pile_size++] = make_card(FOUR, HEARTS) ;
     player->hand[player->hand_size++] = make_card(THREE, SPADES) ;
