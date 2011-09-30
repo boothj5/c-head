@@ -36,13 +36,17 @@ int special_card(struct card_t c)
 int card_cmp(struct card_t c1, struct card_t c2)
 {   
     if (special_card(c1) && special_card(c2))
-        return 0 ;
+        return EQ ;
     else if (special_card(c1) && !special_card(c2))
-        return 1 ;
+        return GT ;
     else if (special_card(c2))
-        return -1 ;
+        return LT ;
+    else if (c1.rank == c2.rank)
+        return EQ ;
+    else if (c1.rank < c2.rank)
+        return LT ;
     else
-        return c1.rank - c2.rank ;
+        return GT ;
 }
 
 int equals(struct card_t c1, struct card_t c2) 
@@ -57,11 +61,10 @@ int ranks_equal(struct card_t c1, struct card_t c2)
 
 int all_ranks_equal(struct card_t *cards, int num_cards) 
 {
-    struct card_t first_card = cards[0] ;
     int i = 0 ;
 
     for (i = 1 ; i < num_cards ; i++)
-        if (!ranks_equal(cards[i], first_card))
+        if (!ranks_equal(cards[i], cards[0]))
             return FALSE ;
 
     return TRUE ;
