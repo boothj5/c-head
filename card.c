@@ -1,4 +1,5 @@
 #include "card.h"
+#include "util.h"
 
 struct card_t make_card(enum cardrank rank, enum cardsuit suit)
 {
@@ -22,13 +23,13 @@ int special_card(struct card_t c)
 {
     switch(c.rank) {
     case TWO:
-        return 1 ;
+        return TRUE ;
     case SEVEN:
-        return 1 ;
+        return TRUE ;
     case TEN:
-        return 1 ;
+        return TRUE ;
     default:
-        return 0 ;
+        return FALSE ;
     }
 }
 
@@ -61,9 +62,9 @@ int all_ranks_equal(struct card_t *cards, int num_cards)
 
     for (i = 1 ; i < num_cards ; i++)
         if (!ranks_equal(cards[i], first_card))
-            return 0 ;
+            return FALSE ;
 
-    return 1 ;
+    return TRUE ;
 }
 
 char* show_rank(struct card_t c)

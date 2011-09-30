@@ -3,6 +3,7 @@
 #include <time.h>
 #include "game.h"
 #include "card.h"
+#include "util.h"
 
 static int calc_deck_size(struct game_t game) ;
 static void create_deck(struct game_t *game) ;
@@ -137,15 +138,15 @@ int valid_move(struct game_t game, int card_choices[], int num_choices)
 
     // return false if no choices
     if (num_choices == 0) 
-        return 0 ;
+        return FALSE ;
 
     // return false if number chosen greater than hand size
     if (num_choices > player->hand_size) 
-        return 0 ;
+        return FALSE ;
     // return false if any of the choices are bigger than the hand size    
     for (i = 0 ; i < num_choices ; i++) 
         if (card_choices[i] >= player->hand_size)
-            return 0 ;
+            return FALSE ;
     
     // get the cards to lay
     for (i = 0 ; i < num_choices ; i++)
@@ -153,14 +154,14 @@ int valid_move(struct game_t game, int card_choices[], int num_choices)
     
     // return false if the cards are not of the same rank
     if (!all_ranks_equal(to_lay, num_to_lay))
-        return 0 ;
+        return FALSE ;
 
     // return false if the first card cannot be laid
     if (!can_lay(player->hand[card_choices[0]], game.pile, game.pile_size))
-        return 0 ;
+        return FALSE ;
   
     // return true otherwise    
-    return 1 ;
+    return TRUE ;
 }
 
 int can_move(struct game_t game)
@@ -169,16 +170,16 @@ int can_move(struct game_t game)
 
     if (player.hand_size > 0) 
         if (can_move_with_hand(player, game.pile, game.pile_size))
-            return 1 ;
+            return TRUE ;
         else
-            return 0 ;
+            return FALSE ;
     else if (player.face_up_size > 0) 
         if (can_move_with_face_up(player, game.pile, game.pile_size))
-            return 1 ;
+            return TRUE ;
         else
-            return 0 ;
+            return FALSE ;
     else 
-        return 0 ;
+        return FALSE ;
 }
 
 void pick_up_pile(struct game_t *game)
@@ -195,15 +196,15 @@ void pick_up_pile(struct game_t *game)
 static int can_lay(struct card_t card, struct card_t *pile, int pile_size)
 {
     if (pile_size == 0)
-        return 1 ;
+        return TRUE ;
     else if (pile[pile_size-1].rank == INVISIBLE)
         return can_lay(card, pile, pile_size-1) ;
     else if (card_cmp(card, pile[pile_size-1]) == 0)
-        return 1 ;
+        return TRUE ;
     else if (card_cmp(card, pile[pile_size-1]) > 0)
-        return 1 ;
+        return TRUE ;
     else
-        return 0 ;
+        return FALSE ;
 }
 
 static void set_last_move(struct game_t *game, char *name, 
@@ -347,9 +348,9 @@ static int can_move_with_hand(struct player_t player, struct card_t *pile, int p
 
     for (i = 0 ; i < player.hand_size ; i++)
         if (can_lay(player.hand[i], pile, pile_size))
-            return 1 ;
+            return TRUE ;
 
-    return 0 ;
+    return FALSE ;
 }
 
 static int can_move_with_face_up(struct player_t player, struct card_t *pile, int pile_size)
@@ -358,7 +359,7 @@ static int can_move_with_face_up(struct player_t player, struct card_t *pile, in
 
     for (i = 0 ; i < player.face_up_size ; i++)
         if (can_lay(player.face_up[i], pile, pile_size))
-            return 1 ;
+            return TRUE ;
 
-    return 0 ;
+    return FALSE ;
 }

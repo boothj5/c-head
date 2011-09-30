@@ -1,5 +1,6 @@
 #include <string.h>
 #include "player.h"
+#include "util.h"
 
 struct player_t make_player(char *name, int type) 
 {
@@ -84,11 +85,11 @@ void swap(struct player_t *p, int hand_c, int faceup_c)
 int has_cards(struct player_t player)
 {
     if (player.hand_size > 0)
-        return 1 ;
+        return TRUE ;
     if (player.face_up_size > 0)
-        return 1 ;
+        return TRUE ;
     if (player.face_down_size > 0)
-        return 1 ;
-    return 0 ;
+        return TRUE ;
+    return FALSE ;
 }
 
