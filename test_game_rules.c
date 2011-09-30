@@ -4,6 +4,9 @@
 
 #include "testsuite.h"
 #include "game.h"
+#include "player.h"
+#include "game_rules.h"
+
 
 char names [MAX_NUM_PLAYERS][MAX_NAME_LEN] ;
 struct game_t game ;
@@ -155,9 +158,9 @@ void test_valid_five_on_seven_on_three(void)
     assert_true(valid_move(game, choices, num_choices)) ;
 }
 
-void register_game_tests(void)
+void register_game_rules_tests(void)
 {
-    add_suite("test_game") ;
+    add_suite("test_game_rules") ;
     add_test(test_valid_on_no_cards, "test_valid_on_no_cards" ) ;
     add_test(test_not_valid_move_no_cards, "test_not_valid_move_no_cards" ) ;
     add_test(test_not_valid_more_cards_than_hand, "test_not_valid_more_cards_than_hand" ) ;

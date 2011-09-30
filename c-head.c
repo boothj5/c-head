@@ -3,6 +3,7 @@
 #include "player.h"
 #include "card.h"
 #include "game.h"
+#include "game_rules.h"
 #include "console.h"
 
 static void perform_swap(struct game_t *game) ;
