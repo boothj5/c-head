@@ -154,18 +154,27 @@ static int burn_cards_laid(struct game_t *game)
     struct card_t cards_on_pile[4] ;
     int num_cards = 0 ;
     int i ;
+    
+    printf("\nPILE SIZE = %d\n", game->pile_size) ;
 
-    if (game->pile[game->pile_size-1].rank == BURN)
-        return TRUE ;
-
-    for (i = 0 ; i < 4 ; i++)
-        if (game->pile_size > i) {
-            cards_on_pile[i] = game->pile[game->pile_size-(i+1)] ;
-            num_cards++ ;
+    if (game->pile_size > 0) {
+        if (game->pile[game->pile_size-1].rank == BURN) {
+            printf("\nBURN CARD\n") ;
+            return TRUE ;
         }
 
-    if (all_ranks_equal(cards_on_pile, num_cards))
-        return TRUE ;
+        for (i = 0 ; i < 4 ; i++)
+            if (game->pile_size > i) {
+                printf("\nFOUND ON PILE %d\n", game->pile[game->pile_size-(i+1)].rank) ;
+                cards_on_pile[i] = game->pile[game->pile_size-(i+1)] ;
+                num_cards++ ;
+            }
+
+        if (num_cards == 4 && all_ranks_equal(cards_on_pile, num_cards)) {
+            printf("\nALL RANKS EQUAL\n") ;
+            return TRUE ;
+        }
+    }
     
     return FALSE ;
 }
@@ -236,7 +245,7 @@ static void play_from_hand(struct game_t *game, struct player_t *player,
     for (i = 0 ; i < ncards ; i++) {
         add_to_pile(game, to_lay[i]) ;
         remove_from_hand(player, to_lay[i]) ;
-        if (game->deck_size > 0)
+        if (game->deck_size > 0 && player->hand_size < game->num_cards_each)
             deal_to_hand(player, game->deck[game->deck_size--]) ;
     }
 }
