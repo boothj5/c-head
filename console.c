@@ -8,6 +8,7 @@
 static void show_players(struct player_t *players, int len) ;
 static void show_pile(struct card_t *cards, int ncards) ;
 static void show_deck(int num_cards) ;
+static void show_burnt(int num_cards) ;
 static void show_last_move(char *move) ;
 static int parse_choice(char choice[], int card_choices[], int *num_choices) ;
 
@@ -114,6 +115,12 @@ static void show_deck(int num_cards)
     newlines(2) ;
 }
 
+static void show_burnt(int num_cards) 
+{
+    printf("%d burnt", num_cards) ;
+    newlines(2) ;
+}
+
 static void show_pile(struct card_t *cards, int ncards)
 {   
     int i ;
@@ -185,6 +192,7 @@ void show_game_summary(struct game_t game)
 {
     show_pile(game.pile, game.pile_size) ;
     show_deck(game.deck_size) ;
+    show_burnt(game.burnt_size) ;
     show_players(game.players, game.num_players) ;
     show_last_move(game.last_move) ;
 }

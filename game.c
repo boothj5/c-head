@@ -33,6 +33,8 @@ static void set_last_move(struct game_t *game, char *name, struct card_t *cards,
 
 static void set_last_move_was_burn(struct game_t *game, char *name) ;
 
+static int burn_cards_laid(struct game_t *game) ;
+
 static void burn_pile(struct game_t *game) ;
 
 struct game_t make_game(int nplayers, char names[][MAX_NAME_LEN], int ncards)
@@ -98,7 +100,7 @@ void make_move(struct game_t *game, int card_choices[], int num_choices)
         play_from_face_down(game, player, to_lay, num_choices) ;
     }
     
-    if (game->pile[game->pile_size-1].rank == BURN) {
+    if (burn_cards_laid(game)) {
         burn_pile(game) ;
         set_last_move_was_burn(game, player->name) ;
     }
@@ -145,6 +147,27 @@ void pick_up_pile(struct game_t *game)
         deal_to_hand(player, game->pile[i]) ;
 
     game->pile_size = 0 ;
+}
+
+static int burn_cards_laid(struct game_t *game)
+{
+    struct card_t cards_on_pile[4] ;
+    int num_cards = 0 ;
+    int i ;
+
+    if (game->pile[game->pile_size-1].rank == BURN)
+        return TRUE ;
+
+    for (i = 0 ; i < 4 ; i++)
+        if (game->pile_size > i) {
+            cards_on_pile[i] = game->pile[game->pile_size-(i+1)] ;
+            num_cards++ ;
+        }
+
+    if (all_ranks_equal(cards_on_pile, num_cards))
+        return TRUE ;
+    
+    return FALSE ;
 }
 
 static void burn_pile(struct game_t *game)
