@@ -22,6 +22,7 @@ static void setup(void)
     player = &game.players[game.current_player] ;
 }
 
+// helper tests
 static void test_valid_card_on_card(struct card_t test_card, struct card_t pile_card)
 {
     setup() ;
@@ -44,6 +45,7 @@ static void test_not_valid_card_on_card(struct card_t test_card, struct card_t p
     assert_false(valid_move(game, choices, num_choices)) ;
 }
 
+// basic tests
 void test_valid_on_no_cards(void)
 {
     setup() ;
@@ -100,6 +102,7 @@ void test_not_valid_when_not_in_hand(void)
     assert_false(valid_move(game, choices, num_choices)) ;
 }
 
+// normal order tests
 void test_valid_four_on_three(void)
 {
     test_valid_card_on_card(make_card(FOUR, SPADES), make_card(THREE, HEARTS)) ; 
@@ -115,19 +118,15 @@ void test_not_valid_three_on_four(void)
     test_not_valid_card_on_card(make_card(THREE, SPADES), make_card(FOUR, HEARTS)) ; 
 }
 
+void test_valid_three_on_two(void)
+{
+    test_valid_card_on_card(make_card(THREE, SPADES), make_card(TWO, HEARTS)) ; 
+}
+
+// test two on anything
 void test_valid_two_on_nine(void)
 {
     test_valid_card_on_card(make_card(TWO, DIAMONDS), make_card(NINE, SPADES)) ; 
-}
-
-void test_valid_seven_on_queen(void)
-{
-    test_valid_card_on_card(make_card(SEVEN, DIAMONDS), make_card(QUEEN, SPADES)) ; 
-}
-
-void test_valid_ten_on_jack(void)
-{
-    test_valid_card_on_card(make_card(TEN, CLUBS), make_card(JACK, DIAMONDS)) ;
 }
 
 void test_valid_two_on_seven(void)
@@ -135,6 +134,29 @@ void test_valid_two_on_seven(void)
     test_valid_card_on_card(make_card(TWO, HEARTS), make_card(SEVEN, CLUBS)) ;
 }
 
+// test seven on anything
+void test_valid_seven_on_queen(void)
+{
+    test_valid_card_on_card(make_card(SEVEN, DIAMONDS), make_card(QUEEN, SPADES)) ; 
+}
+
+void test_valid_seven_on_two(void)
+{
+    test_valid_card_on_card(make_card(SEVEN, HEARTS), make_card(TWO, SPADES)) ;
+}
+
+//test ten on anything
+void test_valid_ten_on_jack(void)
+{
+    test_valid_card_on_card(make_card(TEN, CLUBS), make_card(JACK, DIAMONDS)) ;
+}
+
+void test_valid_ten_on_two(void)
+{
+    test_valid_card_on_card(make_card(TEN, CLUBS), make_card(TWO, DIAMONDS)) ;
+}
+
+// test laying on invisible
 void test_valid_six_on_seven_on_nothing(void)
 {
     setup() ;
@@ -168,10 +190,13 @@ void register_game_rules_tests(void)
     add_test(test_not_valid_when_not_in_hand, "test_not_valid_when_not_in_hand" ) ;
     add_test(test_valid_four_on_three, "test_valid_four_on_three" ) ;
     add_test(test_valid_three_on_three, "test_valid_three_on_three" ) ;
+    add_test(test_valid_three_on_two, "test_valid_three_on_two" ) ;
     add_test(test_not_valid_three_on_four, "test_not_valid_three_on_four" ) ;
     add_test(test_valid_two_on_nine, "test_valid_two_on_nine" ) ;
     add_test(test_valid_seven_on_queen, "test_valid_seven_on_queen" ) ;
+    add_test(test_valid_seven_on_two, "test_valid_seven_on_two" ) ;
     add_test(test_valid_ten_on_jack, "test_valid_ten_on_jack" ) ;
+    add_test(test_valid_ten_on_two, "test_valid_ten_on_two" ) ;
     add_test(test_valid_two_on_seven, "test_valid_two_on_seven" ) ;
     add_test(test_valid_six_on_seven_on_nothing, "test_valid_six_on_seven_on_nothing" ) ;
     add_test(test_valid_five_on_seven_on_three, "test_valid_five_on_seven_on_three" ) ;

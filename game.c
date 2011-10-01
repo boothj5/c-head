@@ -30,6 +30,11 @@ static void play_from_face_down(struct game_t *game, struct player_t *player,
 
 static void set_last_move(struct game_t *game, char *name, struct card_t *cards, 
                                                                    int ncards) ;
+
+static void set_last_move_was_burn(struct game_t *game, char *name) ;
+
+static void burn_pile(struct game_t *game) ;
+
 struct game_t make_game(int nplayers, char names[][MAX_NAME_LEN], int ncards)
 {
     int i ;    
@@ -38,6 +43,7 @@ struct game_t make_game(int nplayers, char names[][MAX_NAME_LEN], int ncards)
     game.num_players = nplayers ;
     game.num_cards_each = ncards ;
     game.pile_size = 0 ;
+    game.burnt_size = 0 ;
     game.current_player = 0 ;
     for(i = 0 ; i<nplayers ; i++)
         game.players[i] = make_player(names[i], HUMAN) ;
@@ -91,7 +97,14 @@ void make_move(struct game_t *game, int card_choices[], int num_choices)
             to_lay[i] = player->face_down[card_choices[i]] ;
         play_from_face_down(game, player, to_lay, num_choices) ;
     }
-    set_last_move(game, player->name, to_lay, num_choices) ;
+    
+    if (game->pile[game->pile_size-1].rank == BURN) {
+        burn_pile(game) ;
+        set_last_move_was_burn(game, player->name) ;
+    }
+    else {
+        set_last_move(game, player->name, to_lay, num_choices) ;
+    }
 }
 
 int continue_play(struct game_t game)
@@ -134,6 +147,16 @@ void pick_up_pile(struct game_t *game)
     game->pile_size = 0 ;
 }
 
+static void burn_pile(struct game_t *game)
+{
+    int i ;
+
+    for (i = 0 ; i < game->pile_size ; i++)
+        game->burnt[game->burnt_size++] = game->pile[i] ;
+    game->pile_size = 0 ;
+    game->current_player-- ;
+}
+
 static void set_last_move(struct game_t *game, char *name, 
                             struct card_t *cards, int ncards)
 {
@@ -150,6 +173,14 @@ static void set_last_move(struct game_t *game, char *name,
     }
     strcat(game->last_move, "\n") ;
 }
+
+static void set_last_move_was_burn(struct game_t *game, char *name)
+{
+    strcpy(game->last_move, "") ;
+    strcat(game->last_move, name) ;
+    strcat(game->last_move, " burnt the deck\n") ;
+}
+
 
 static void add_similar_cards(struct game_t *game, struct card_t lowest, 
         struct player_t *lowest_player, struct card_t *to_lay, int *ncards)
