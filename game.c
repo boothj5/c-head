@@ -155,23 +155,18 @@ static int burn_cards_laid(struct game_t *game)
     int num_cards = 0 ;
     int i ;
     
-    printf("\nPILE SIZE = %d\n", game->pile_size) ;
-
     if (game->pile_size > 0) {
         if (game->pile[game->pile_size-1].rank == BURN) {
-            printf("\nBURN CARD\n") ;
             return TRUE ;
         }
 
         for (i = 0 ; i < 4 ; i++)
             if (game->pile_size > i) {
-                printf("\nFOUND ON PILE %d\n", game->pile[game->pile_size-(i+1)].rank) ;
                 cards_on_pile[i] = game->pile[game->pile_size-(i+1)] ;
                 num_cards++ ;
             }
 
         if (num_cards == 4 && all_ranks_equal(cards_on_pile, num_cards)) {
-            printf("\nALL RANKS EQUAL\n") ;
             return TRUE ;
         }
     }

@@ -10,38 +10,51 @@ static int can_move_with_hand(struct player_t player, struct card_t *pile, int p
 
 static int can_move_with_face_up(struct player_t player, struct card_t *pile, int pile_size) ;
 
+static int valid_move_with_given_hand(struct game_t game, int card_choices[], 
+                     int num_choices, struct card_t *cards, int cards_size) ;
+
 int valid_move(struct game_t game, int card_choices[], int num_choices)
+{
+    struct player_t *player = &game.players[game.current_player] ;
+
+    if (player->hand_size > 0)
+        return valid_move_with_given_hand(game, card_choices, num_choices,
+                                            player->hand, player->hand_size) ;
+    else if (player->face_up_size > 0)
+        return valid_move_with_given_hand(game, card_choices, num_choices,
+                                            player->face_up, player->face_up_size) ;
+    else
+        return FALSE ;
+}
+
+static int valid_move_with_given_hand(struct game_t game, int card_choices[], 
+                    int num_choices, struct card_t *cards, int cards_size)
 {
     struct card_t to_lay[50] ;
     int num_to_lay = 0 ;
-    int i ;
-    struct player_t *player = &game.players[game.current_player] ;
+    int i = 0 ;
 
-    // return false if no choices
-    if (num_choices == 0) 
+    // return false if number chosen greater than num cards in hand
+    if (num_choices > cards_size)
         return FALSE ;
-
-    // return false if number chosen greater than hand size
-    if (num_choices > player->hand_size) 
-        return FALSE ;
-    // return false if any of the choices are bigger than the hand size    
-    for (i = 0 ; i < num_choices ; i++) 
-        if (card_choices[i] >= player->hand_size)
-            return FALSE ;
     
+    // return false if any choices ourside card array bounds
+    for (i = 0 ; i < num_choices ; i++)
+        if (card_choices[i] >= cards_size)
+            return FALSE ;
+
     // get the cards to lay
     for (i = 0 ; i < num_choices ; i++)
-        to_lay[num_to_lay++] = player->hand[card_choices[i]] ;
-    
+        to_lay[num_to_lay++] = cards[card_choices[i]] ;
+        
     // return false if the cards are not of the same rank
     if (!all_ranks_equal(to_lay, num_to_lay))
         return FALSE ;
 
     // return false if the first card cannot be laid
-    if (!can_lay(player->hand[card_choices[0]], game.pile, game.pile_size))
+    if (!can_lay(cards[card_choices[0]], game.pile, game.pile_size))
         return FALSE ;
-  
-    // return true otherwise    
+
     return TRUE ;
 }
 
