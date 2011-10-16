@@ -27,6 +27,24 @@ int valid_move(struct game_t game, int card_choices[], int num_choices)
         return FALSE ;
 }
 
+int can_move(struct game_t game)
+{
+    struct player_t player = game.players[game.current_player] ;
+
+    if (player.hand_size > 0) 
+        if (can_move_with_hand(player, game.pile, game.pile_size))
+            return TRUE ;
+        else
+            return FALSE ;
+    else if (player.face_up_size > 0) 
+        if (can_move_with_face_up(player, game.pile, game.pile_size))
+            return TRUE ;
+        else
+            return FALSE ;
+    else 
+        return FALSE ;
+}
+
 static int valid_move_with_given_hand(struct game_t game, int card_choices[], 
                     int num_choices, struct card_t *cards, int cards_size)
 {
@@ -56,24 +74,6 @@ static int valid_move_with_given_hand(struct game_t game, int card_choices[],
         return FALSE ;
 
     return TRUE ;
-}
-
-int can_move(struct game_t game)
-{
-    struct player_t player = game.players[game.current_player] ;
-
-    if (player.hand_size > 0) 
-        if (can_move_with_hand(player, game.pile, game.pile_size))
-            return TRUE ;
-        else
-            return FALSE ;
-    else if (player.face_up_size > 0) 
-        if (can_move_with_face_up(player, game.pile, game.pile_size))
-            return TRUE ;
-        else
-            return FALSE ;
-    else 
-        return FALSE ;
 }
 
 static int can_lay(struct card_t card, struct card_t *pile, int pile_size)

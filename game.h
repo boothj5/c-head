@@ -21,6 +21,7 @@ struct game_t {
     struct card_t pile[MAX_DECK_SIZE] ;
     struct card_t burnt[MAX_DECK_SIZE] ;
     char last_move[MAX_LAST_MOVE] ;
+    int miss_a_go ;
 } ;
 
 struct game_t make_game(int nplayers, 
