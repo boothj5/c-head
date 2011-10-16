@@ -43,6 +43,8 @@ static void set_last_move_was_miss_a_go(struct game_t *game, char *name) ;
 
 static void set_last_move_pickup(struct game_t *game, char *name) ;
 
+static void update_last_move(struct game_t *game, struct card_t *cards, int ncards) ;
+
 struct game_t make_game(int nplayers, char names[][MAX_NAME_LEN], int ncards)
 {
     int i ;    
@@ -106,7 +108,14 @@ void make_move(struct game_t *game, int card_choices[], int num_choices)
             to_lay[i] = player->face_down[card_choices[i]] ;
         play_from_face_down(game, player, to_lay, num_choices) ;
     }
-    
+   
+    update_last_move(game, to_lay, num_choices) ;
+}
+
+static void update_last_move(struct game_t *game, struct card_t *cards, int ncards)
+{
+    struct player_t *player = &game->players[game->current_player] ;
+
     if (burn_cards_laid(game)) {
         burn_pile(game) ;
         set_last_move_was_burn(game, player->name) ;
@@ -116,7 +125,7 @@ void make_move(struct game_t *game, int card_choices[], int num_choices)
         set_last_move_was_miss_a_go(game, player->name) ;
     }
     else {
-        set_last_move(game, player->name, to_lay, num_choices) ;
+        set_last_move(game, player->name, cards, ncards) ;
     }
 }
 
