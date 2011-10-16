@@ -5,6 +5,7 @@
 #include "card.h"
 #include "util.h"
 #include "game_rules.h"
+#include "last_move.h"
 
 static int calc_deck_size(struct game_t game) ;
 static void create_deck(struct game_t *game) ;
@@ -28,20 +29,11 @@ static void play_from_face_up(struct game_t *game, struct player_t *player,
 static void play_from_face_down(struct game_t *game, struct player_t *player,
                                         struct card_t *to_lay, int ncards) ;
 
-static void set_last_move(struct game_t *game, char *name, struct card_t *cards, 
-                                                                   int ncards) ;
-
-static void set_last_move_was_burn(struct game_t *game, char *name) ;
-
 static int burn_cards_laid(struct game_t *game) ;
 
 static void burn_pile(struct game_t *game) ;
 
 static int miss_a_go_card_laid(struct game_t *game) ;
-
-static void set_last_move_was_miss_a_go(struct game_t *game, char *name) ;
-
-static void set_last_move_pickup(struct game_t *game, char *name) ;
 
 static void update_last_move(struct game_t *game, struct card_t *cards, int ncards) ;
 
@@ -84,7 +76,7 @@ void first_move(struct game_t *game)
     add_similar_cards(game, lowest, player, to_lay, &num_to_lay) ;
     play_from_hand(game, player, to_lay, num_to_lay) ;
     move_to_next_player(game) ;
-    set_last_move(game, player->name, to_lay, num_to_lay) ;
+    set_last_move(game->last_move, player->name, to_lay, num_to_lay) ;
 }
 
 void make_move(struct game_t *game, int card_choices[], int num_choices)
@@ -118,14 +110,14 @@ static void update_last_move(struct game_t *game, struct card_t *cards, int ncar
 
     if (burn_cards_laid(game)) {
         burn_pile(game) ;
-        set_last_move_was_burn(game, player->name) ;
+        set_last_move_was_burn(game->last_move, player->name) ;
     }
     else if (miss_a_go_card_laid(game)) {
         game->miss_a_go = TRUE ;
-        set_last_move_was_miss_a_go(game, player->name) ;
+        set_last_move_was_miss_a_go(game->last_move, player->name) ;
     }
     else {
-        set_last_move(game, player->name, cards, ncards) ;
+        set_last_move(game->last_move, player->name, cards, ncards) ;
     }
 }
 
@@ -175,7 +167,7 @@ void pick_up_pile(struct game_t *game)
         deal_to_hand(player, game->pile[i]) ;
 
     game->pile_size = 0 ;
-    set_last_move_pickup(game, player->name) ;
+    set_last_move_pickup(game->last_move, player->name) ;
 }
 
 static int burn_cards_laid(struct game_t *game)
@@ -219,44 +211,6 @@ static void burn_pile(struct game_t *game)
         game->burnt[game->burnt_size++] = game->pile[i] ;
     game->pile_size = 0 ;
     game->current_player-- ;
-}
-
-static void set_last_move(struct game_t *game, char *name, 
-                            struct card_t *cards, int ncards)
-{
-    int i ;
-    
-    strcpy(game->last_move, "") ;
-    strcat(game->last_move, name) ;
-    strcat(game->last_move, " laid: ") ;
-    for (i = 0 ; i < ncards ; i++) {
-        strcat(game->last_move, show_rank(cards[i])) ;
-        strcat(game->last_move, " of ") ;
-        strcat(game->last_move, show_suit(cards[i])) ;
-        strcat(game->last_move, ", ") ;
-    }
-    strcat(game->last_move, "\n") ;
-}
-
-static void set_last_move_was_burn(struct game_t *game, char *name)
-{
-    strcpy(game->last_move, "") ;
-    strcat(game->last_move, name) ;
-    strcat(game->last_move, " burnt the deck\n") ;
-}
-
-static void set_last_move_pickup(struct game_t *game, char *name)
-{
-    strcpy(game->last_move, "") ;
-    strcat(game->last_move, name) ;
-    strcat(game->last_move, " picked up\n") ;
-}
-
-static void set_last_move_was_miss_a_go(struct game_t *game, char *name)
-{
-    strcpy(game->last_move, "") ;
-    strcat(game->last_move, name) ;
-    strcat(game->last_move, " layed miss a go card\n") ;
 }
 
 static void add_similar_cards(struct game_t *game, struct card_t lowest, 
