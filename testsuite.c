@@ -7,6 +7,7 @@ int main(void)
     register_player_tests() ;
     register_game_rules_tests() ;
     register_game_tests() ;
+    register_last_move_tests() ;
     run_tests() ;
     return 0 ;
 }
