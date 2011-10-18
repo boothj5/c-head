@@ -66,7 +66,6 @@ static void perform_move(struct game_t *game)
         clearscreen() ;
         show_game_summary(*game) ;
         move_to_next_player(game) ;
-            
     }
 }
 

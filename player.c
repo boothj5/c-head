@@ -64,9 +64,8 @@ void remove_from_face_down(struct player_t *p, struct card_t c)
         }
 }
 
-void find_lowest_card_by_player(struct player_t *ps, 
-                                int nplayers, 
-                                struct card_t *cs)
+void find_lowest_card_by_player(struct player_t *ps, int nplayers,
+        struct card_t *cs)
 {
     int i ;
     for (i = 0 ; i < nplayers ; i++)

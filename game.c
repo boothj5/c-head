@@ -4,6 +4,8 @@
 #include "game.h"
 #include "card.h"
 #include "util.h"
+#include "pile.h"
+
 #include "game_rules.h"
 #include "last_move.h"
 
@@ -11,30 +13,18 @@ static int calc_deck_size(struct game_t game) ;
 static void create_deck(struct game_t *game) ;
 static void deal(struct game_t *game) ;
 static void shuffle(struct game_t *game) ;
-
 static int find_lowest_player(struct game_t *game, struct card_t lowest, 
-                                        struct card_t *lowest_by_player) ;
-
+        struct card_t *lowest_by_player) ;
 static void add_to_pile(struct game_t *game, struct card_t c) ;
-
 static void add_similar_cards(struct game_t *game, struct card_t lowest, 
-    struct player_t *lowest_player, struct card_t *to_lay, int *ncards) ;
-
+        struct player_t *lowest_player, struct card_t *to_lay, int *ncards) ;
 static void play_from_hand(struct game_t *game, struct player_t *player,
-                                        struct card_t *to_lay, int ncards) ;
-
+        struct card_t *to_lay, int ncards) ;
 static void play_from_face_up(struct game_t *game, struct player_t *player,
-                                        struct card_t *to_lay, int ncards) ;
-
+        struct card_t *to_lay, int ncards) ;
 static void play_from_face_down(struct game_t *game, struct player_t *player,
-                                        struct card_t *to_lay, int ncards) ;
-
-static int burn_cards_laid(struct game_t *game) ;
-
+        struct card_t *to_lay, int ncards) ;
 static void burn_pile(struct game_t *game) ;
-
-static int miss_a_go_card_laid(struct game_t *game) ;
-
 static void update_last_move(struct game_t *game, struct card_t *cards, int ncards) ;
 
 struct game_t make_game(int nplayers, char names[][MAX_NAME_LEN], int ncards)
@@ -108,11 +98,11 @@ static void update_last_move(struct game_t *game, struct card_t *cards, int ncar
 {
     struct player_t *player = &game->players[game->current_player] ;
 
-    if (burn_cards_laid(game)) {
+    if (burn_cards_laid(game->pile, game->pile_size)) {
         burn_pile(game) ;
         set_last_move_was_burn(game->last_move, player->name) ;
     }
-    else if (miss_a_go_card_laid(game)) {
+    else if (miss_a_go_card_laid(game->pile, game->pile_size)) {
         game->miss_a_go = TRUE ;
         set_last_move_was_miss_a_go(game->last_move, player->name) ;
     }
@@ -168,39 +158,6 @@ void pick_up_pile(struct game_t *game)
 
     game->pile_size = 0 ;
     set_last_move_pickup(game->last_move, player->name) ;
-}
-
-static int burn_cards_laid(struct game_t *game)
-{
-    struct card_t cards_on_pile[4] ;
-    int num_cards = 0 ;
-    int i ;
-    
-    if (game->pile_size > 0) {
-        if (game->pile[game->pile_size-1].rank == BURN) {
-            return TRUE ;
-        }
-
-        for (i = 0 ; i < 4 ; i++)
-            if (game->pile_size > i) {
-                cards_on_pile[i] = game->pile[game->pile_size-(i+1)] ;
-                num_cards++ ;
-            }
-
-        if (num_cards == 4 && all_ranks_equal(cards_on_pile, num_cards)) {
-            return TRUE ;
-        }
-    }
-    
-    return FALSE ;
-}
-
-static int miss_a_go_card_laid(struct game_t *game)
-{
-    if (game->pile_size > 0)
-        if (game->pile[game->pile_size-1].rank == MISSAGO)
-            return TRUE ;
-    return FALSE ;
 }
 
 static void burn_pile(struct game_t *game)

@@ -8,3 +8,7 @@
 *.o
 c-head
 testsuite
+.cproject
+.project
+.settings/
+

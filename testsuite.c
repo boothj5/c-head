@@ -8,6 +8,7 @@ int main(void)
     register_game_rules_tests() ;
     register_game_tests() ;
     register_last_move_tests() ;
+    register_pile_tests() ;
     run_tests() ;
     return 0 ;
 }
