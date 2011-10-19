@@ -1,6 +1,7 @@
 #include <string.h>
 #include "player.h"
 #include "util.h"
+#include "card.h"
 
 struct player_t make_player(char *name, int type) 
 {
@@ -13,55 +14,34 @@ struct player_t make_player(char *name, int type)
     return player ;
 }
 
-void deal_to_hand(struct player_t *p, struct card_t c)
+void deal_to_hand(struct player_t *player, struct card_t card)
 {
-    p->hand[p->hand_size++] = c ;
+    add_card_to_cards(player->hand, &player->hand_size, card);
 }
 
-void deal_to_face_up(struct player_t *p, struct card_t c)
+void deal_to_face_up(struct player_t *player, struct card_t card)
 {
-    p->face_up[p->face_up_size++] = c ;
+    add_card_to_cards(player->face_up, &player->face_up_size, card);
 }
 
-void deal_to_face_down(struct player_t *p, struct card_t c)
+void deal_to_face_down(struct player_t *player, struct card_t card)
 {
-    p->face_down[p->face_down_size++] = c ;
+    add_card_to_cards(player->face_down, &player->face_down_size, card);
 }
 
-void remove_from_hand(struct player_t *p, struct card_t c)
+void remove_from_hand(struct player_t *player, struct card_t card)
 {
-    int i, j ;
-    for (i = 0 ; i < p->hand_size ; i++)
-        if (cards_equal(p->hand[i], c)) {
-            for (j = i+1 ; j < p->hand_size ; j++)
-                p->hand[j-1] = p->hand[j] ;
-            p->hand_size-- ;
-            break ;
-        }
+    remove_card_from_cards(player->hand, &player->hand_size, card);
 }
 
-void remove_from_face_up(struct player_t *p, struct card_t c)
+void remove_from_face_up(struct player_t *player, struct card_t card)
 {
-    int i, j ;
-    for (i = 0 ; i < p->face_up_size ; i++)
-        if (cards_equal(p->face_up[i], c)) {
-            for (j = i+1 ; j < p->face_up_size ; j++)
-                p->face_up[j-1] = p->face_up[j] ;
-            p->face_up_size-- ;
-            break ;
-        }
+    remove_card_from_cards(player->face_up, &player->face_up_size, card);
 }
 
-void remove_from_face_down(struct player_t *p, struct card_t c)
+void remove_from_face_down(struct player_t *player, struct card_t card)
 {
-    int i, j ;
-    for (i = 0 ; i < p->face_down_size ; i++)
-        if (cards_equal(p->face_down[i], c)) {
-            for (j = i+1 ; j < p->face_down_size ; j++)
-                p->face_down[j-1] = p->face_down[j] ;
-            p->face_down_size-- ;
-            break ;
-        }
+    remove_card_from_cards(player->face_down, &player->face_down_size, card);
 }
 
 void find_lowest_card_by_player(struct player_t *ps, int nplayers,

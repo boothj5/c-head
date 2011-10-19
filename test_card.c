@@ -129,6 +129,78 @@ void test_all_ranks_not_equal(void)
     assert_false(all_ranks_equal(cards, 4)) ;
 }
 
+void test_remove_card_from_cards_decrements_size(void)
+{
+    int num_cards = 5 ;
+    struct card_t cards[num_cards] ;
+    cards[0] = make_card(THREE, DIAMONDS) ;
+    cards[1] = make_card(TWO, DIAMONDS) ;
+    cards[2] = make_card(NINE, HEARTS) ;
+    cards[3] = make_card(SEVEN, SPADES) ;
+    cards[4] = make_card(JACK, CLUBS) ;
+    remove_card_from_cards(cards, &num_cards, make_card(NINE, HEARTS)) ;
+
+    assert_int_equals(4, num_cards) ;
+}
+
+void test_remove_card_from_cards_removes_card(void)
+{
+    int num_cards = 5 ;
+    struct card_t cards[num_cards] ;
+    cards[0] = make_card(THREE, DIAMONDS) ;
+    cards[1] = make_card(TWO, DIAMONDS) ;
+    cards[2] = make_card(NINE, HEARTS) ;
+    cards[3] = make_card(SEVEN, SPADES) ;
+    cards[4] = make_card(JACK, CLUBS) ;
+    remove_card_from_cards(cards, &num_cards, make_card(NINE, HEARTS)) ;
+
+    int i ;
+    int found = 0 ;
+    for (i = 0 ; i < num_cards ; i++) {
+        if (cards_equal(cards[i], make_card(NINE, HEARTS))) {
+            found = 1 ;
+            break ;
+        }
+    }
+    assert_false(found) ;
+}
+
+void test_add_card_to_cards_increments_size(void)
+{
+    int num_cards = 5 ;
+    struct card_t cards[num_cards] ;
+    cards[0] = make_card(THREE, DIAMONDS) ;
+    cards[1] = make_card(TWO, DIAMONDS) ;
+    cards[2] = make_card(NINE, HEARTS) ;
+    cards[3] = make_card(SEVEN, SPADES) ;
+    cards[4] = make_card(JACK, CLUBS) ;
+    add_card_to_cards(cards, &num_cards, make_card(ACE, HEARTS)) ;
+
+    assert_int_equals(6, num_cards) ;
+}
+
+void test_add_card_to_cards_adds_card(void)
+{
+    int num_cards = 5 ;
+    struct card_t cards[num_cards] ;
+    cards[0] = make_card(THREE, DIAMONDS) ;
+    cards[1] = make_card(TWO, DIAMONDS) ;
+    cards[2] = make_card(NINE, HEARTS) ;
+    cards[3] = make_card(SEVEN, SPADES) ;
+    cards[4] = make_card(JACK, CLUBS) ;
+    add_card_to_cards(cards, &num_cards, make_card(TWO, SPADES)) ;
+
+    int i ;
+    int found = 0 ;
+    for (i = 0 ; i < num_cards ; i++) {
+        if (cards_equal(cards[i], make_card(TWO, SPADES))) {
+            found = 1 ;
+            break ;
+        }
+    }
+    assert_true(found) ;
+}
+
 void register_card_tests()
 {
     add_suite("test_card") ;
@@ -146,5 +218,9 @@ void register_card_tests()
     add_test(test_ranks_not_equal, "test_ranks_not_equal") ;
     add_test(test_all_ranks_equal, "test_all_ranks_equal") ;
     add_test(test_all_ranks_not_equal, "test_all_ranks_not_equal") ;
+    add_test(test_remove_card_from_cards_decrements_size, "test_remove_card_from_cards_decrements_size") ;
+    add_test(test_remove_card_from_cards_removes_card, "test_remove_card_from_cards_removes_card") ;
+    add_test(test_add_card_to_cards_increments_size, "test_add_card_to_cards_increments_size") ;
+    add_test(test_add_card_to_cards_adds_card, "test_add_card_to_cards_adds_card") ;
 }
 

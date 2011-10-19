@@ -9,19 +9,19 @@ struct card_t make_card(enum cardrank rank, enum cardsuit suit)
     return card ;
 }
 
-struct card_t find_lowest_card(struct card_t *cards, int ncards)
+struct card_t find_lowest_card(struct card_t *cards, int num_cards)
 {
     struct card_t lowest = cards[0] ; 
     int i ;
-    for (i = 1 ; i < ncards ; i++)
+    for (i = 1 ; i < num_cards; i++)
         if (card_cmp(cards[i], lowest) < 0)
             lowest = cards[i] ;
     return lowest ;
 }
 
-int special_card(struct card_t c) 
+int special_card(struct card_t card)
 {
-    switch(c.rank) {
+    switch(card.rank) {
     case TWO:
         return TRUE ;
     case SEVEN:
@@ -33,30 +33,30 @@ int special_card(struct card_t c)
     }
 }
 
-int card_cmp(struct card_t c1, struct card_t c2)
+int card_cmp(struct card_t card1, struct card_t card2)
 {   
-    if (special_card(c1) && special_card(c2))
+    if (special_card(card1) && special_card(card2))
         return EQ ;
-    else if (special_card(c1) && !special_card(c2))
+    else if (special_card(card1) && !special_card(card2))
         return GT ;
-    else if (special_card(c2))
+    else if (special_card(card2))
         return LT ;
-    else if (c1.rank == c2.rank)
+    else if (card1.rank == card2.rank)
         return EQ ;
-    else if (c1.rank < c2.rank)
+    else if (card1.rank < card2.rank)
         return LT ;
     else
         return GT ;
 }
 
-int cards_equal(struct card_t c1, struct card_t c2)
+int cards_equal(struct card_t card1, struct card_t card2)
 {
-    return ((c1.rank == c2.rank) && (c1.suit == c2.suit)) ;
+    return ((card1.rank == card2.rank) && (card1.suit == card2.suit)) ;
 }
 
-int ranks_equal(struct card_t c1, struct card_t c2)
+int ranks_equal(struct card_t card1, struct card_t card2)
 {
-    return ((c1.rank == c2.rank)) ;
+    return ((card1.rank == card2.rank)) ;
 }
 
 int all_ranks_equal(struct card_t *cards, int num_cards) 
@@ -70,9 +70,9 @@ int all_ranks_equal(struct card_t *cards, int num_cards)
     return TRUE ;
 }
 
-char* show_rank(struct card_t c)
+char* show_rank(struct card_t card)
 {
-    switch(c.rank) {
+    switch(card.rank) {
     case TWO:
         return "TWO" ;
     case THREE:
@@ -104,9 +104,9 @@ char* show_rank(struct card_t c)
     }
 }
 
-char* show_suit(struct card_t c)
+char* show_suit(struct card_t card)
 {
-    switch(c.suit) {
+    switch(card.suit) {
     case HEARTS:
         return "HEARTS" ;
     case DIAMONDS:
@@ -119,3 +119,22 @@ char* show_suit(struct card_t c)
         return "ERROR!!!!" ;
     } 
 }
+
+void add_card_to_cards(struct card_t cards[], int *num_cards, struct card_t card)
+{
+    cards[(*num_cards)++] = card;
+}
+
+void remove_card_from_cards(struct card_t cards[], int *num_cards, struct card_t card)
+{
+    int i, j;
+    for(i = 0;i < *num_cards;i++) {
+        if(cards_equal(cards[i], card)) {
+            for(j = i + 1;j < *num_cards;j++)
+                cards[j - 1] = cards[j];
+            (*num_cards)--;
+            break;
+        }
+    }
+}
+
