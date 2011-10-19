@@ -44,21 +44,21 @@ void remove_from_face_down(struct player_t *player, struct card_t card)
     remove_card_from_cards(player->face_down, &player->face_down_size, card);
 }
 
-void find_lowest_card_by_player(struct player_t *ps, int nplayers,
-        struct card_t *cs)
+void find_lowest_card_by_player(struct player_t *players, int num_players,
+        struct card_t *cards)
 {
     int i ;
-    for (i = 0 ; i < nplayers ; i++)
-        cs[i] = find_lowest_card(ps[i].hand, ps[i].hand_size) ;
+    for (i = 0 ; i < num_players ; i++)
+        cards[i] = find_lowest_card(players[i].hand, players[i].hand_size) ;
 }
 
-void swap(struct player_t *p, int hand_c, int faceup_c)
+void swap(struct player_t *player, int hand_index, int faceup_index)
 {
     struct card_t temp ;
 
-    temp = p->hand[hand_c-1] ;
-    p->hand[hand_c-1] = p->face_up[faceup_c-1] ;
-    p->face_up[faceup_c-1] = temp ;
+    temp = player->hand[hand_index-1] ;
+    player->hand[hand_index-1] = player->face_up[faceup_index-1] ;
+    player->face_up[faceup_index-1] = temp ;
 }
 
 int has_cards(struct player_t player)
