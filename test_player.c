@@ -46,69 +46,69 @@ void test_lowest_card_by_player(void)
 void swap_first_two_cards(void)
 {
     struct player_t james = make_player("James", HUMAN) ;
+    deal_to_hand(&james, make_card(FOUR, SPADES)) ;
     deal_to_hand(&james, make_card(TEN, DIAMONDS)) ;
     deal_to_hand(&james, make_card(SEVEN, HEARTS)) ;
-    deal_to_hand(&james, make_card(FOUR, SPADES)) ;   
     
+    deal_to_face_up(&james, make_card(THREE, DIAMONDS)) ;
     deal_to_face_up(&james, make_card(NINE, DIAMONDS)) ;
     deal_to_face_up(&james, make_card(ACE, CLUBS)) ;
-    deal_to_face_up(&james, make_card(THREE, DIAMONDS)) ;
 
     swap(&james, 1, 1) ;
     
-    assert_true(cards_equal(james.hand[0], make_card(NINE, DIAMONDS))) ;
-    assert_true(cards_equal(james.face_up[0], make_card(TEN, DIAMONDS))) ;
+    assert_true(cards_equal(james.hand[0], make_card(THREE, DIAMONDS))) ;
+    assert_true(cards_equal(james.face_up[0], make_card(FOUR, SPADES))) ;
 }
 
 void swap_last_two_cards(void)
 {
     struct player_t james = make_player("James", HUMAN) ;
-    deal_to_hand(&james, make_card(TEN, DIAMONDS)) ;
+    deal_to_hand(&james, make_card(FOUR, SPADES)) ;
+    deal_to_hand(&james, make_card(ACE, DIAMONDS)) ;
     deal_to_hand(&james, make_card(SEVEN, HEARTS)) ;
-    deal_to_hand(&james, make_card(FOUR, SPADES)) ;   
     
     deal_to_face_up(&james, make_card(NINE, DIAMONDS)) ;
     deal_to_face_up(&james, make_card(ACE, CLUBS)) ;
-    deal_to_face_up(&james, make_card(THREE, DIAMONDS)) ;
+    deal_to_face_up(&james, make_card(TWO, DIAMONDS)) ;
 
     swap(&james, 3, 3) ;
     
-    assert_true(cards_equal(james.hand[2], make_card(THREE, DIAMONDS))) ;
-    assert_true(cards_equal(james.face_up[2], make_card(FOUR, SPADES))) ;
+    assert_true(cards_equal(james.hand[2], make_card(TWO, DIAMONDS))) ;
+    assert_true(cards_equal(james.face_up[2], make_card(SEVEN, HEARTS))) ;
 }
 
 void swap_first_and_last(void)
 {
     struct player_t james = make_player("James", HUMAN) ;
-    deal_to_hand(&james, make_card(TEN, DIAMONDS)) ;
-    deal_to_hand(&james, make_card(SEVEN, HEARTS)) ;
-    deal_to_hand(&james, make_card(FOUR, SPADES)) ;   
+    deal_to_hand(&james, make_card(FOUR, SPADES)) ;
+    deal_to_hand(&james, make_card(FIVE, DIAMONDS)) ;
+    deal_to_hand(&james, make_card(SIX, HEARTS)) ;
     
-    deal_to_face_up(&james, make_card(NINE, DIAMONDS)) ;
-    deal_to_face_up(&james, make_card(ACE, CLUBS)) ;
-    deal_to_face_up(&james, make_card(THREE, DIAMONDS)) ;
+    deal_to_face_up(&james, make_card(EIGHT, DIAMONDS)) ;
+    deal_to_face_up(&james, make_card(NINE, CLUBS)) ;
+    deal_to_face_up(&james, make_card(JACK, DIAMONDS)) ;
 
     swap(&james, 1, 3) ;
     
-    assert_true(cards_equal(james.hand[0], make_card(THREE, DIAMONDS))) ;
-    assert_true(cards_equal(james.face_up[2], make_card(TEN, DIAMONDS))) ;
+    assert_true(cards_equal(james.hand[2], make_card(JACK, DIAMONDS))) ;
+    assert_true(cards_equal(james.face_up[2], make_card(FOUR, SPADES))) ;
 }
 
 void swap_middle_cards(void)
 {
     struct player_t james = make_player("James", HUMAN) ;
-    deal_to_hand(&james, make_card(TEN, DIAMONDS)) ;
-    deal_to_hand(&james, make_card(SEVEN, HEARTS)) ;
-    deal_to_hand(&james, make_card(FOUR, SPADES)) ;   
+    deal_to_hand(&james, make_card(FOUR, SPADES)) ;
+    deal_to_hand(&james, make_card(FIVE, DIAMONDS)) ;
+    deal_to_hand(&james, make_card(SIX, HEARTS)) ;
     
-    deal_to_face_up(&james, make_card(NINE, DIAMONDS)) ;
-    deal_to_face_up(&james, make_card(ACE, CLUBS)) ;
-    deal_to_face_up(&james, make_card(THREE, DIAMONDS)) ;
+    deal_to_face_up(&james, make_card(EIGHT, DIAMONDS)) ;
+    deal_to_face_up(&james, make_card(NINE, CLUBS)) ;
+    deal_to_face_up(&james, make_card(JACK, DIAMONDS)) ;
 
     swap(&james, 2, 2) ;
     
-    assert_true(cards_equal(james.hand[1], make_card(ACE, CLUBS))) ;
-    assert_true(cards_equal(james.face_up[1], make_card(SEVEN, HEARTS))) ;
+    assert_true(cards_equal(james.hand[2], make_card(NINE, CLUBS))) ;
+    assert_true(cards_equal(james.face_up[1], make_card(FIVE, DIAMONDS))) ;
 }
 
 void test_has_cards_when_hand_does(void)

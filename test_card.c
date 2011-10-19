@@ -201,6 +201,25 @@ void test_add_card_to_cards_adds_card(void)
     assert_true(found) ;
 }
 
+void test_sort_cards(void) {
+    int num_cards = 5 ;
+    struct card_t cards[num_cards] ;
+
+    cards[0] = make_card(ACE, DIAMONDS) ;
+    cards[1] = make_card(THREE, HEARTS) ;
+    cards[2] = make_card(TWO, SPADES) ;
+    cards[3] = make_card(KING, CLUBS) ;
+    cards[4] = make_card(EIGHT, SPADES) ;
+
+    sort_cards(cards, num_cards) ;
+
+    assert_true(cards_equal(cards[0], make_card(THREE, HEARTS)) &&
+                cards_equal(cards[1], make_card(EIGHT, SPADES)) &&
+                cards_equal(cards[2], make_card(KING, CLUBS)) &&
+                cards_equal(cards[3], make_card(ACE, DIAMONDS)) &&
+                cards_equal(cards[4], make_card(TWO, SPADES)) ) ;
+}
+
 void register_card_tests()
 {
     add_suite("test_card") ;
@@ -222,5 +241,6 @@ void register_card_tests()
     add_test(test_remove_card_from_cards_removes_card, "test_remove_card_from_cards_removes_card") ;
     add_test(test_add_card_to_cards_increments_size, "test_add_card_to_cards_increments_size") ;
     add_test(test_add_card_to_cards_adds_card, "test_add_card_to_cards_adds_card") ;
+    add_test(test_sort_cards, "test_sort_cards") ;
 }
 

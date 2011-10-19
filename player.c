@@ -17,6 +17,7 @@ struct player_t make_player(const char *name, const int type)
 void deal_to_hand(struct player_t *player, const struct card_t card)
 {
     add_card_to_cards(player->hand, &player->hand_size, card);
+    sort_cards(player->hand, player->hand_size) ;
 }
 
 void deal_to_face_up(struct player_t *player, const struct card_t card)
@@ -59,6 +60,8 @@ void swap(struct player_t *player, const int hand_index, const int faceup_index)
     temp = player->hand[hand_index-1] ;
     player->hand[hand_index-1] = player->face_up[faceup_index-1] ;
     player->face_up[faceup_index-1] = temp ;
+    sort_cards(player->hand, player->hand_size) ;
+
 }
 
 int has_cards(const struct player_t player)

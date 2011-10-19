@@ -268,6 +268,10 @@ static void deal(struct game_t *game)
             deal_to_face_down(player, game->deck[--game->deck_size]) ;
         }
     }
+    for (i = 0 ; i < game->num_players ; i++) {
+        sort_cards(game->players[i].hand, game->players[i].hand_size) ;
+    }
+
 }
 
 static int calc_deck_size(const struct game_t game)

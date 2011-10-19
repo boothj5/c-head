@@ -1,3 +1,4 @@
+#include "stdlib.h"
 #include "card.h"
 #include "util.h"
 
@@ -14,7 +15,7 @@ struct card_t find_lowest_card(const struct card_t *cards, const int num_cards)
     struct card_t lowest = cards[0] ;
     int i ;
     for (i = 1 ; i < num_cards; i++)
-        if (card_cmp(cards[i], lowest) < 0)
+        if (card_cmp(&cards[i], &lowest) < 0)
             lowest = cards[i] ;
     return lowest ;
 }
@@ -33,17 +34,20 @@ int special_card(const struct card_t card)
     }
 }
 
-int card_cmp(const struct card_t card1, const struct card_t card2)
+int card_cmp(const void *card1, const void *card2)
 {   
-    if (special_card(card1) && special_card(card2))
+    const struct card_t *icard1 = (const struct card_t *) card1 ;
+    const struct card_t *icard2 = (const struct card_t *) card2 ;
+
+    if (special_card(*icard1) && special_card(*icard2))
         return EQ ;
-    else if (special_card(card1) && !special_card(card2))
+    else if (special_card(*icard1) && !special_card(*icard2))
         return GT ;
-    else if (special_card(card2))
+    else if (special_card(*icard2))
         return LT ;
-    else if (card1.rank == card2.rank)
+    else if (icard1->rank == icard2->rank)
         return EQ ;
-    else if (card1.rank < card2.rank)
+    else if (icard1->rank < icard2->rank)
         return LT ;
     else
         return GT ;
@@ -136,5 +140,9 @@ void remove_card_from_cards(struct card_t cards[], int *num_cards, const struct 
             break;
         }
     }
+}
+
+void sort_cards(struct card_t *cards, const int num_cards) {
+    qsort(cards, num_cards, sizeof(struct card_t), card_cmp) ;
 }
 

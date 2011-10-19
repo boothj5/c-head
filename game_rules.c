@@ -81,9 +81,9 @@ static int can_lay(const struct card_t card, const struct card_t *pile, const in
         return TRUE ;
     else if (pile[pile_size-1].rank == INVISIBLE)
         return can_lay(card, pile, pile_size-1) ;
-    else if (card_cmp(card, pile[pile_size-1]) == EQ )
+    else if (card_cmp(&card, &pile[pile_size-1]) == EQ )
         return TRUE ;
-    else if (card_cmp(card, pile[pile_size-1]) == GT)
+    else if (card_cmp(&card, &pile[pile_size-1]) == GT)
         return TRUE ;
     else
         return FALSE ;
