@@ -24,10 +24,7 @@ struct game_t {
     int miss_a_go ;
 } ;
 
-struct game_t make_game(int nplayers, 
-                        char names[][MAX_NAME_LEN], 
-                        int ncards) ;
-
+struct game_t make_game(int nplayers, char names[][MAX_NAME_LEN], int ncards) ;
 void init_game(struct game_t *game) ;
 void first_move(struct game_t *game) ;
 void make_move(struct game_t *game, int card_choices[], int num_choices) ;
@@ -37,4 +34,5 @@ int can_move(struct game_t game) ;
 struct player_t get_shithead(struct game_t game) ;
 void pick_up_pile(struct game_t *game) ;
 void move_to_next_player(struct game_t *game) ;
+
 #endif

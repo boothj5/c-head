@@ -13,6 +13,7 @@ void test_burn_card_on_pile(void)
     int result = burn_cards_laid(pile, pile_size) ;
 
     assert_true(result) ;
+
 }
 
 void test_not_burn_card_on_pile(void)
