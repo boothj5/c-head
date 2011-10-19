@@ -5,11 +5,11 @@
 #include "game.h"
 #include "console.h"
 
-static void show_players(struct player_t *players, int len) ;
-static void show_pile(struct card_t *cards, int ncards) ;
-static void show_deck(int num_cards) ;
-static void show_burnt(int num_cards) ;
-static void show_last_move(char *move) ;
+static void show_players(const struct player_t *players, const int len) ;
+static void show_pile(const struct card_t *cards, const int ncards) ;
+static void show_deck(const int num_cards) ;
+static void show_burnt(const int num_cards) ;
+static void show_last_move(const char *move) ;
 static int parse_choice(char choice[], int card_choices[], int *num_choices) ;
 
 void newline()
@@ -17,7 +17,7 @@ void newline()
     printf("\n") ;
 }
 
-void newlines(int num)
+void newlines(const int num)
 {
     int i ;
     for (i = 0 ; i < num ; i++)
@@ -48,7 +48,7 @@ void show_player(struct player_t p)
     }
 }
 
-static void show_players(struct player_t *players, int len) 
+static void show_players(const struct player_t *players, const int len)
 {
     int i ;
     for (i = 0 ; i < len ; i++)  {
@@ -78,7 +78,7 @@ int request_num_cards_each()
     return result ;
 }
 
-void request_player_names(char names[][MAX_NAME_LEN], int nplayers)
+void request_player_names(char names[][MAX_NAME_LEN], const int nplayers)
 {
     char *name = malloc(sizeof(char) * MAX_NAME_LEN) ;
     int i ;
@@ -94,7 +94,7 @@ void request_player_names(char names[][MAX_NAME_LEN], int nplayers)
     newline() ;
 }
 
-void show_cards(struct card_t *cards, int num_cards) 
+void show_cards(const struct card_t *cards, const int num_cards)
 {
     int i ;
     int j = 1 ;
@@ -109,19 +109,19 @@ void show_cards(struct card_t *cards, int num_cards)
     }
 }
 
-static void show_deck(int num_cards) 
+static void show_deck(const int num_cards)
 {
     printf("%d left on deck", num_cards) ;
     newlines(2) ;
 }
 
-static void show_burnt(int num_cards) 
+static void show_burnt(const int num_cards)
 {
     printf("%d burnt", num_cards) ;
     newlines(2) ;
 }
 
-static void show_pile(struct card_t *cards, int ncards)
+static void show_pile(const struct card_t *cards, const int ncards)
 {   
     int i ;
     int j = 1 ;
@@ -142,12 +142,12 @@ static void show_pile(struct card_t *cards, int ncards)
     newline() ;
 }
 
-static void show_last_move(char *move) 
+static void show_last_move(const char *move)
 {
     printf(move) ;
 }
 
-int request_swap_cards(char *name)
+int request_swap_cards(const char *name)
 {
     int result ;    
     char *choice = malloc(sizeof(char) * 2) ;
@@ -159,7 +159,7 @@ int request_swap_cards(char *name)
     return result ;
 }
 
-int request_swap_more(char *name)
+int request_swap_more(const char *name)
 {
     int result = 0 ;
     char *choice = malloc(sizeof(char) * 2) ;
@@ -172,7 +172,7 @@ int request_swap_more(char *name)
     return result ;
 }
 
-int request_hand_swap(int size)
+int request_hand_swap(const int size)
 {
     int choice ;
     printf("Hand card to swap (1-%d): ", size) ;
@@ -180,7 +180,7 @@ int request_hand_swap(int size)
     return choice ;
 }
 
-int request_faceup_swap(int size)
+int request_faceup_swap(const int size)
 {
     int choice ;
     printf("Face up card to swap (1-%d): ", size) ;
@@ -188,7 +188,7 @@ int request_faceup_swap(int size)
     return choice ;
 }
 
-void show_game_summary(struct game_t game)
+void show_game_summary(const struct game_t game)
 {
     show_pile(game.pile, game.pile_size) ;
     show_deck(game.deck_size) ;
@@ -197,7 +197,7 @@ void show_game_summary(struct game_t game)
     show_last_move(game.last_move) ;
 }
 
-void request_move(struct player_t player, int card_choices[], int *num_choices)
+void request_move(const struct player_t player, int card_choices[], int *num_choices)
 {
     char entered[10] ;
     printf("%s, choose cards to lay: ", player.name) ;
@@ -213,7 +213,7 @@ void request_move(struct player_t player, int card_choices[], int *num_choices)
     }
 }
 
-void show_shithead(struct player_t player)
+void show_shithead(const struct player_t player)
 {
     printf("\n!!!! GAME OVER !!!!\n") ;
     printf("\nSHITHEAD == %s\n\n", player.name) ;
@@ -223,7 +223,7 @@ static int parse_choice(char choice[], int card_choices[], int *num_choices)
 {
     char *result = NULL;
     int to_int ;
-    result = strtok( choice, "," );
+    result = strtok(choice, "," );
     while( result != NULL ) {
         to_int = atoi(result) ;
         if (to_int == 0) {
@@ -240,7 +240,6 @@ static int parse_choice(char choice[], int card_choices[], int *num_choices)
 void wait_user()
 {
     int ch;
-
     do
         ch = fgetc(stdin) ; 
     while (ch != EOF && ch != '\n'); 
@@ -256,7 +255,7 @@ void show_bad_move(void)
     newline() ;
 }
 
-void show_pickup(char *name)
+void show_pickup(const char *name)
 {
     newline() ;
     printf("Oh dear, %s, you must pick up, press enter.", name) ;

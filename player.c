@@ -3,7 +3,7 @@
 #include "util.h"
 #include "card.h"
 
-struct player_t make_player(char *name, int type) 
+struct player_t make_player(const char *name, const int type)
 {
     struct player_t player ;
     strcpy(player.name, name) ;
@@ -14,37 +14,37 @@ struct player_t make_player(char *name, int type)
     return player ;
 }
 
-void deal_to_hand(struct player_t *player, struct card_t card)
+void deal_to_hand(struct player_t *player, const struct card_t card)
 {
     add_card_to_cards(player->hand, &player->hand_size, card);
 }
 
-void deal_to_face_up(struct player_t *player, struct card_t card)
+void deal_to_face_up(struct player_t *player, const struct card_t card)
 {
     add_card_to_cards(player->face_up, &player->face_up_size, card);
 }
 
-void deal_to_face_down(struct player_t *player, struct card_t card)
+void deal_to_face_down(struct player_t *player, const struct card_t card)
 {
     add_card_to_cards(player->face_down, &player->face_down_size, card);
 }
 
-void remove_from_hand(struct player_t *player, struct card_t card)
+void remove_from_hand(struct player_t *player, const struct card_t card)
 {
     remove_card_from_cards(player->hand, &player->hand_size, card);
 }
 
-void remove_from_face_up(struct player_t *player, struct card_t card)
+void remove_from_face_up(struct player_t *player, const struct card_t card)
 {
     remove_card_from_cards(player->face_up, &player->face_up_size, card);
 }
 
-void remove_from_face_down(struct player_t *player, struct card_t card)
+void remove_from_face_down(struct player_t *player, const struct card_t card)
 {
     remove_card_from_cards(player->face_down, &player->face_down_size, card);
 }
 
-void find_lowest_card_by_player(struct player_t *players, int num_players,
+void find_lowest_card_by_player(const struct player_t *players, const int num_players,
         struct card_t *cards)
 {
     int i ;
@@ -52,7 +52,7 @@ void find_lowest_card_by_player(struct player_t *players, int num_players,
         cards[i] = find_lowest_card(players[i].hand, players[i].hand_size) ;
 }
 
-void swap(struct player_t *player, int hand_index, int faceup_index)
+void swap(struct player_t *player, const int hand_index, const int faceup_index)
 {
     struct card_t temp ;
 
@@ -61,7 +61,7 @@ void swap(struct player_t *player, int hand_index, int faceup_index)
     player->face_up[faceup_index-1] = temp ;
 }
 
-int has_cards(struct player_t player)
+int has_cards(const struct player_t player)
 {
     if (player.hand_size > 0)
         return TRUE ;

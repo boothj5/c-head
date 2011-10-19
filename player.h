@@ -20,15 +20,15 @@ struct player_t {
     int face_down_size ;
 } ;
 
-struct player_t make_player(char *name, int type) ;
-void deal_to_hand(struct player_t *player, struct card_t card) ;
-void deal_to_face_up(struct player_t *player, struct card_t card) ;
-void deal_to_face_down(struct player_t *player, struct card_t card) ;
-void remove_from_hand(struct player_t *player, struct card_t card) ;
-void remove_from_face_up(struct player_t *player, struct card_t card) ;
-void remove_from_face_down(struct player_t *player, struct card_t card) ;
-void find_lowest_card_by_player(struct player_t *players, int num_players, struct card_t *cards) ;
-void swap(struct player_t *player, int hand_index, int faceup_index) ;
-int has_cards(struct player_t player) ;
+struct player_t make_player(const char *name, const int type) ;
+void deal_to_hand(struct player_t *player, const struct card_t card) ;
+void deal_to_face_up(struct player_t *player, const struct card_t card) ;
+void deal_to_face_down(struct player_t *player, const struct card_t card) ;
+void remove_from_hand(struct player_t *player, const struct card_t card) ;
+void remove_from_face_up(struct player_t *player, const struct card_t card) ;
+void remove_from_face_down(struct player_t *player, const struct card_t card) ;
+void find_lowest_card_by_player(const struct player_t *players, const int num_players, struct card_t *cards) ;
+void swap(struct player_t *player, const int hand_index, const int faceup_index) ;
+int has_cards(const struct player_t player) ;
 
 #endif

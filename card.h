@@ -18,16 +18,16 @@ struct card_t {
     enum cardsuit suit ;
 } ;
 
-struct card_t make_card(enum cardrank rank, enum cardsuit suit) ;
-struct card_t find_lowest_card(struct card_t *cards, int num_cards) ;
-int special_card(struct card_t card) ;
-int card_cmp(struct card_t card1, struct card_t card2) ;
-int cards_equal(struct card_t card1, struct card_t card2) ;
-int ranks_equal(struct card_t card1, struct card_t card2) ;
-int all_ranks_equal(struct card_t *cards, int num_cards) ; 
-char* show_rank(struct card_t card) ;
-char* show_suit(struct card_t card) ;
-void add_card_to_cards(struct card_t cards[], int *num_cards, struct card_t card) ;
-void remove_card_from_cards(struct card_t cards[], int *num_cards, struct card_t card) ;
+struct card_t make_card(const enum cardrank rank, const enum cardsuit suit) ;
+struct card_t find_lowest_card(const struct card_t *cards, const int num_cards) ;
+int special_card(const struct card_t card) ;
+int card_cmp(const struct card_t card1, const struct card_t card2) ;
+int cards_equal(const struct card_t card1, const struct card_t card2) ;
+int ranks_equal(const struct card_t card1, const struct card_t card2) ;
+int all_ranks_equal(const struct card_t *cards, const int num_cards) ;
+char* show_rank(const struct card_t card) ;
+char* show_suit(const struct card_t card) ;
+void add_card_to_cards(struct card_t cards[], int *num_cards, const struct card_t card) ;
+void remove_card_from_cards(struct card_t cards[], int *num_cards, const struct card_t card) ;
 
 #endif
