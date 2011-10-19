@@ -186,7 +186,7 @@ static int find_lowest_player(struct game_t *game, struct card_t lowest,
     int result = 0 ;
 
     for (i = 0 ; i < game->num_players ; i++)
-        if (equals(lowest, lowest_by_player[i])) {
+        if (cards_equal(lowest, lowest_by_player[i])) {
             result = i ;
             break ;
         }

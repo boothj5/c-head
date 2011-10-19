@@ -49,7 +49,7 @@ int card_cmp(struct card_t c1, struct card_t c2)
         return GT ;
 }
 
-int equals(struct card_t c1, struct card_t c2) 
+int cards_equal(struct card_t c1, struct card_t c2)
 {
     return ((c1.rank == c2.rank) && (c1.suit == c2.suit)) ;
 }

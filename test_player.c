@@ -37,9 +37,9 @@ void test_lowest_card_by_player(void)
 
     find_lowest_card_by_player(players, 4, lowest_cards) ;
 
-    assert_true(equals(lowest_cards[0], make_card(FOUR, SPADES))) ;
-    assert_true(equals(lowest_cards[1], make_card(FOUR, SPADES))) ;
-    assert_true(equals(lowest_cards[2], make_card(JACK, DIAMONDS))) ;
+    assert_true(cards_equal(lowest_cards[0], make_card(FOUR, SPADES))) ;
+    assert_true(cards_equal(lowest_cards[1], make_card(FOUR, SPADES))) ;
+    assert_true(cards_equal(lowest_cards[2], make_card(JACK, DIAMONDS))) ;
     assert_int_equals(ACE, lowest_cards[3].rank) ;
 }
 
@@ -56,8 +56,8 @@ void swap_first_two_cards(void)
 
     swap(&james, 1, 1) ;
     
-    assert_true(equals(james.hand[0], make_card(NINE, DIAMONDS))) ;
-    assert_true(equals(james.face_up[0], make_card(TEN, DIAMONDS))) ;
+    assert_true(cards_equal(james.hand[0], make_card(NINE, DIAMONDS))) ;
+    assert_true(cards_equal(james.face_up[0], make_card(TEN, DIAMONDS))) ;
 }
 
 void swap_last_two_cards(void)
@@ -73,8 +73,8 @@ void swap_last_two_cards(void)
 
     swap(&james, 3, 3) ;
     
-    assert_true(equals(james.hand[2], make_card(THREE, DIAMONDS))) ;
-    assert_true(equals(james.face_up[2], make_card(FOUR, SPADES))) ;
+    assert_true(cards_equal(james.hand[2], make_card(THREE, DIAMONDS))) ;
+    assert_true(cards_equal(james.face_up[2], make_card(FOUR, SPADES))) ;
 }
 
 void swap_first_and_last(void)
@@ -90,8 +90,8 @@ void swap_first_and_last(void)
 
     swap(&james, 1, 3) ;
     
-    assert_true(equals(james.hand[0], make_card(THREE, DIAMONDS))) ;
-    assert_true(equals(james.face_up[2], make_card(TEN, DIAMONDS))) ;
+    assert_true(cards_equal(james.hand[0], make_card(THREE, DIAMONDS))) ;
+    assert_true(cards_equal(james.face_up[2], make_card(TEN, DIAMONDS))) ;
 }
 
 void swap_middle_cards(void)
@@ -107,8 +107,8 @@ void swap_middle_cards(void)
 
     swap(&james, 2, 2) ;
     
-    assert_true(equals(james.hand[1], make_card(ACE, CLUBS))) ;
-    assert_true(equals(james.face_up[1], make_card(SEVEN, HEARTS))) ;
+    assert_true(cards_equal(james.hand[1], make_card(ACE, CLUBS))) ;
+    assert_true(cards_equal(james.face_up[1], make_card(SEVEN, HEARTS))) ;
 }
 
 void test_has_cards_when_hand_does(void)
@@ -165,8 +165,8 @@ void test_remove_from_hand(void)
     remove_from_hand(&james, make_card(TEN, DIAMONDS)) ;   
 
     assert_int_equals(james.hand_size, 2) ;
-    assert_false(equals(james.hand[0], make_card(TEN, DIAMONDS))) ;
-    assert_false(equals(james.hand[1], make_card(TEN, DIAMONDS))) ;
+    assert_false(cards_equal(james.hand[0], make_card(TEN, DIAMONDS))) ;
+    assert_false(cards_equal(james.hand[1], make_card(TEN, DIAMONDS))) ;
 }
 
 void test_remove_from_face_up(void)
@@ -178,8 +178,8 @@ void test_remove_from_face_up(void)
     remove_from_face_up(&james, make_card(TEN, DIAMONDS)) ;   
 
     assert_int_equals(james.face_up_size, 2) ;
-    assert_false(equals(james.face_up[0], make_card(TEN, DIAMONDS))) ;
-    assert_false(equals(james.face_up[1], make_card(TEN, DIAMONDS))) ;
+    assert_false(cards_equal(james.face_up[0], make_card(TEN, DIAMONDS))) ;
+    assert_false(cards_equal(james.face_up[1], make_card(TEN, DIAMONDS))) ;
 }
 
 void test_remove_from_face_down(void)
@@ -191,8 +191,8 @@ void test_remove_from_face_down(void)
     remove_from_face_down(&james, make_card(TEN, DIAMONDS)) ;   
 
     assert_int_equals(james.face_down_size, 2) ;
-    assert_false(equals(james.face_down[0], make_card(TEN, DIAMONDS))) ;
-    assert_false(equals(james.face_down[1], make_card(TEN, DIAMONDS))) ;
+    assert_false(cards_equal(james.face_down[0], make_card(TEN, DIAMONDS))) ;
+    assert_false(cards_equal(james.face_down[1], make_card(TEN, DIAMONDS))) ;
 }
 
 void register_player_tests(void)

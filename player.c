@@ -32,7 +32,7 @@ void remove_from_hand(struct player_t *p, struct card_t c)
 {
     int i, j ;
     for (i = 0 ; i < p->hand_size ; i++)
-        if (equals(p->hand[i], c)) {
+        if (cards_equal(p->hand[i], c)) {
             for (j = i+1 ; j < p->hand_size ; j++)
                 p->hand[j-1] = p->hand[j] ;
             p->hand_size-- ;
@@ -44,7 +44,7 @@ void remove_from_face_up(struct player_t *p, struct card_t c)
 {
     int i, j ;
     for (i = 0 ; i < p->face_up_size ; i++)
-        if (equals(p->face_up[i], c)) {
+        if (cards_equal(p->face_up[i], c)) {
             for (j = i+1 ; j < p->face_up_size ; j++)
                 p->face_up[j-1] = p->face_up[j] ;
             p->face_up_size-- ;
@@ -56,7 +56,7 @@ void remove_from_face_down(struct player_t *p, struct card_t c)
 {
     int i, j ;
     for (i = 0 ; i < p->face_down_size ; i++)
-        if (equals(p->face_down[i], c)) {
+        if (cards_equal(p->face_down[i], c)) {
             for (j = i+1 ; j < p->face_down_size ; j++)
                 p->face_down[j-1] = p->face_down[j] ;
             p->face_down_size-- ;

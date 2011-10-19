@@ -23,7 +23,7 @@ struct card_t find_lowest_card(struct card_t *cards, int ncards) ;
 int special_card(struct card_t c) ;
 
 int card_cmp(struct card_t c1, struct card_t c2) ;
-int equals(struct card_t c1, struct card_t c2) ;
+int cards_equal(struct card_t c1, struct card_t c2) ;
 int ranks_equal(struct card_t c1, struct card_t c2) ;
 int all_ranks_equal(struct card_t *cards, int num_cards) ; 
 char* show_rank(struct card_t c) ;
