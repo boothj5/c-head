@@ -13,7 +13,6 @@ int request_num_players() ;
 int request_num_cards_each() ;
 void show_player(const struct player_t player) ;
 void request_player_names(char names[][MAX_NAME_LEN], const int num_players) ;
-void show_cards(const struct card_t *cards, const int num_cards) ;
 void show_game_summary(const struct game_t game) ;
 int request_swap_cards(const char *name) ;
 int request_swap_more(const char *name) ;

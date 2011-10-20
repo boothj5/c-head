@@ -7,6 +7,7 @@
 #include "console.h"
 
 static void perform_swap(struct game_t *game) ;
+static void perform_last_cards_move(struct game_t *game) ;
 static void perform_move(struct game_t *game) ;
 
 int main(void)
@@ -28,9 +29,11 @@ int main(void)
     clearscreen() ;
     show_game_summary(game) ;
 
-    while (continue_play(game)) {
-        perform_move(&game) ;
-    }
+    while (continue_play(game))
+        if (player_on_last_cards(&game))
+            perform_last_cards_move(&game) ;
+        else
+            perform_move(&game) ;
 
     shithead = get_shithead(game) ;
     show_shithead(shithead) ;
@@ -38,54 +41,52 @@ int main(void)
     return 0 ;
 }
 
+static void perform_last_cards_move(struct game_t *game)
+{
+    int face_down_choice ;
+    face_down_choice = request_face_down_move(game->players[game->current_player]) ;
+    if (can_lay_from_face_down(*game, face_down_choice-1)) {
+        show_can_move_from_face_down(game->players[game->current_player].face_down[face_down_choice-1]) ;
+        wait_user() ;
+        make_move_from_face_down(game, face_down_choice-1) ;
+        clearscreen() ;
+        show_game_summary(*game) ;
+        move_to_next_player(game) ;
+    } else {
+        show_pickup_from_face_down(game->players[game->current_player].face_down[face_down_choice-1]) ;
+        wait_user() ;
+        pick_up_pile_and_face_down(game, face_down_choice-1) ;
+        clearscreen() ;
+        show_game_summary(*game) ;
+        move_to_next_player(game) ;
+    }
+}
+
 static void perform_move(struct game_t *game)
 {
     int card_choices[20] ;
     int num_choices = 0 ;
-    int face_down_choice ;
-
-    if (player_on_last_cards(game)) {
-        face_down_choice = request_face_down_move(game->players[game->current_player]) ;
-        if (can_lay_from_face_down(*game, face_down_choice-1)) {
-            show_can_move_from_face_down(game->players[game->current_player].face_down[face_down_choice-1]) ;
-            wait_user() ;
-            make_move_from_face_down(game, face_down_choice-1) ;
-            clearscreen() ;
-            show_game_summary(*game) ;
-            move_to_next_player(game) ;
-        } else {
-            show_pickup_from_face_down(game->players[game->current_player].face_down[face_down_choice-1]) ;
-            wait_user() ;
-            pick_up_pile_and_face_down(game, face_down_choice-1) ;
-            clearscreen() ;
-            show_game_summary(*game) ;
-            move_to_next_player(game) ;
-        }
-    } else {
-        if (can_move(*game)) {
-            newline() ;
-            request_move(game->players[game->current_player], card_choices, &num_choices) ;
-            if (valid_move(*game, card_choices, num_choices)) {
-                make_move(game, card_choices, num_choices) ;
-                num_choices = 0 ;
-                clearscreen() ;
-                show_game_summary(*game) ;
-                move_to_next_player(game) ;
-            }
-            else {
-                num_choices = 0 ;
-                show_bad_move() ;
-            }
-        }
-        else {
-            show_pickup(game->players[game->current_player].name) ;
-            wait_user() ;
-            pick_up_pile(game) ;
+    if (can_move(*game)) {
+        newline() ;
+        request_move(game->players[game->current_player], card_choices, &num_choices) ;
+        if (valid_move(*game, card_choices, num_choices)) {
+            make_move(game, card_choices, num_choices) ;
             num_choices = 0 ;
             clearscreen() ;
             show_game_summary(*game) ;
             move_to_next_player(game) ;
+        } else {
+            num_choices = 0 ;
+            show_bad_move() ;
         }
+    } else {
+        show_pickup(game->players[game->current_player].name) ;
+        wait_user() ;
+        pick_up_pile(game) ;
+        num_choices = 0 ;
+        clearscreen() ;
+        show_game_summary(*game) ;
+        move_to_next_player(game) ;
     }
 }
 

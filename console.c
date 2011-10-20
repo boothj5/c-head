@@ -9,6 +9,8 @@ static void show_pile(const struct card_t *cards, const int num_cards) ;
 static void show_deck(const int num_cards) ;
 static void show_burnt(const int num_cards) ;
 static void show_last_move(const char *move) ;
+static void show_cards(const struct card_t *cards, const int num_cards) ;
+static void hide_cards(const int num_cards) ;
 static int parse_choice(char choice[], int card_choices[], int *num_choices) ;
 static int str_to_bool(char *choice) ;
 
@@ -44,7 +46,7 @@ void show_player(struct player_t player)
     }
     if (player.face_down_size > 0) {
         printf("FACE DOWN: ") ;
-        show_cards(player.face_down, player.face_down_size) ;
+        hide_cards(player.face_down_size) ;
     }
 }
 
@@ -94,7 +96,7 @@ void request_player_names(char names[][MAX_NAME_LEN], const int num_players)
     newline() ;
 }
 
-void show_cards(const struct card_t *cards, const int num_cards)
+static void show_cards(const struct card_t *cards, const int num_cards)
 {
     int i ;
     int j = 1 ;
@@ -108,6 +110,22 @@ void show_cards(const struct card_t *cards, const int num_cards)
         j++ ;
     }
 }
+
+static void hide_cards(const int num_cards)
+{
+    int i ;
+    int j = 1 ;
+
+    for (i = 0 ; i< num_cards ; i++) {
+        printf("(%d)****", j) ;
+        if (j <= (num_cards - 1))
+            printf(", ") ;
+        else
+            newline() ;
+        j++ ;
+    }
+}
+
 
 static void show_deck(const int num_cards)
 {
