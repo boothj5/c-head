@@ -136,6 +136,33 @@ void test_one_same_on_three_same_burns(void)
     assert_true(game.pile_size == 0) ; 
 }
 
+void test_player_on_last_cards(void) {
+    setup() ;
+    player->hand_size = 0 ;
+    player->face_up_size = 0 ;
+    player->face_down_size = 1 ;
+
+    assert_true(player_on_last_cards(&game)) ;
+}
+
+void test_not_player_on_last_cards_when_face_up(void) {
+    setup() ;
+    player->hand_size = 0 ;
+    player->face_up_size = 1 ;
+    player->face_down_size = 1 ;
+
+    assert_false(player_on_last_cards(&game)) ;
+}
+
+void test_not_player_on_last_cards_when_hand(void) {
+    setup() ;
+    player->hand_size = 1 ;
+    player->face_up_size = 1 ;
+    player->face_down_size = 1 ;
+
+    assert_false(player_on_last_cards(&game)) ;
+}
+
 void register_game_tests(void)
 {
     add_suite("test_game") ;
@@ -145,5 +172,8 @@ void register_game_tests(void)
     add_test(test_three_same_on_one_same_burns, "test_three_same_on_one_same_burns" ) ;
     add_test(test_two_same_on_two_same_burns, "test_two_same_on_two_same_burns" ) ;
     add_test(test_one_same_on_three_same_burns, "test_one_same_on_three_same_burns" ) ;
+    add_test(test_player_on_last_cards, "test_player_on_last_cards" ) ;
+    add_test(test_not_player_on_last_cards_when_face_up, "test_not_player_on_last_cards_when_face_up" ) ;
+    add_test(test_not_player_on_last_cards_when_hand, "test_not_player_on_last_cards_when_hand" ) ;
 }
 

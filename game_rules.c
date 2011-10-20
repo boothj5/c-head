@@ -40,6 +40,12 @@ int can_move(const struct game_t game)
         return FALSE ;
 }
 
+int can_lay_from_face_down(const struct game_t game, const int choice)
+{
+    const struct player_t player = game.players[game.current_player] ;
+    return can_lay(player.face_down[choice], game.pile, game.pile_size) ;
+}
+
 static int valid_move_with_given_hand(const struct game_t game, const int card_choices[], const int num_choices,
         const struct card_t *cards, const int cards_size)
 {

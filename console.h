@@ -24,5 +24,8 @@ void show_shithead(const struct player_t player) ;
 void wait_user() ;
 void show_bad_move() ;
 void show_pickup(const char *name) ;
+int request_face_down_move(const struct player_t player) ;
+void show_pickup_from_face_down(const struct card_t card) ;
+void show_can_move_from_face_down(const struct card_t card) ;
 
 #endif

@@ -85,13 +85,24 @@ void make_move(struct game_t *game, const int card_choices[], const int num_choi
         play_from_face_up(game, player, to_lay, num_choices) ;
     }
     else {
-        for (i = 0 ; i < num_choices ; i++) 
+        for (i = 0 ; i < num_choices ; i++)
             to_lay[i] = player->face_down[card_choices[i]] ;
         play_from_face_down(game, player, to_lay, num_choices) ;
     }
-   
+
     update_last_move(game, to_lay, num_choices) ;
 }
+
+void make_move_from_face_down(struct game_t *game, const int face_down_choice)
+{
+    struct card_t to_lay[1] ;
+    struct player_t *player = &game->players[game->current_player] ;
+    to_lay[0] = player->face_down[face_down_choice] ;
+    play_from_face_down(game, player, to_lay, 1) ;
+    update_last_move(game, to_lay, 1) ;
+}
+
+
 
 static void update_last_move(struct game_t *game, struct card_t *cards, const int num_cards)
 {
@@ -158,6 +169,25 @@ void pick_up_pile(struct game_t *game)
 
     game->pile_size = 0 ;
     set_last_move_pickup(game->last_move, player->name) ;
+}
+
+void pick_up_pile_and_face_down(struct game_t *game, const int face_down_choice)
+{
+    struct player_t *player = &game->players[game->current_player] ;
+    const struct card_t card = player->face_down[face_down_choice] ;
+
+    pick_up_pile(game) ;
+    deal_to_hand(player, card) ;
+    sort_cards(player->hand, player->hand_size) ;
+    remove_from_face_down(player, card) ;
+}
+
+
+int player_on_last_cards(const struct game_t *game)
+{
+    const struct player_t player = game->players[game->current_player] ;
+
+    return ((player.hand_size == 0) && (player.face_up_size == 0)) ;
 }
 
 static void burn_pile(struct game_t *game)

@@ -183,6 +183,15 @@ int request_hand_swap(const int size)
     return choice ;
 }
 
+int request_face_down_move(const struct player_t player)
+{
+    int choice ;
+    newline() ;
+    printf("%s, pick a card to play (1-%d): ", player.name, player.face_down_size) ;
+    scanf("%d", &choice) ;
+    return choice ;
+}
+
 int request_faceup_swap(const int size)
 {
     int choice ;
@@ -267,3 +276,20 @@ void show_pickup(const char *name)
     printf("Oh dear, %s, you must pick up, press enter.", name) ;
     newline() ;
 }
+
+void show_pickup_from_face_down(const struct card_t card)
+{
+    newline() ;
+    printf("Oh no, you picked the %s of %s, you must pickup, press enter.", show_rank(card), show_suit(card)) ;
+    newline() ;
+}
+
+void show_can_move_from_face_down(const struct card_t card)
+{
+    newline() ;
+    printf("Whew! you picked the %s of %s, press enter.", show_rank(card), show_suit(card)) ;
+    newline() ;
+}
+
+
+
