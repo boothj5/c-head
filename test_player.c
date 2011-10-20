@@ -16,7 +16,7 @@ void test_lowest_card_by_player(void)
 
     deal_to_hand(&steve, make_card(TEN, DIAMONDS)) ;
     deal_to_hand(&steve, make_card(SEVEN, HEARTS)) ;
-    deal_to_hand(&steve, make_card(FOUR, SPADES)) ;   
+    deal_to_hand(&steve, make_card(FOUR, SPADES)) ;
 
     deal_to_hand(&james, make_card(FOUR, SPADES)) ;
     deal_to_hand(&james, make_card(FIVE, HEARTS)) ;
@@ -49,6 +49,7 @@ void swap_first_two_cards(void)
     deal_to_hand(&james, make_card(FOUR, SPADES)) ;
     deal_to_hand(&james, make_card(TEN, DIAMONDS)) ;
     deal_to_hand(&james, make_card(SEVEN, HEARTS)) ;
+    sort_cards(james.hand, james.hand_size) ;
     
     deal_to_face_up(&james, make_card(THREE, DIAMONDS)) ;
     deal_to_face_up(&james, make_card(NINE, DIAMONDS)) ;
@@ -66,6 +67,7 @@ void swap_last_two_cards(void)
     deal_to_hand(&james, make_card(FOUR, SPADES)) ;
     deal_to_hand(&james, make_card(ACE, DIAMONDS)) ;
     deal_to_hand(&james, make_card(SEVEN, HEARTS)) ;
+    sort_cards(james.hand, james.hand_size) ;
     
     deal_to_face_up(&james, make_card(NINE, DIAMONDS)) ;
     deal_to_face_up(&james, make_card(ACE, CLUBS)) ;
@@ -83,6 +85,7 @@ void swap_first_and_last(void)
     deal_to_hand(&james, make_card(FOUR, SPADES)) ;
     deal_to_hand(&james, make_card(FIVE, DIAMONDS)) ;
     deal_to_hand(&james, make_card(SIX, HEARTS)) ;
+    sort_cards(james.hand, james.hand_size) ;
     
     deal_to_face_up(&james, make_card(EIGHT, DIAMONDS)) ;
     deal_to_face_up(&james, make_card(NINE, CLUBS)) ;
@@ -100,6 +103,7 @@ void swap_middle_cards(void)
     deal_to_hand(&james, make_card(FOUR, SPADES)) ;
     deal_to_hand(&james, make_card(FIVE, DIAMONDS)) ;
     deal_to_hand(&james, make_card(SIX, HEARTS)) ;
+    sort_cards(james.hand, james.hand_size) ;
     
     deal_to_face_up(&james, make_card(EIGHT, DIAMONDS)) ;
     deal_to_face_up(&james, make_card(NINE, CLUBS)) ;

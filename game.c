@@ -154,6 +154,7 @@ void pick_up_pile(struct game_t *game)
 
     for (i = 0 ; i < game->pile_size ; i++) 
         deal_to_hand(player, game->pile[i]) ;
+    sort_cards(player->hand, player->hand_size) ;
 
     game->pile_size = 0 ;
     set_last_move_pickup(game->last_move, player->name) ;
@@ -201,6 +202,7 @@ static void play_from_hand(struct game_t *game, struct player_t *player, const s
         if (game->deck_size > 0 && player->hand_size < game->num_cards_each)
             deal_to_hand(player, game->deck[game->deck_size--]) ;
     }
+    sort_cards(player->hand, player->hand_size) ;
 }
 
 static void play_from_face_up(struct game_t *game, struct player_t *player, const struct card_t *to_lay,

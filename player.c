@@ -17,7 +17,6 @@ struct player_t make_player(const char *name, const int type)
 void deal_to_hand(struct player_t *player, const struct card_t card)
 {
     add_card_to_cards(player->hand, &player->hand_size, card);
-    sort_cards(player->hand, player->hand_size) ;
 }
 
 void deal_to_face_up(struct player_t *player, const struct card_t card)
