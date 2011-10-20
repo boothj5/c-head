@@ -1,16 +1,16 @@
 #include <stdio.h>
 #include <string.h>
-
 #include "player.h"
 #include "game.h"
 #include "console.h"
 
-static void show_players(const struct player_t *players, const int len) ;
-static void show_pile(const struct card_t *cards, const int ncards) ;
+static void show_players(const struct player_t *players, const int num_players) ;
+static void show_pile(const struct card_t *cards, const int num_cards) ;
 static void show_deck(const int num_cards) ;
 static void show_burnt(const int num_cards) ;
 static void show_last_move(const char *move) ;
 static int parse_choice(char choice[], int card_choices[], int *num_choices) ;
+static int str_to_bool(char *choice) ;
 
 void newline()
 {
@@ -30,28 +30,28 @@ void show_welcome_msg()
     newlines(2) ;
 }
 
-void show_player(struct player_t p)
+void show_player(struct player_t player)
 {
-    printf("Player name : %s", p.name) ;
+    printf("Player name : %s", player.name) ;
     newline() ;
-    if (p.hand_size > 0) {
+    if (player.hand_size > 0) {
         printf("HAND     : ") ;
-        show_cards(p.hand, p.hand_size) ;
+        show_cards(player.hand, player.hand_size) ;
     }
-    if (p.face_up_size > 0) {
+    if (player.face_up_size > 0) {
         printf("FACE UP  : ") ;
-        show_cards(p.face_up, p.face_up_size) ;
+        show_cards(player.face_up, player.face_up_size) ;
     }
-    if (p.face_down_size > 0) {
+    if (player.face_down_size > 0) {
         printf("FACE DOWN: ") ;
-        show_cards(p.face_down, p.face_down_size) ;
+        show_cards(player.face_down, player.face_down_size) ;
     }
 }
 
-static void show_players(const struct player_t *players, const int len)
+static void show_players(const struct player_t *players, const int num_players)
 {
     int i ;
-    for (i = 0 ; i < len ; i++)  {
+    for (i = 0 ; i < num_players ; i++)  {
         show_player(players[i]) ;
         newline() ;
     }
@@ -78,12 +78,12 @@ int request_num_cards_each()
     return result ;
 }
 
-void request_player_names(char names[][MAX_NAME_LEN], const int nplayers)
+void request_player_names(char names[][MAX_NAME_LEN], const int num_players)
 {
     char *name = malloc(sizeof(char) * MAX_NAME_LEN) ;
     int i ;
     
-    for (i = 0 ; i < nplayers ; i++) {
+    for (i = 0 ; i < num_players ; i++) {
         printf("Enter name for player %d :", i+1) ;
         newline() ;
         scanf("%s", name) ;
@@ -104,7 +104,7 @@ void show_cards(const struct card_t *cards, const int num_cards)
         if (j <= (num_cards - 1))
             printf(", ") ;
         else
-            printf("\n") ;
+            newline() ;
         j++ ;
     }
 }
@@ -121,22 +121,20 @@ static void show_burnt(const int num_cards)
     newlines(2) ;
 }
 
-static void show_pile(const struct card_t *cards, const int ncards)
+static void show_pile(const struct card_t *cards, const int num_cards)
 {   
     int i ;
     int j = 1 ;
 
-    printf("%d on pile:\n", ncards) ;
+    printf("%d on pile:", num_cards) ;
+    newline() ;
     
-    for (i = (ncards-1) ; i >= 0 ; i--) {
+    for (i = (num_cards-1) ; i >= 0 ; i--) {
         printf("\t") ;
-        if (i == (ncards-1))
+        if (i == (num_cards-1))
             printf("(*)") ;
         printf("%s of %s", show_rank(cards[i]), show_suit(cards[i])) ;
-        if (j <= (ncards - 1))
-            printf("\n") ;
-        else
-            printf("\n") ;
+        newline() ;
         j++ ;
     }
     newline() ;
@@ -154,7 +152,7 @@ int request_swap_cards(const char *name)
     newline() ;
     printf("%s, would you like to swap cards (y/n) : ", name) ;
     scanf("%s", choice) ; 
-    result = ((strcmp(choice, "y") == 0) | (strcmp(choice, "Y") == 0)) ;
+    result = str_to_bool(choice) ;
     free(choice) ;
     return result ;
 }
@@ -166,10 +164,15 @@ int request_swap_more(const char *name)
     newline() ;
     printf("%s, swap more (y/n) : ", name) ;
     scanf("%s", choice) ; 
-    result = ((strcmp(choice, "y") == 0) | (strcmp(choice, "Y") == 0)) ;
+    result = str_to_bool(choice) ;
     free(choice) ;
 
     return result ;
+}
+
+static int str_to_bool(char *choice)
+{
+    return ((strcmp(choice, "y") == 0) | (strcmp(choice, "Y") == 0));
 }
 
 int request_hand_swap(const int size)
@@ -215,8 +218,11 @@ void request_move(const struct player_t player, int card_choices[], int *num_cho
 
 void show_shithead(const struct player_t player)
 {
-    printf("\n!!!! GAME OVER !!!!\n") ;
-    printf("\nSHITHEAD == %s\n\n", player.name) ;
+    newline() ;
+    printf("!!!! GAME OVER !!!!") ;
+    newlines(2) ;
+    printf("SHITHEAD == %s", player.name) ;
+    newlines(2) ;
 }
 
 static int parse_choice(char choice[], int card_choices[], int *num_choices)
