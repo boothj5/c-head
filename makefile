@@ -16,7 +16,6 @@ test: compile-tests
 clean:
 	rm -f *.o
 	rm -f c-head
-	rm -f ~/bin/c-head
 	rm -f testsuite
 
 run: clean install
