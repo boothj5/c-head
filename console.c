@@ -160,7 +160,7 @@ static void show_pile(const struct card_t *cards, const int num_cards)
 
 static void show_last_move(const char *move)
 {
-    printf(move) ;
+    printf("%s", move) ;
 }
 
 int request_swap_cards(const char *name)
