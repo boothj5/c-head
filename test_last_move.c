@@ -50,10 +50,10 @@ void test_last_move_with_cards(void)
 
 void register_last_move_tests(void)
 {
-    add_suite("test_last_move") ;
-    add_test(test_last_move_miss_a_go, "test_last_move_miss_a_go") ;
-    add_test(test_last_move_was_burn, "test_last_move_was_burn") ;
-    add_test(test_last_move_pickup, "test_last_move_pickup") ;
-    add_test(test_last_move_with_cards, "test_last_move_with_cards") ;
+    TEST_MODULE("test_last_move");
+    TEST(test_last_move_miss_a_go);
+    TEST(test_last_move_was_burn);
+    TEST(test_last_move_pickup);
+    TEST(test_last_move_with_cards);
 }
 

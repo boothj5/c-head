@@ -6,7 +6,6 @@
 #include "player.h"
 #include "game_rules.h"
 
-
 char names [MAX_NUM_PLAYERS][MAX_NAME_LEN] ;
 struct game_t game ;
 struct player_t *player ;
@@ -181,23 +180,23 @@ void test_valid_five_on_seven_on_three(void)
 
 void register_game_rules_tests(void)
 {
-    add_suite("test_game_rules") ;
-    add_test(test_valid_on_no_cards, "test_valid_on_no_cards" ) ;
-    add_test(test_not_valid_move_no_cards, "test_not_valid_move_no_cards" ) ;
-    add_test(test_not_valid_more_cards_than_hand, "test_not_valid_more_cards_than_hand" ) ;
-    add_test(test_not_valid_when_rank_not_equal, "test_not_valid_when_rank_not_equal" ) ;
-    add_test(test_not_valid_when_not_in_hand, "test_not_valid_when_not_in_hand" ) ;
-    add_test(test_valid_four_on_three, "test_valid_four_on_three" ) ;
-    add_test(test_valid_three_on_three, "test_valid_three_on_three" ) ;
-    add_test(test_valid_three_on_two, "test_valid_three_on_two" ) ;
-    add_test(test_not_valid_three_on_four, "test_not_valid_three_on_four" ) ;
-    add_test(test_valid_two_on_nine, "test_valid_two_on_nine" ) ;
-    add_test(test_valid_seven_on_queen, "test_valid_seven_on_queen" ) ;
-    add_test(test_valid_seven_on_two, "test_valid_seven_on_two" ) ;
-    add_test(test_valid_ten_on_jack, "test_valid_ten_on_jack" ) ;
-    add_test(test_valid_ten_on_two, "test_valid_ten_on_two" ) ;
-    add_test(test_valid_two_on_seven, "test_valid_two_on_seven" ) ;
-    add_test(test_valid_six_on_seven_on_nothing, "test_valid_six_on_seven_on_nothing" ) ;
-    add_test(test_valid_five_on_seven_on_three, "test_valid_five_on_seven_on_three" ) ;
+    TEST_MODULE("test_game_rules");
+    TEST(test_valid_on_no_cards);
+    TEST(test_not_valid_move_no_cards);
+    TEST(test_not_valid_more_cards_than_hand);
+    TEST(test_not_valid_when_rank_not_equal);
+    TEST(test_not_valid_when_not_in_hand);
+    TEST(test_valid_four_on_three);
+    TEST(test_valid_three_on_three);
+    TEST(test_valid_three_on_two);
+    TEST(test_not_valid_three_on_four);
+    TEST(test_valid_two_on_nine);
+    TEST(test_valid_seven_on_queen);
+    TEST(test_valid_seven_on_two);
+    TEST(test_valid_ten_on_jack);
+    TEST(test_valid_ten_on_two);
+    TEST(test_valid_two_on_seven);
+    TEST(test_valid_six_on_seven_on_nothing);
+    TEST(test_valid_five_on_seven_on_three);
 }
 

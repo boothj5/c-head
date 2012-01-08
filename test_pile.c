@@ -86,12 +86,12 @@ void test_not_missgo_card_on_pile(void)
 
 void register_pile_tests(void)
 {
-    add_suite("test_pile") ;
-    add_test(test_burn_card_on_pile, "test_burn_card_on_pile" ) ;
-    add_test(test_not_burn_card_on_pile, "test_not_burn_card_on_pile" ) ;
-    add_test(test_burn_four_of_a_kind, "test_burn_four_of_a_kind" ) ;
-    add_test(test_not_burn_three_of_a_kind, "test_not_burn_three_of_a_kind" ) ;
-    add_test(test_not_burn_no_cards, "test_not_burn_no_cards" ) ;
-    add_test(test_missgo_card_on_pile, "test_missgo_card_on_pile" ) ;
-    add_test(test_not_missgo_card_on_pile, "test_not_missgo_card_on_pile" ) ;
+    TEST_MODULE("test_pile");
+    TEST(test_burn_card_on_pile);
+    TEST(test_not_burn_card_on_pile);
+    TEST(test_burn_four_of_a_kind);
+    TEST(test_not_burn_three_of_a_kind);
+    TEST(test_not_burn_no_cards);
+    TEST(test_missgo_card_on_pile);
+    TEST(test_not_missgo_card_on_pile);
 }

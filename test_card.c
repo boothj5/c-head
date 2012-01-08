@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <head-unit.h>
-
 #include "card.h"
 
 void test_three_lowest_when_last(void)
@@ -221,25 +220,25 @@ void test_sort_cards(void) {
 
 void register_card_tests()
 {
-    add_suite("test_card") ;
-    add_test(test_three_lowest_when_last, "test_three_lowest_when_last" ) ;
-    add_test(test_three_lowest_when_middle, "test_three_lowest_when_middle") ;
-    add_test(test_three_lowest_when_first, "test_three_lowest_when_first") ;
-    add_test(test_lowest_one_card, "test_lowest_one_card") ;
-    add_test(test_three_lower_than_two, "test_three_lower_than_two") ;
-    add_test(test_five_lower_than_two, "test_five_lower_than_two") ;
-    add_test(test_jack_lower_than_seven, "test_jack_lower_than_seven") ;
-    add_test(test_two_special, "test_two_special") ;
-    add_test(test_seven_special, "test_seven_special") ;
-    add_test(test_ten_special, "test_ten_special") ;
-    add_test(test_ranks_equal, "test_ranks_equal") ;
-    add_test(test_ranks_not_equal, "test_ranks_not_equal") ;
-    add_test(test_all_ranks_equal, "test_all_ranks_equal") ;
-    add_test(test_all_ranks_not_equal, "test_all_ranks_not_equal") ;
-    add_test(test_remove_card_from_cards_decrements_size, "test_remove_card_from_cards_decrements_size") ;
-    add_test(test_remove_card_from_cards_removes_card, "test_remove_card_from_cards_removes_card") ;
-    add_test(test_add_card_to_cards_increments_size, "test_add_card_to_cards_increments_size") ;
-    add_test(test_add_card_to_cards_adds_card, "test_add_card_to_cards_adds_card") ;
-    add_test(test_sort_cards, "test_sort_cards") ;
+    TEST_MODULE("test_card");
+    TEST(test_three_lowest_when_last);
+    TEST(test_three_lowest_when_middle);
+    TEST(test_three_lowest_when_first);
+    TEST(test_lowest_one_card);
+    TEST(test_three_lower_than_two);
+    TEST(test_five_lower_than_two) ;
+    TEST(test_jack_lower_than_seven) ;
+    TEST(test_two_special) ;
+    TEST(test_seven_special) ;
+    TEST(test_ten_special);
+    TEST(test_ranks_equal);
+    TEST(test_ranks_not_equal);
+    TEST(test_all_ranks_equal);
+    TEST(test_all_ranks_not_equal);
+    TEST(test_remove_card_from_cards_decrements_size);
+    TEST(test_remove_card_from_cards_removes_card);
+    TEST(test_add_card_to_cards_increments_size);
+    TEST(test_add_card_to_cards_adds_card);
+    TEST(test_sort_cards);
 }
 

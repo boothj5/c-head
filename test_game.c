@@ -164,15 +164,15 @@ void test_not_player_on_last_cards_when_hand(void) {
 
 void register_game_tests(void)
 {
-    add_suite("test_game") ;
-    add_test(test_ten_on_nothing_burns, "test_ten_on_nothing_burns" ) ;
-    add_test(test_ten_on_two_cards_burns, "test_ten_on_two_cards_burns" ) ;
-    add_test(test_four_of_a_kind_burns, "test_four_of_a_kind_burns" ) ;
-    add_test(test_three_same_on_one_same_burns, "test_three_same_on_one_same_burns" ) ;
-    add_test(test_two_same_on_two_same_burns, "test_two_same_on_two_same_burns" ) ;
-    add_test(test_one_same_on_three_same_burns, "test_one_same_on_three_same_burns" ) ;
-    add_test(test_player_on_last_cards, "test_player_on_last_cards" ) ;
-    add_test(test_not_player_on_last_cards_when_face_up, "test_not_player_on_last_cards_when_face_up" ) ;
-    add_test(test_not_player_on_last_cards_when_hand, "test_not_player_on_last_cards_when_hand" ) ;
+    TEST_MODULE("test_game");
+    TEST(test_ten_on_nothing_burns);
+    TEST(test_ten_on_two_cards_burns);
+    TEST(test_four_of_a_kind_burns);
+    TEST(test_three_same_on_one_same_burns);
+    TEST(test_two_same_on_two_same_burns);
+    TEST(test_one_same_on_three_same_burns);
+    TEST(test_player_on_last_cards);
+    TEST(test_not_player_on_last_cards_when_face_up);
+    TEST(test_not_player_on_last_cards_when_hand);
 }
 

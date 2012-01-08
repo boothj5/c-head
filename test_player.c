@@ -200,19 +200,19 @@ void test_remove_from_face_down(void)
 
 void register_player_tests(void)
 {
-    add_suite("test_player") ;
-    add_test(test_lowest_card_by_player, "test_lowest_card_by_player" ) ;
-    add_test(swap_first_two_cards, "swap_first_two_cards" ) ;
-    add_test(swap_last_two_cards, "swap_last_two_cards" ) ;
-    add_test(swap_first_and_last, "swap_first_and_last" ) ;
-    add_test(swap_middle_cards, "swap_middle_cards" ) ;
-    add_test(test_has_cards_when_hand_does, "test_has_cards_when_hand_does") ;
-    add_test(test_has_cards_when_face_up_does, "test_has_cards_when_face_up_does") ;
-    add_test(test_has_cards_when_face_down_does, "test_has_cards_when_face_down_does") ;
-    add_test(test_has_cards_when_one, "test_has_cards_when_one") ;
-    add_test(test_not_has_cards_when_none, "test_not_has_cards_when_none") ;
-    add_test(test_remove_from_hand, "test_remove_from_hand") ;
-    add_test(test_remove_from_face_up, "test_remove_from_face_up") ;
-    add_test(test_remove_from_face_down, "test_remove_from_face_down") ;
+    TEST_MODULE("test_player");
+    TEST(test_lowest_card_by_player);
+    TEST(swap_first_two_cards);
+    TEST(swap_last_two_cards);
+    TEST(swap_first_and_last);
+    TEST(swap_middle_cards);
+    TEST(test_has_cards_when_hand_does);
+    TEST(test_has_cards_when_face_up_does);
+    TEST(test_has_cards_when_face_down_does);
+    TEST(test_has_cards_when_one);
+    TEST(test_not_has_cards_when_none);
+    TEST(test_remove_from_hand);
+    TEST(test_remove_from_face_up);
+    TEST(test_remove_from_face_down);
 }
 
