@@ -2,7 +2,6 @@
 #include <string.h>
 #include <head-unit.h>
 
-#include "testsuite.h"
 #include "pile.h"
 
 void test_burn_card_on_pile(void)

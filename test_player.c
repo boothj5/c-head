@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <head-unit.h>
 
-#include "testsuite.h"
 #include "player.h"
 #include "card.h"
 

@@ -2,7 +2,6 @@
 #include <string.h>
 #include <head-unit.h>
 
-#include "testsuite.h"
 #include "game.h"
 #include "player.h"
 #include "game_rules.h"

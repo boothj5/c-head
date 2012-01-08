@@ -1,6 +1,5 @@
 #include <head-unit.h>
 
-#include "testsuite.h"
 #include "last_move.h"
 
 void test_last_move_miss_a_go(void)

@@ -2,7 +2,6 @@
 #include <string.h>
 #include <head-unit.h>
 
-#include "testsuite.h"
 #include "game.h"
 
 char names [MAX_NUM_PLAYERS][MAX_NAME_LEN] ;
