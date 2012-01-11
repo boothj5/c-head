@@ -8,10 +8,6 @@ To install (currently to ~/bin):
 
     make install
 
-To build tests:
-
-    make make-tests
-
 To run tests:
 
     make test

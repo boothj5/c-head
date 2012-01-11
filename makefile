@@ -1,26 +1,57 @@
-CC=gcc
-CFLAGS=-I ~/include -Werror -Wall -Wextra
+CC = gcc
+CFLAGS = -I ~/include -Werror -Wall -Wextra
+TESTLIB = -L ~/lib -l headunit
+CPPLIB = -lstdc++
+OBJS = card.o player.o console.o game.o game_rules.o last_move.o \
+	   pile.o c-head.o
+TESTOBJS = test_card.o card.o \
+		   test_player.o player.o \
+		   test_game_rules.o game_rules.o \
+		   test_pile.o pile.o \
+		   test_last_move.o last_move.o \
+		   test_game.o game.o
 
-compile: card.o player.o console.o game.o game_rules.o last_move.o pile.o c-head.o
-	$(CC) -o c-head card.o player.o console.o game.o game_rules.o last_move.o pile.o c-head.o
+c-head: $(OBJS)
+	$(CC) -o c-head $(OBJS)
 
-install: compile
+card.o: card.h util.h
+player.o: player.h card.h util.h
+console.o: console.h player.h game.h
+game.o: game.h card.h util.h pile.h game_rules.h last_move.h
+game_rules.o: game_rules.h card.h player.h util.h game.h
+last_move.o: last_move.h
+pile.o: pile.h util.h game.h pile.h
+c-head.o: player.h card.h game.h game_rules.h console.h
+
+test_card.o: card.h
+test_player.o: player.h card.h
+test_game_rules.o: game_rules.h game.h player.h
+test_pile.o: pile.h
+test_last_move.o: last_move.h
+test_game.o: game.h
+
+testsuite: testsuite.h $(TESTOBJS)
+	$(CC) $(CFLAGS) $(CPPLIB) testsuite.c $(TESTOBJS) -o testsuite $(TESTLIB)
+
+.PHONY: install
+install: c-head
 	cp c-head ~/bin/c-head
 
-compile-tests: testsuite.o test_card.o test_player.o test_game_rules.o test_pile.o test_last_move.o last_move.o pile.o test_game.o card.o player.o game.o game_rules.o
-	$(CC) -lstdc++ testsuite.o test_card.o test_player.o test_game_rules.o test_pile.o test_last_move.o test_game.o pile.o card.o player.o game.o game_rules.o last_move.o -I ~/include -L ~/lib -o testsuite -l headunit
-
-test: compile-tests
+.PHONY: test
+test: testsuite
 	./testsuite
 
+.PHONY: clean
 clean:
 	rm -f *.o
 	rm -f c-head
 	rm -f testsuite
 
+.PHONY: run
 run: clean install
 	c-head
 
+.PHONY: memcheck
 memcheck: clean install
 	valgrind --leak-check=full c-head
 
