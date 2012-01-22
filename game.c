@@ -178,7 +178,7 @@ struct game_t make_game(const int num_players, char names[][MAX_NAME_LEN],
     game.miss_a_go = FALSE;
 
     for(i = 0; i<num_players; i++)
-        game.players[i] = make_player(names[i], HUMAN);
+        game.players[i] = make_player(names[i], 'h');
     
     return game;
 }

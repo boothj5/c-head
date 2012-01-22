@@ -51,10 +51,10 @@ static void setup(void)
 
 static void test_lowest_card_by_player(void)
 {
-    struct player_t steve = make_player("Steve", HUMAN);
-    struct player_t james = make_player("James", HUMAN);
-    struct player_t dave = make_player("Dave", HUMAN);
-    struct player_t mike = make_player("Mike", HUMAN);
+    struct player_t steve = make_player("Steve", 'h');
+    struct player_t james = make_player("James", 'h');
+    struct player_t dave = make_player("Dave", 'h');
+    struct player_t mike = make_player("Mike", 'h');
     struct player_t players[4];
     struct card_t lowest_cards[4];
 
@@ -89,7 +89,7 @@ static void test_lowest_card_by_player(void)
 
 static void swap_first_two_cards(void)
 {
-    struct player_t james = make_player("James", HUMAN);
+    struct player_t james = make_player("James", 'h');
     deal_to_hand(&james, fourS);
     deal_to_hand(&james, tenD);
     deal_to_hand(&james, sevenH);
@@ -107,7 +107,7 @@ static void swap_first_two_cards(void)
 
 static void swap_last_two_cards(void)
 {
-    struct player_t james = make_player("James", HUMAN);
+    struct player_t james = make_player("James", 'h');
     deal_to_hand(&james, fourS);
     deal_to_hand(&james, aceD);
     deal_to_hand(&james, sevenH);
@@ -125,7 +125,7 @@ static void swap_last_two_cards(void)
 
 static void swap_first_and_last(void)
 {
-    struct player_t james = make_player("James", HUMAN);
+    struct player_t james = make_player("James", 'h');
     deal_to_hand(&james, fourS);
     deal_to_hand(&james, fiveD);
     deal_to_hand(&james, sixH);
@@ -143,7 +143,7 @@ static void swap_first_and_last(void)
 
 static void swap_middle_cards(void)
 {
-    struct player_t james = make_player("James", HUMAN);
+    struct player_t james = make_player("James", 'h');
     deal_to_hand(&james, fourS);
     deal_to_hand(&james, fiveD);
     deal_to_hand(&james, sixH);
@@ -161,7 +161,7 @@ static void swap_middle_cards(void)
 
 static void test_has_cards_when_hand_does(void)
 {
-    struct player_t james = make_player("James", HUMAN);    
+    struct player_t james = make_player("James", 'h');    
     deal_to_hand(&james, tenD);
     deal_to_hand(&james, sevenH);
     deal_to_hand(&james, fourS);   
@@ -171,7 +171,7 @@ static void test_has_cards_when_hand_does(void)
 
 static void test_has_cards_when_face_up_does(void)
 {
-    struct player_t james = make_player("James", HUMAN);    
+    struct player_t james = make_player("James", 'h');    
     deal_to_face_up(&james, tenD);
     deal_to_face_up(&james, sevenH);
     deal_to_face_up(&james, fourS);   
@@ -181,7 +181,7 @@ static void test_has_cards_when_face_up_does(void)
 
 static void test_has_cards_when_face_down_does(void)
 {
-    struct player_t james = make_player("James", HUMAN);    
+    struct player_t james = make_player("James", 'h');    
     deal_to_face_down(&james, tenD);
     deal_to_face_down(&james, sevenH);
     deal_to_face_down(&james, fourS);   
@@ -191,7 +191,7 @@ static void test_has_cards_when_face_down_does(void)
 
 static void test_has_cards_when_one(void)
 {
-    struct player_t james = make_player("James", HUMAN);
+    struct player_t james = make_player("James", 'h');
     deal_to_hand(&james, tenD);
 
     assert_true(has_cards(james));
@@ -199,14 +199,14 @@ static void test_has_cards_when_one(void)
 
 static void test_not_has_cards_when_none(void)
 {
-    struct player_t james = make_player("James", HUMAN);
+    struct player_t james = make_player("James", 'h');
 
     assert_false(has_cards(james));
 }
 
 static void test_remove_from_hand(void)
 {
-    struct player_t james = make_player("James", HUMAN);
+    struct player_t james = make_player("James", 'h');
     deal_to_hand(&james, tenD);
     deal_to_hand(&james, sevenH);
     deal_to_hand(&james, fourS);   
@@ -219,7 +219,7 @@ static void test_remove_from_hand(void)
 
 static void test_remove_from_face_up(void)
 {
-    struct player_t james = make_player("James", HUMAN);
+    struct player_t james = make_player("James", 'h');
     deal_to_face_up(&james, tenD);
     deal_to_face_up(&james, sevenH);
     deal_to_face_up(&james, fourS);   
@@ -232,7 +232,7 @@ static void test_remove_from_face_up(void)
 
 static void test_remove_from_face_down(void)
 {
-    struct player_t james = make_player("James", HUMAN);
+    struct player_t james = make_player("James", 'h');
     deal_to_face_down(&james, tenD);
     deal_to_face_down(&james, sevenH);
     deal_to_face_down(&james, fourS);
