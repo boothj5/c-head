@@ -73,13 +73,13 @@ const int num_players, struct card_t *cards)
         cards[i] = find_lowest_card(players[i].hand, players[i].hand_size);
 }
 
-void swap(struct player_t *player, const int hand_index, const int faceup_index)
+void swap(struct player_t *player, const struct swap_choice_t choice)
 {
     struct card_t temp;
 
-    temp = player->hand[hand_index-1];
-    player->hand[hand_index-1] = player->face_up[faceup_index-1];
-    player->face_up[faceup_index-1] = temp;
+    temp = player->hand[choice.hand_choice-1];
+    player->hand[choice.hand_choice-1] = player->face_up[choice.faceup_choice-1];
+    player->face_up[choice.faceup_choice-1] = temp;
     sort_cards(player->hand, player->hand_size);
 
 }

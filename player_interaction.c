@@ -6,27 +6,42 @@
 
 void perform_swap(struct game_t *game)
 {
+    struct swap_choice_t choice;
     int i, do_swap, hand_choice, face_up_choice;
     struct player_t *player;
 
     for (i = 0; i < game->num_players; i++) {
         player = &game->players[i];
-        clearscreen();
-        show_player(*player);
-        do_swap = request_swap_cards(player->name);
 
-        while (do_swap) {
+        if (player->is_computer) {
+            do_swap = ask_swap_cards(*player);
+            
+            while (do_swap) {
+                choice = ask_swap_choice(*player);
+                swap(player, choice);
+                do_swap = ask_swap_cards(*player);
+            }
+        }
+        else {
             clearscreen();
             show_player(*player);
-            newline();
-            hand_choice = request_hand_swap(player->hand_size);
-            face_up_choice = request_faceup_swap(player->face_up_size);
-            swap(player, hand_choice, face_up_choice);
-            clearscreen();
-            show_player(*player);
-            newline();
-            do_swap = request_swap_more(player->name);
-       }
+            do_swap = request_swap_cards(player->name);
+
+            while (do_swap) {
+                clearscreen();
+                show_player(*player);
+                newline();
+                hand_choice = request_hand_swap(player->hand_size);
+                face_up_choice = request_faceup_swap(player->face_up_size);
+                choice.hand_choice = hand_choice;
+                choice.faceup_choice = face_up_choice;
+                swap(player, choice);
+                clearscreen();
+                show_player(*player);
+                newline();
+                do_swap = request_swap_more(player->name);
+           }
+        }
     }
 }
 

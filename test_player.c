@@ -90,6 +90,7 @@ static void test_lowest_card_by_player(void)
 static void swap_first_two_cards(void)
 {
     struct player_t james = make_player("James", 'h');
+    struct swap_choice_t choice;
     deal_to_hand(&james, fourS);
     deal_to_hand(&james, tenD);
     deal_to_hand(&james, sevenH);
@@ -99,7 +100,9 @@ static void swap_first_two_cards(void)
     deal_to_face_up(&james, nineD);
     deal_to_face_up(&james, aceC);
 
-    swap(&james, 1, 1);
+    choice.hand_choice = 1;
+    choice.faceup_choice = 1;
+    swap(&james, choice);
     
     assert_true(cards_equal(james.hand[0], threeD));
     assert_true(cards_equal(james.face_up[0], fourS));
@@ -108,6 +111,7 @@ static void swap_first_two_cards(void)
 static void swap_last_two_cards(void)
 {
     struct player_t james = make_player("James", 'h');
+    struct swap_choice_t choice;
     deal_to_hand(&james, fourS);
     deal_to_hand(&james, aceD);
     deal_to_hand(&james, sevenH);
@@ -117,7 +121,9 @@ static void swap_last_two_cards(void)
     deal_to_face_up(&james, aceC);
     deal_to_face_up(&james, twoD);
 
-    swap(&james, 3, 3);
+    choice.hand_choice = 3;
+    choice.faceup_choice = 3;
+    swap(&james, choice);
     
     assert_true(cards_equal(james.hand[2], twoD));
     assert_true(cards_equal(james.face_up[2], sevenH));
@@ -126,6 +132,7 @@ static void swap_last_two_cards(void)
 static void swap_first_and_last(void)
 {
     struct player_t james = make_player("James", 'h');
+    struct swap_choice_t choice;
     deal_to_hand(&james, fourS);
     deal_to_hand(&james, fiveD);
     deal_to_hand(&james, sixH);
@@ -135,7 +142,9 @@ static void swap_first_and_last(void)
     deal_to_face_up(&james, nineC);
     deal_to_face_up(&james, jackD);
 
-    swap(&james, 1, 3);
+    choice.hand_choice = 1;
+    choice.faceup_choice = 3;
+    swap(&james, choice);
     
     assert_true(cards_equal(james.hand[2], jackD));
     assert_true(cards_equal(james.face_up[2], fourS));
@@ -144,6 +153,7 @@ static void swap_first_and_last(void)
 static void swap_middle_cards(void)
 {
     struct player_t james = make_player("James", 'h');
+    struct swap_choice_t choice;
     deal_to_hand(&james, fourS);
     deal_to_hand(&james, fiveD);
     deal_to_hand(&james, sixH);
@@ -153,7 +163,9 @@ static void swap_middle_cards(void)
     deal_to_face_up(&james, nineC);
     deal_to_face_up(&james, jackD);
 
-    swap(&james, 2, 2);
+    choice.hand_choice = 2;
+    choice.faceup_choice = 2;
+    swap(&james, choice);
     
     assert_true(cards_equal(james.hand[2], nineC));
     assert_true(cards_equal(james.face_up[1], fiveD));
