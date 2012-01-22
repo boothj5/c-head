@@ -3,7 +3,8 @@ CFLAGS = -I ~/include -O3 -Wall -Wextra -Werror -Wno-unused-parameter
 TESTLIB = -L ~/lib -l headunit
 CPPLIB = -lstdc++
 OBJS = card.o player.o console.o game.o game_rules.o last_move.o \
-	   pile.o c-head.o human_player.o lowcard_player.o
+	   pile.o c-head.o human_player.o lowcard_player.o \
+       player_interaction.o
 TESTOBJS = test_card.o card.o \
 		   test_player.o player.o \
            test_human_player.o human_player.o \
@@ -20,13 +21,14 @@ card.o: card.h util.h
 player.o: player.h player_types.h card.h util.h
 human_player.o: player_types.h player.h util.h
 lowcard_player.o: player_types.h player.h util.h
+player_interaction.o: player_interaction.h game.h player.h console.h game_rules.h
 console.o: console.h player.h game.h
 game.o: game.h card.h util.h pile.h game_rules.h last_move.h
 game_rules.o: game_rules.h card.h player.h util.h game.h
 last_move.o: last_move.h
 pile.o: pile.h util.h game.h pile.h
 
-c-head.o: player.h card.h game.h game_rules.h console.h
+c-head.o: player.h card.h game.h game_rules.h console.h player_interaction.h
 
 test_card.o: card.h
 test_player.o: player.h card.h
