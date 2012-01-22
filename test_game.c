@@ -4,22 +4,25 @@
 
 #include "game.h"
 
-char names [MAX_NUM_PLAYERS][MAX_NAME_LEN];
-struct game_t game;
-struct player_t *player;
-int choices[2];
-int num_choices;
+static char names[MAX_NUM_PLAYERS][MAX_NAME_LEN];
+static char types[MAX_NUM_PLAYERS];
+static struct game_t game;
+static struct player_t *player;
+static int choices[4];
+static int num_choices;
 
-static void beforetest(void)
+static void setup_game(void)
 {
-    strcpy(names[0],"James");
-    game = make_game(1, names, 3); 
+    strcpy(names[0],"p1");
+    types[0] = 'h';
+    game = make_game(2, names, types, 3); 
     game.current_player = 0;
     player = &game.players[game.current_player];
 }
 
 static void test_ten_on_nothing_burns(void)
 {
+    setup_game();
     player->hand[0] = make_card(TEN, SPADES);
     player->hand_size = 1;
     choices[0] = 0;
@@ -32,6 +35,7 @@ static void test_ten_on_nothing_burns(void)
 
 static void test_ten_on_two_cards_burns(void)
 {
+    setup_game();
     player->hand[0] = make_card(TEN, HEARTS);
     player->hand_size = 1;
     choices[0] = 0;
@@ -48,6 +52,7 @@ static void test_ten_on_two_cards_burns(void)
 
 static void test_four_of_a_kind_burns(void)
 {
+    setup_game();
     player->hand[0] = make_card(FOUR, DIAMONDS);
     player->hand[1] = make_card(FOUR, HEARTS);
     player->hand[2] = make_card(FOUR, SPADES);
@@ -71,6 +76,7 @@ static void test_four_of_a_kind_burns(void)
 
 static void test_three_same_on_one_same_burns(void)
 {
+    setup_game();
     player->hand[0] = make_card(FOUR, DIAMONDS);
     player->hand[1] = make_card(FOUR, HEARTS);
     player->hand[2] = make_card(FOUR, SPADES);
@@ -92,6 +98,7 @@ static void test_three_same_on_one_same_burns(void)
 
 static void test_two_same_on_two_same_burns(void)
 {
+    setup_game();
     player->hand[0] = make_card(FOUR, DIAMONDS);
     player->hand[1] = make_card(FOUR, HEARTS);
     player->hand_size = 4;
@@ -112,6 +119,7 @@ static void test_two_same_on_two_same_burns(void)
 
 static void test_one_same_on_three_same_burns(void)
 {
+    setup_game();
     player->hand[0] = make_card(FOUR, DIAMONDS);
     player->hand_size = 4;
 
@@ -129,7 +137,9 @@ static void test_one_same_on_three_same_burns(void)
     assert_true(game.pile_size == 0); 
 }
 
-static void test_player_on_last_cards(void) {
+static void test_player_on_last_cards(void) 
+{
+    setup_game();
     player->hand_size = 0;
     player->face_up_size = 0;
     player->face_down_size = 1;
@@ -137,7 +147,9 @@ static void test_player_on_last_cards(void) {
     assert_true(player_on_last_cards(&game));
 }
 
-static void test_not_player_on_last_cards_when_face_up(void) {
+static void test_not_player_on_last_cards_when_face_up(void)
+{
+    setup_game();
     player->hand_size = 0;
     player->face_up_size = 1;
     player->face_down_size = 1;
@@ -145,7 +157,9 @@ static void test_not_player_on_last_cards_when_face_up(void) {
     assert_false(player_on_last_cards(&game));
 }
 
-static void test_not_player_on_last_cards_when_hand(void) {
+static void test_not_player_on_last_cards_when_hand(void) 
+{
+    setup_game();
     player->hand_size = 1;
     player->face_up_size = 1;
     player->face_down_size = 1;
@@ -156,7 +170,6 @@ static void test_not_player_on_last_cards_when_hand(void) {
 void register_game_tests(void)
 {
     TEST_MODULE("test_game");
-    BEFORETEST(beforetest);
     TEST(test_ten_on_nothing_burns);
     TEST(test_ten_on_two_cards_burns);
     TEST(test_four_of_a_kind_burns);

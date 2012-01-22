@@ -3,14 +3,14 @@
 #include <head-unit.h>
 #include "pile.h"
 
-struct card_t tenD;
-struct card_t jackD;
-struct card_t threeD;
-struct card_t nineD;
-struct card_t nineS;
-struct card_t nineH;
-struct card_t nineC;
-struct card_t eightD;
+static struct card_t tenD;
+static struct card_t jackD;
+static struct card_t threeD;
+static struct card_t nineD;
+static struct card_t nineS;
+static struct card_t nineH;
+static struct card_t nineC;
+static struct card_t eightD;
 
 static void setup(void)
 {

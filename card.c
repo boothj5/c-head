@@ -106,21 +106,27 @@ char* show_suit(const struct card_t card)
 void add_card_to_cards(struct card_t cards[], int *num_cards, 
     const struct card_t card)
 {
-    cards[(*num_cards)++] = card;
+    cards[*num_cards] = card; 
+    (*num_cards)++;
 }
 
 void remove_card_from_cards(struct card_t cards[], int *num_cards, 
     const struct card_t card)
 {
-    int i, j;
-    for(i = 0;i < *num_cards;i++) {
-        if(cards_equal(cards[i], card)) {
-            for(j = i + 1;j < *num_cards;j++)
-                cards[j - 1] = cards[j];
-            (*num_cards)--;
-            break;
+    struct card_t result[*num_cards-1];
+    int added = 0;
+    int i;
+
+    for(i = 0; i < *num_cards; i++) {
+        if(!cards_equal(cards[i], card)) {
+            result[added] = cards[i];
+            added++;    
         }
     }
+
+    for(i = 0; i < added; i++)
+        cards[i] = result[i];
+    *num_cards = added;
 }
 
 void sort_cards(struct card_t *cards, const int num_cards) {

@@ -24,7 +24,7 @@ struct game_t {
     int miss_a_go;
 } ;
 
-struct game_t make_game(const int num_players, char names[][MAX_NAME_LEN],
+struct game_t make_game(const int num_players, char names[][MAX_NAME_LEN], char types[],
     const int num_cards);
 
 void init_game(struct game_t *game);

@@ -4,26 +4,26 @@
 #include "player.h"
 #include "card.h"
 
-struct card_t tenD;
-struct card_t sevenH;
-struct card_t fourS;
-struct card_t fiveH;
-struct card_t nineS;
-struct card_t jackD;
-struct card_t queenH;
-struct card_t kingS;
-struct card_t aceD;
-struct card_t aceH;
-struct card_t aceS;
-struct card_t tenD;
-struct card_t threeD;
-struct card_t nineD;
-struct card_t aceC;
-struct card_t twoD;
-struct card_t fiveD;
-struct card_t sixH;
-struct card_t eightD;
-struct card_t nineC;
+static struct card_t tenD;
+static struct card_t sevenH;
+static struct card_t fourS;
+static struct card_t fiveH;
+static struct card_t nineS;
+static struct card_t jackD;
+static struct card_t queenH;
+static struct card_t kingS;
+static struct card_t aceD;
+static struct card_t aceH;
+static struct card_t aceS;
+static struct card_t tenD;
+static struct card_t threeD;
+static struct card_t nineD;
+static struct card_t aceC;
+static struct card_t twoD;
+static struct card_t fiveD;
+static struct card_t sixH;
+static struct card_t eightD;
+static struct card_t nineC;
 
 static void setup(void)
 {

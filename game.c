@@ -106,8 +106,10 @@ static void play_from_hand(struct game_t *game, struct player_t *player,
         add_to_pile(game->pile, &game->pile_size, to_lay[i]);
         remove_from_hand(player, to_lay[i]);
         
-        if (game->deck_size > 0 && player->hand_size < game->num_cards_each)
-            deal_to_hand(player, game->deck[game->deck_size--]);
+        if (game->deck_size > 0 && (player->hand_size < game->num_cards_each)) {
+            deal_to_hand(player, game->deck[game->deck_size-1]);
+            game->deck_size--;
+        }
     }
 
     sort_cards(player->hand, player->hand_size);
@@ -164,7 +166,7 @@ static void update_last_move(struct game_t *game, struct card_t *cards,
     }
 }
 
-struct game_t make_game(const int num_players, char names[][MAX_NAME_LEN], 
+struct game_t make_game(const int num_players, char names[][MAX_NAME_LEN], char types[],
     const int num_cards)
 {
     int i;    
@@ -172,13 +174,14 @@ struct game_t make_game(const int num_players, char names[][MAX_NAME_LEN],
 
     game.num_players = num_players;
     game.num_cards_each = num_cards;
-    game.pile_size = 0;
+    game.pile_size = 0; 
+    game.deck_size = 0;
     game.burnt_size = 0;
     game.current_player = 0;
     game.miss_a_go = FALSE;
 
     for(i = 0; i<num_players; i++)
-        game.players[i] = make_player(names[i], 'h');
+        game.players[i] = make_player(names[i], types[i]);
     
     return game;
 }

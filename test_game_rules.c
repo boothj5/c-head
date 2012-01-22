@@ -6,29 +6,30 @@
 #include "player.h"
 #include "game_rules.h"
 
-char names [MAX_NUM_PLAYERS][MAX_NAME_LEN];
-struct game_t game;
-struct player_t *player;
-int choices[2];
-int num_choices;
-struct card_t threeS;
-struct card_t threeH;
-struct card_t nineH;
-struct card_t fourS;
-struct card_t sevenD;
-struct card_t fourH;
-struct card_t twoH;
-struct card_t twoD;
-struct card_t nineS;
-struct card_t sevenC;
-struct card_t queenS;
-struct card_t sevenH;
-struct card_t twoS;
-struct card_t tenC;
-struct card_t jackD;
-struct card_t sixH;
-struct card_t threeD;
-struct card_t fiveH;
+static char names[MAX_NUM_PLAYERS][MAX_NAME_LEN];
+static char types[MAX_NUM_PLAYERS];
+static struct game_t game;
+static struct player_t *player;
+static int choices[2];
+static int num_choices;
+static struct card_t threeS;
+static struct card_t threeH;
+static struct card_t nineH;
+static struct card_t fourS;
+static struct card_t sevenD;
+static struct card_t fourH;
+static struct card_t twoH;
+static struct card_t twoD;
+static struct card_t nineS;
+static struct card_t sevenC;
+static struct card_t queenS;
+static struct card_t sevenH;
+static struct card_t twoS;
+static struct card_t tenC;
+static struct card_t jackD;
+static struct card_t sixH;
+static struct card_t threeD;
+static struct card_t fiveH;
 
 static void setup(void)
 {
@@ -55,7 +56,8 @@ static void setup(void)
 static void setup_game(void)
 {
     strcpy(names[0],"James");
-    game = make_game(1, names, 3); 
+    types[0] = 'h';
+    game = make_game(1, names, types, 3); 
     game.current_player = 0;
     player = &game.players[game.current_player];
 }
