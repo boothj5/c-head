@@ -171,7 +171,7 @@ void request_player_details(char names[][MAX_NAME_LEN], char types[], const int 
         printf("Enter name for player %d : ", i+1);
         scanf("%s", name);
         strcpy(names[i], name);
-        printf("Enter player type (h/l) : ");
+        printf("Enter player type (h/l/r) : ");
         scanf("%s", type);
         types[i] = type[0];
     }
@@ -238,6 +238,7 @@ void show_game_summary(const struct game_t game)
     show_burnt(game.burnt_size);
     show_players(game.players, game.num_players);
     show_last_move(game.last_move);
+    wait_user();
 }
 
 void request_move(const struct player_t player, int card_choices[], int *num_choices)

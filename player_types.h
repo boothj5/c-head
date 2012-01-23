@@ -17,4 +17,11 @@ void lowcardplayer_ask_move(const struct player_t player,
     const struct player_helper_t helper, int card_choices[], int *nchoices);
 int lowcardplayer_ask_face_down_move(void);
 
+// random card player
+int randomcardplayer_ask_swap_cards(const struct player_t player);
+struct swap_choice_t randomcardplayer_ask_swap_choice(const struct player_t player);
+void randomcardplayer_ask_move(const struct player_t player,
+    const struct player_helper_t helper, int card_choices[], int *nchoices);
+int randomcardplayer_ask_face_down_move(void);
+
 #endif

@@ -2,54 +2,28 @@
 #include <head-unit.h>
 #include "card.h"
 
-static struct card_t tenH;
-static struct card_t sixC;
-static struct card_t threeD;
-static struct card_t threeH;
-static struct card_t threeS;
-static struct card_t threeC;
-static struct card_t twoH;
-static struct card_t fiveD;
-static struct card_t jackD;
-static struct card_t sevenH;
-static struct card_t twoD;
-static struct card_t sevenD;
-static struct card_t tenD;
-static struct card_t aceH;
-static struct card_t fourC;
-static struct card_t nineH;
-static struct card_t sevenS;
-static struct card_t jackC;
-static struct card_t aceD;
-static struct card_t twoS;
-static struct card_t kingC;
-static struct card_t eightS;
-
-static void setup(void)
-{
-    tenH = make_card(TEN, HEARTS) ;
-    sixC = make_card(SIX, CLUBS) ;
-    threeD = make_card(THREE, DIAMONDS) ;
-    threeH = make_card(THREE, HEARTS);
-    threeS = make_card(THREE, SPADES);
-    threeC = make_card(THREE, CLUBS);
-    twoH = make_card(TWO, HEARTS);
-    fiveD = make_card(FIVE, DIAMONDS);
-    jackD = make_card(JACK, DIAMONDS);
-    sevenH = make_card(SEVEN, HEARTS);
-    twoD = make_card(TWO, DIAMONDS);
-    sevenD = make_card(SEVEN, DIAMONDS);
-    tenD = make_card(TEN, DIAMONDS);
-    aceH = make_card(ACE, HEARTS);
-    fourC = make_card(FOUR, CLUBS);
-    nineH = make_card(NINE, HEARTS);
-    sevenS = make_card(SEVEN, SPADES);
-    jackC = make_card(JACK, CLUBS);
-    aceD = make_card(ACE, DIAMONDS);
-    twoS = make_card(TWO, SPADES);
-    kingC = make_card(KING, CLUBS);
-    eightS = make_card(EIGHT, SPADES);
-}
+static struct card_t tenH = { TEN, HEARTS };
+static struct card_t sixC = { SIX, CLUBS };
+static struct card_t threeD = { THREE, DIAMONDS };
+static struct card_t threeH = { THREE, HEARTS };
+static struct card_t threeS = { THREE, SPADES };
+static struct card_t threeC = { THREE, CLUBS };
+static struct card_t twoH = { TWO, HEARTS }; 
+static struct card_t fiveD = { FIVE, DIAMONDS };
+static struct card_t jackD = { JACK, DIAMONDS };
+static struct card_t sevenH = { SEVEN, HEARTS };
+static struct card_t twoD = { TWO, DIAMONDS };
+static struct card_t sevenD = { SEVEN, DIAMONDS };
+static struct card_t tenD = { TEN, DIAMONDS };
+static struct card_t aceH = { ACE, HEARTS };
+static struct card_t fourC = { FOUR, CLUBS };
+static struct card_t nineH = { NINE, HEARTS };
+static struct card_t sevenS = { SEVEN, SPADES };
+static struct card_t jackC = { JACK, CLUBS };
+static struct card_t aceD = { ACE, DIAMONDS };
+static struct card_t twoS = { TWO, SPADES };
+static struct card_t kingC = { KING, CLUBS };
+static struct card_t eightS = { EIGHT, SPADES };
 
 static void test_three_lowest_when_last(void)
 {
@@ -231,7 +205,6 @@ static void test_sort_cards(void) {
 void register_card_tests()
 {
     TEST_MODULE("test_card");
-    SETUP(setup);
     TEST(test_three_lowest_when_last);
     TEST(test_three_lowest_when_middle);
     TEST(test_three_lowest_when_first);

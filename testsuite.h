@@ -4,6 +4,7 @@
 void register_card_tests(void) ;
 void register_player_tests(void) ;
 void register_human_player_tests(void);
+void register_lowcard_player_tests(void);
 void register_game_rules_tests(void) ;
 void register_game_tests(void) ;
 void register_last_move_tests(void) ;

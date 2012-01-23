@@ -18,6 +18,12 @@ struct player_t make_player(const char *name, const char type)
     player.face_down_size = 0;
 
     switch(type) {
+    case 'r':
+        player.ask_swap_cards = randomcardplayer_ask_swap_cards;
+        player.ask_swap_choice = randomcardplayer_ask_swap_choice;
+        player.ask_move = randomcardplayer_ask_move;
+        player.ask_face_down_move = randomcardplayer_ask_face_down_move;
+        break;
     case 'l':
         player.ask_swap_cards = lowcardplayer_ask_swap_cards;
         player.ask_swap_choice = lowcardplayer_ask_swap_choice;
