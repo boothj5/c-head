@@ -22,14 +22,17 @@ struct player_t make_player(const char *name, const char type)
     case 'l':
         player.ask_swap_cards = lowcardplayer_ask_swap_cards;
         player.ask_swap_choice = lowcardplayer_ask_swap_choice;
+        player.ask_move = lowcardplayer_ask_move;
         break;
     case 'h':
         player.ask_swap_cards = human_ask_swap_cards;
         player.ask_swap_choice = human_ask_swap_choice;
+        player.ask_move = human_ask_move;
         break;
     default:
         player.ask_swap_cards = NULL;
         player.ask_swap_choice = NULL;
+        player.ask_move = NULL;
     }
 
     return player;
@@ -95,6 +98,11 @@ int has_cards(const struct player_t player)
     return FALSE;
 }
 
+int has_cards_in_hand(const struct player_t player)
+{
+    return player.hand_size > 0;
+}
+
 int ask_swap_cards(const struct player_t player)
 {
     return player.ask_swap_cards(player);
@@ -103,5 +111,11 @@ int ask_swap_cards(const struct player_t player)
 struct swap_choice_t ask_swap_choice(const struct player_t player)
 {
     return player.ask_swap_choice(player);
+}
+
+void ask_move(const struct player_t player, const struct player_helper_t helper,
+    int card_choices[], int *nchoices)
+{
+    return player.ask_move(player, helper, card_choices, nchoices);
 }
 

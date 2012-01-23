@@ -4,14 +4,22 @@
 
 int human_ask_swap_cards(struct player_t player)
 {
+    // should throw error
     return FALSE;
 }
 
-struct swap_choice_t human_ask_swap_choice(struct player_t player)
+struct swap_choice_t human_ask_swap_choice(const struct player_t player)
 {
+    // should throw error
     struct swap_choice_t choice;
     choice.hand_choice = 1;
     choice.faceup_choice = 1;
     
     return choice;
+}
+
+void human_ask_move(const struct player_t player, const struct player_helper_t helper,
+    int card_choices[], int *nchoices)
+{
+    // should throw error
 }

@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "player_interaction.h"
 #include "game.h"
 #include "player.h"
@@ -52,27 +53,50 @@ void perform_move(struct game_t *game)
     struct player_t *player = &game->players[game->current_player];
 
     if (can_move(*game)) {
-        newline();
-        request_move(*player, card_choices, &num_choices);
+        if (player->is_computer) {
+            struct player_helper_t helper = get_player_helper(game);
+            ask_move(*player, helper, card_choices, &num_choices);
+            if (valid_move(*game, card_choices, num_choices)) {
+                make_move(game, card_choices, num_choices); 
+                num_choices = 0;
+                clearscreen();
+                show_game_summary(*game);
+                move_to_next_player(game);
+            } else {
+                printf("BAD COMP MOVE");
+                exit(1);
+            }
+        } else {
+            newline();
+            request_move(*player, card_choices, &num_choices);
 
-        if (valid_move(*game, card_choices, num_choices)) {
-            make_move(game, card_choices, num_choices);
+            if (valid_move(*game, card_choices, num_choices)) {
+                make_move(game, card_choices, num_choices);
+                num_choices = 0;
+                clearscreen();
+                show_game_summary(*game);
+                move_to_next_player(game);
+            } else {
+                num_choices = 0;
+                show_bad_move();
+            }
+        }
+    } else {
+        if (player->is_computer) {
+            pick_up_pile(game);
             num_choices = 0;
             clearscreen();
             show_game_summary(*game);
             move_to_next_player(game);
         } else {
+            show_pickup(player->name);
+            wait_user();
+            pick_up_pile(game);
             num_choices = 0;
-            show_bad_move();
+            clearscreen();
+            show_game_summary(*game);
+            move_to_next_player(game);
         }
-    } else {
-        show_pickup(player->name);
-        wait_user();
-        pick_up_pile(game);
-        num_choices = 0;
-        clearscreen();
-        show_game_summary(*game);
-        move_to_next_player(game);
     }
 }
 

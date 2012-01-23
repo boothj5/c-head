@@ -18,12 +18,12 @@ c-head: $(OBJS)
 	$(CC) -o c-head $(OBJS)
 
 card.o: card.h util.h
-player.o: player.h player_types.h card.h util.h
+player.o: player.h player_types.h card.h util.h game.h config.h
 human_player.o: player_types.h player.h util.h
 lowcard_player.o: player_types.h player.h util.h
 player_interaction.o: player_interaction.h game.h player.h console.h game_rules.h
 console.o: console.h player.h game.h
-game.o: game.h card.h util.h pile.h game_rules.h last_move.h
+game.o: game.h card.h util.h pile.h game_rules.h last_move.h config.h
 game_rules.o: game_rules.h card.h player.h util.h game.h
 last_move.o: last_move.h
 pile.o: pile.h util.h game.h pile.h

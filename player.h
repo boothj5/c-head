@@ -1,11 +1,13 @@
 #ifndef PLAYER_H
 #define PLAYER_H 
 
+#include "config.h"
 #include "card.h"
 
-#define MAX_HAND_SIZE 100
-#define MAX_TABLE_HAND_SIZE 10
-#define MAX_NAME_LEN 10
+struct player_helper_t {
+    struct card_t pile[MAX_DECK_SIZE];
+    int pile_size;
+};
 
 struct swap_choice_t {
     int hand_choice;
@@ -22,8 +24,9 @@ struct player_t {
     int face_up_size;
     int face_down_size;
 
-    int(*ask_swap_cards)(struct player_t);
-    struct swap_choice_t(*ask_swap_choice)(struct player_t);
+    int(*ask_swap_cards)(const struct player_t);
+    struct swap_choice_t(*ask_swap_choice)(const struct player_t);
+    void (*ask_move)(const struct player_t, const struct player_helper_t, int[], int*);
 };
 
 struct player_t make_player(const char *name, const char type);
@@ -47,7 +50,12 @@ void swap(struct player_t *player, const struct swap_choice_t choice);
 
 int has_cards(const struct player_t player);
 
+int has_cards_in_hand(const struct player_t player);
+
 int ask_swap_cards(const struct player_t player);
 
 struct swap_choice_t ask_swap_choice(const struct player_t player);
+
+void ask_move(const struct player_t player, const struct player_helper_t helper,
+    int card_choices[], int *nchoices);
 #endif
