@@ -1,6 +1,6 @@
 #include "player.h"
 #include "player_types.h"
-#include "util.h"
+#include "config.h"
 
 int human_ask_swap_cards(struct player_t player)
 {

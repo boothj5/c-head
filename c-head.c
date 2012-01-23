@@ -1,9 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "player.h"
-#include "card.h"
 #include "game.h"
-#include "game_rules.h"
 #include "console.h"
 #include "player_interaction.h"
 

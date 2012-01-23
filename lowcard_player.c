@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "player.h"
 #include "player_types.h"
-#include "util.h"
+#include "config.h"
 #include "game_rules.h"
 #include "card.h"
 

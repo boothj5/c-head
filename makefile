@@ -17,18 +17,18 @@ TESTOBJS = test_card.o card.o \
 c-head: $(OBJS)
 	$(CC) -o c-head $(OBJS)
 
-card.o: card.h util.h
-player.o: player.h player_types.h card.h util.h game.h config.h
-human_player.o: player_types.h player.h util.h
-lowcard_player.o: player_types.h player.h util.h
+card.o: card.h config.h
+player.o: player.h player_types.h card.h config.h game.h
+human_player.o: player_types.h player.h config.h
+lowcard_player.o: player_types.h player.h config.h
 player_interaction.o: player_interaction.h game.h player.h console.h game_rules.h
 console.o: console.h player.h game.h
-game.o: game.h card.h util.h pile.h game_rules.h last_move.h config.h
-game_rules.o: game_rules.h card.h player.h util.h game.h
+game.o: game.h card.h pile.h game_rules.h last_move.h config.h
+game_rules.o: game_rules.h card.h player.h config.h game.h
 last_move.o: last_move.h
-pile.o: pile.h util.h game.h pile.h
+pile.o: pile.h config.h game.h pile.h
 
-c-head.o: player.h card.h game.h game_rules.h console.h player_interaction.h
+c-head.o: player.h game.h console.h player_interaction.h
 
 test_card.o: card.h
 test_player.o: player.h card.h

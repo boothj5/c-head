@@ -3,7 +3,7 @@
 #include <time.h>
 #include "game.h"
 #include "card.h"
-#include "util.h"
+#include "config.h"
 #include "pile.h"
 
 #include "game_rules.h"

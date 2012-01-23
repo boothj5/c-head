@@ -1,6 +1,6 @@
-#include "stdlib.h"
+#include <stdlib.h>
 #include "card.h"
-#include "util.h"
+#include "config.h"
 
 struct card_t make_card(const enum cardrank rank, const enum cardsuit suit)
 {

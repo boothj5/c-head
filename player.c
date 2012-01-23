@@ -1,7 +1,6 @@
 #include <string.h>
 #include "player.h"
 #include "player_types.h"
-#include "util.h"
 #include "card.h"
 
 struct player_t make_player(const char *name, const char type)
@@ -72,7 +71,7 @@ void remove_from_face_down(struct player_t *player, const struct card_t card)
 }
 
 void find_lowest_card_by_player(const struct player_t *players, 
-const int num_players, struct card_t *cards)
+    const int num_players, struct card_t *cards)
 {
     int i;
     for (i = 0 ; i < num_players ; i++)

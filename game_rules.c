@@ -1,7 +1,7 @@
 #include "game_rules.h"
 #include "card.h"
 #include "player.h"
-#include "util.h"
+#include "config.h"
 #include "game.h"
 
 static int choice_not_in_cards(const int num_choices, const int card_choices[], 
