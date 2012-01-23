@@ -31,6 +31,7 @@ struct player_t {
 };
 
 struct player_t make_player(const char *name, const char type);
+struct player_helper_t make_helper(const struct card_t *pile, const int pile_size);
 void deal_to_hand(struct player_t *player, const struct card_t card);
 void deal_to_face_up(struct player_t *player, const struct card_t card);
 void deal_to_face_down(struct player_t *player, const struct card_t card);

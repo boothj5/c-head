@@ -13,7 +13,7 @@ TESTOBJS = test_card.o card.o \
 		   test_pile.o pile.o \
 		   test_last_move.o last_move.o \
 		   test_game.o game.o \
-		   random_player.o
+		   test_random_player.o random_player.o
 
 c-head: $(OBJS)
 	$(CC) -o c-head $(OBJS)
@@ -36,6 +36,7 @@ test_card.o: card.h
 test_player.o: player.h card.h
 test_human_player.o: player.h
 test_lowcard_player.o: player.h card.h
+test_random_player.o: player.h
 test_game_rules.o: game_rules.h game.h player.h
 test_pile.o: pile.h
 test_last_move.o: last_move.h

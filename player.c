@@ -46,6 +46,18 @@ struct player_t make_player(const char *name, const char type)
     return player;
 }
 
+struct player_helper_t make_helper(const struct card_t *pile, const int pile_size)
+{
+    struct player_helper_t helper;
+    
+    int i;
+    for (i = 0; i < pile_size; i++)
+        helper.pile[i] = pile[i];
+    helper.pile_size = pile_size;
+
+    return helper;
+}
+
 void deal_to_hand(struct player_t *player, const struct card_t card)
 {
     add_card_to_cards(player->hand, &player->hand_size, card);

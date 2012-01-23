@@ -321,13 +321,7 @@ int player_on_last_cards(const struct game_t *game)
 
 struct player_helper_t get_player_helper(const struct game_t *game)
 {
-    struct player_helper_t helper;
-    int i;
-
-    for (i = 0; i < game->pile_size; i++)
-        helper.pile[i] = game->pile[i];
-
-    helper.pile_size = game->pile_size;
+    struct player_helper_t helper = make_helper(game->pile, game->pile_size);
 
     return helper;
 }

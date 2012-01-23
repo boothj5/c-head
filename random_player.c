@@ -50,7 +50,6 @@ void randomcardplayer_ask_move(const struct player_t player,
             possible_choices[i] = i;
         }
         shuffle(possible_choices, player.hand_size);
-        
 
         // find the first card I can lay and save its index
         for (i = 0; i < player.hand_size; i++) {
