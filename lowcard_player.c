@@ -26,16 +26,12 @@ void lowcardplayer_ask_move(const struct player_t player,
     *nchoices = 0;
     int first = 0;
     if (has_cards_in_hand(player)) {
-        printf("COMP PLAYING FROM HAND\n");
         // play from hand
-
         // assume my hand is sorted
-
         // find the first card I can lay and save its index
         int i;
         for (i = 0; i < player.hand_size; i++) {
             if (can_lay(player.hand[i], helper.pile, helper.pile_size)) {
-                printf("CAN LAY %d\n", i);
                 first = i;
                 break;
             }
@@ -78,8 +74,10 @@ void lowcardplayer_ask_move(const struct player_t player,
             }
         }
     }
-
-    printf("NUMBER CHOICES = %d\n", *nchoices);
 }
 
+int lowcardplayer_ask_face_down_move(void)
+{
+    return 1;
+}
 

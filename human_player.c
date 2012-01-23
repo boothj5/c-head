@@ -23,3 +23,9 @@ void human_ask_move(const struct player_t player, const struct player_helper_t h
 {
     // should throw error
 }
+
+int human_ask_face_down_move(void)
+{
+    // should throw error
+    return 1;
+}

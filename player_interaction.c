@@ -105,22 +105,38 @@ void perform_last_cards_move(struct game_t *game)
     int face_down_choice;
     struct player_t *player = &game->players[game->current_player];
 
-    face_down_choice = request_face_down_move(*player);
-
-    if (can_lay_from_face_down(*game, face_down_choice-1)) {
-        show_can_move_from_face_down(player->face_down[face_down_choice-1]);
-        wait_user();
-        make_move_from_face_down(game, face_down_choice-1);
-        clearscreen();
-        show_game_summary(*game);
-        move_to_next_player(game);
+    if (player->is_computer) {
+        face_down_choice = ask_face_down_move(*player);
+        
+        if (can_lay_from_face_down(*game, face_down_choice-1)) {
+            make_move_from_face_down(game, face_down_choice-1);
+            clearscreen();
+            show_game_summary(*game);
+            move_to_next_player(game);
+        } else {
+            pick_up_pile_and_face_down(game, face_down_choice-1);
+            clearscreen();
+            show_game_summary(*game);
+            move_to_next_player(game);
+        }
     } else {
-        show_pickup_from_face_down(player->face_down[face_down_choice-1]);
-        wait_user();
-        pick_up_pile_and_face_down(game, face_down_choice-1);
-        clearscreen();
-        show_game_summary(*game);
-        move_to_next_player(game);
+        face_down_choice = request_face_down_move(*player);
+
+        if (can_lay_from_face_down(*game, face_down_choice-1)) {
+            show_can_move_from_face_down(player->face_down[face_down_choice-1]);
+            wait_user();
+            make_move_from_face_down(game, face_down_choice-1);
+            clearscreen();
+            show_game_summary(*game);
+            move_to_next_player(game);
+        } else {
+            show_pickup_from_face_down(player->face_down[face_down_choice-1]);
+            wait_user();
+            pick_up_pile_and_face_down(game, face_down_choice-1);
+            clearscreen();
+            show_game_summary(*game);
+            move_to_next_player(game);
+        }
     }
 }
 

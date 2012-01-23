@@ -24,9 +24,10 @@ struct player_t {
     int face_up_size;
     int face_down_size;
 
-    int(*ask_swap_cards)(const struct player_t);
-    struct swap_choice_t(*ask_swap_choice)(const struct player_t);
+    int (*ask_swap_cards)(const struct player_t);
+    struct swap_choice_t (*ask_swap_choice)(const struct player_t);
     void (*ask_move)(const struct player_t, const struct player_helper_t, int[], int*);
+    int (*ask_face_down_move)(void);
 };
 
 struct player_t make_player(const char *name, const char type);
@@ -58,4 +59,6 @@ struct swap_choice_t ask_swap_choice(const struct player_t player);
 
 void ask_move(const struct player_t player, const struct player_helper_t helper,
     int card_choices[], int *nchoices);
+
+int ask_face_down_move(const struct player_t player);
 #endif
