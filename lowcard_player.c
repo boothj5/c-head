@@ -56,7 +56,7 @@ void lowcardplayer_ask_move(const struct player_t player,
         // play from faceUp
 
         // copy and sort my faceUp
-        struct card_t sorted[player.hand_size];
+        struct card_t sorted[player.face_up_size];
         int i;
         for (i = 0; i<player.face_up_size; i++)
             sorted[i] = player.face_up[i];
@@ -73,7 +73,8 @@ void lowcardplayer_ask_move(const struct player_t player,
         // add all cards of this rank to my choice
         for (i = 0; i < player.face_up_size; i++) {
             if (ranks_equal(player.face_up[i], sorted[first])) {
-                card_choices[*nchoices++] = i;
+                card_choices[*nchoices] = i;
+                (*nchoices)++;
             }
         }
     }
