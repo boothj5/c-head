@@ -171,7 +171,7 @@ void request_player_details(char names[][MAX_NAME_LEN], char types[], const int 
         printf("Enter name for player %d : ", i+1);
         scanf("%s", name);
         strcpy(names[i], name);
-        printf("Enter player type (h/l/r) : ");
+        printf("Enter player type (h/l/r/p) : ");
         scanf("%s", type);
         types[i] = type[0];
     }

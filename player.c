@@ -36,6 +36,12 @@ struct player_t make_player(const char *name, const char type)
         player.ask_move = human_ask_move;
         player.ask_face_down_move = human_ask_face_down_move;
         break;
+    case 'p':
+        player.ask_swap_cards = pyromaniac_ask_swap_cards;
+        player.ask_swap_choice = pyromaniac_ask_swap_choice;
+        player.ask_move = pyromaniac_ask_move;
+        player.ask_face_down_move = pyromaniac_ask_face_down_move;
+        break;
     default:
         player.ask_swap_cards = NULL;
         player.ask_swap_choice = NULL;

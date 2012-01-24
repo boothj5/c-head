@@ -24,4 +24,11 @@ void randomcardplayer_ask_move(const struct player_t player,
     const struct player_helper_t helper, int card_choices[], int *nchoices);
 int randomcardplayer_ask_face_down_move(void);
 
+// pyromaniac player
+int pyromaniac_ask_swap_cards(const struct player_t player);
+struct swap_choice_t pyromaniac_ask_swap_choice(const struct player_t player);
+void pyromaniac_ask_move(const struct player_t player,
+    const struct player_helper_t helper, int card_choices[], int *nchoices);
+int pyromaniac_ask_face_down_move(void);
+
 #endif
