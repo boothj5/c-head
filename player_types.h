@@ -2,6 +2,12 @@
 #define PLAYER_TYPES_H
 
 #include "player.h"
+#include "config.h"
+
+struct player_type_t {
+    char type;
+    char name[MAX_NAME_LEN];
+};
 
 // human player
 int human_ask_swap_cards(const struct player_t player);

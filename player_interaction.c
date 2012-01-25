@@ -59,8 +59,6 @@ void perform_move(struct game_t *game)
             if (valid_move(*game, card_choices, num_choices)) {
                 make_move(game, card_choices, num_choices); 
                 num_choices = 0;
-                clearscreen();
-                show_game_summary(*game);
                 move_to_next_player(game);
             } else {
                 printf("BAD COMP MOVE");
@@ -85,8 +83,6 @@ void perform_move(struct game_t *game)
         if (player->is_computer) {
             pick_up_pile(game);
             num_choices = 0;
-            clearscreen();
-            show_game_summary(*game);
             move_to_next_player(game);
         } else {
             show_pickup(player->name);
@@ -110,13 +106,9 @@ void perform_last_cards_move(struct game_t *game)
         
         if (can_lay_from_face_down(*game, face_down_choice-1)) {
             make_move_from_face_down(game, face_down_choice-1);
-            clearscreen();
-            show_game_summary(*game);
             move_to_next_player(game);
         } else {
             pick_up_pile_and_face_down(game, face_down_choice-1);
-            clearscreen();
-            show_game_summary(*game);
             move_to_next_player(game);
         }
     } else {

@@ -32,7 +32,7 @@ game_rules.o: game_rules.h card.h player.h config.h game.h
 last_move.o: last_move.h
 pile.o: pile.h config.h game.h pile.h
 
-c-head.o: player.h game.h console.h player_interaction.h
+c-head.o: player.h game.h console.h player_interaction.h player_types.h
 
 test_card.o: card.h
 test_player.o: player.h card.h

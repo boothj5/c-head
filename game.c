@@ -271,17 +271,26 @@ struct player_t get_shithead(const struct game_t game)
     return game.players[0];
 }
 
-void move_to_next_player(struct game_t *game) {
-    if (game->current_player == game->num_players -1)
+void move_to_next_player(struct game_t *game) 
+{
+    game->current_player++;
+    if (game->current_player == game->num_players)
         game->current_player = 0;
-    else
+    while (!has_cards(game->players[game->current_player])) {
         game->current_player++;
+        if (game->current_player == game->num_players)
+            game->current_player = 0;
+    }
 
     if (game->miss_a_go) {
-        if (game->current_player == game->num_players -1)
+        game->current_player++;
+        if (game->current_player == game->num_players)
             game->current_player = 0;
-        else
+        while (!has_cards(game->players[game->current_player])) {
             game->current_player++;
+            if (game->current_player == game->num_players)
+                game->current_player = 0;
+        }
     }
 
     game->miss_a_go = FALSE;
