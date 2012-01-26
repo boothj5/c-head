@@ -268,6 +268,7 @@ void show_shithead(const struct player_t player)
 
 void wait_user()
 {
+    printf("Press ENTER to continue.");
     int ch;
     do
         ch = fgetc(stdin); 
@@ -282,6 +283,7 @@ void show_bad_move(void)
     newline();
     printf("You can't do that, try again");
     newline();
+    wait_user();
 }
 
 void show_pickup(const char *name)

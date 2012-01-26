@@ -10,23 +10,19 @@
 
 #define THRESHOLD 10000
 
-static void swap_ptypes(struct player_type_t *a, struct player_type_t *b)
-{
-  struct player_type_t t;
-  t = *a;
-  *a = *b;
-  *b = t;
-}
-
 static void shuffle(struct player_type_t *players, int nplayers)
 {
     int i, r;
+    struct player_type_t t;
+
     if (nplayers > 1) {
         clock_t c = clock();
         srand(c) ;
         for (i = 0; i < nplayers; i++) {
             r = rand() / ( RAND_MAX / nplayers + 1 );
-            swap_ptypes(&players[i], &players[r]);
+            t = players[i];
+            players[i] = players[r];
+            players[r] = t;
         }
     }
 }
@@ -128,10 +124,10 @@ int main(int argc, char *argv[])
 
             //shithead = get_shithead(game);
     
-            //for (i = 0; i < nplayers; i++) {
-            //    printf("%c", types[i]);
-            //}
-            //printf("\n");
+            for (i = 0; i < nplayers; i++) {
+                printf("%c", types[i]);
+            }
+            printf("\n");
         }
 
         clock_t end = clock();

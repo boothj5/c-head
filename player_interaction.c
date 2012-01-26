@@ -68,16 +68,15 @@ void perform_move(struct game_t *game)
             newline();
             request_move(*player, card_choices, &num_choices);
 
-            if (valid_move(*game, card_choices, num_choices)) {
-                make_move(game, card_choices, num_choices);
-                num_choices = 0;
-                clearscreen();
-                show_game_summary(*game);
-                move_to_next_player(game);
-            } else {
+            while(!valid_move(*game, card_choices, num_choices)) {
                 num_choices = 0;
                 show_bad_move();
+                request_move(*player, card_choices, &num_choices);
             }
+        
+            make_move(game, card_choices, num_choices);
+            num_choices = 0;
+            move_to_next_player(game);
         }
     } else {
         if (player->is_computer) {
@@ -89,8 +88,6 @@ void perform_move(struct game_t *game)
             wait_user();
             pick_up_pile(game);
             num_choices = 0;
-            clearscreen();
-            show_game_summary(*game);
             move_to_next_player(game);
         }
     }
@@ -118,15 +115,11 @@ void perform_last_cards_move(struct game_t *game)
             show_can_move_from_face_down(player->face_down[face_down_choice-1]);
             wait_user();
             make_move_from_face_down(game, face_down_choice-1);
-            clearscreen();
-            show_game_summary(*game);
             move_to_next_player(game);
         } else {
             show_pickup_from_face_down(player->face_down[face_down_choice-1]);
             wait_user();
             pick_up_pile_and_face_down(game, face_down_choice-1);
-            clearscreen();
-            show_game_summary(*game);
             move_to_next_player(game);
         }
     }
