@@ -260,15 +260,14 @@ int continue_play(const struct game_t game)
     return (players_with_cards > 1);
 }
 
-struct player_t get_shithead(const struct game_t game)
+void get_shithead(const struct game_t game, char *name)
 {
     int i;
     
     for (i = 0; i < game.num_players; i++)
         if (has_cards(game.players[i]))
-            return game.players[i];
-
-    return game.players[0];
+            strcpy(name, game.players[i].name);
+    strcpy(name, game.players[0].name);
 }
 
 void move_to_next_player(struct game_t *game) 

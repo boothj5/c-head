@@ -257,12 +257,12 @@ void request_move(const struct player_t player, int card_choices[], int *num_cho
     }
 }
 
-void show_shithead(const struct player_t player)
+void show_shithead(char *player)
 {
     newline();
     printf("!!!! GAME OVER !!!!");
     newlines(2);
-    printf("SHITHEAD == %s", player.name);
+    printf("SHITHEAD == %s", player);
     newlines(2);
 }
 

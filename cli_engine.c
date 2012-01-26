@@ -10,7 +10,7 @@ void run_cli_engine()
     int nplayers, ncards;
     char names[MAX_NUM_PLAYERS][MAX_NAME_LEN];
     char types[MAX_NUM_PLAYERS];
-    struct player_t shithead;
+    char shithead[MAX_NAME_LEN];
 
     clearscreen();
     show_welcome_msg();
@@ -32,6 +32,6 @@ void run_cli_engine()
             perform_move(&game);
     }
 
-    shithead = get_shithead(game);
+    get_shithead(game, shithead);
     show_shithead(shithead);
 }

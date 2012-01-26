@@ -19,7 +19,7 @@ int request_swap_more(const char *name);
 int request_hand_swap(const int size);
 int request_faceup_swap(const int size);
 void request_move(const struct player_t player, int card_choices[], int *num_choices);
-void show_shithead(const struct player_t player);
+void show_shithead(char *player);
 void wait_user();
 void show_bad_move();
 void show_pickup(const char *name);
