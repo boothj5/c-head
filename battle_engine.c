@@ -42,11 +42,18 @@ static void addSh(char *name, int shMap[])
         shMap[2]++;
 }
 
-static void showSh(int shMap[])
+static void showSh(int shMap[], int ngames)
 {
-    printf("Random : %d\n", shMap[0]);
-    printf("Low    : %d\n", shMap[1]);
-    printf("Pyro   : %d\n", shMap[2]);
+    float percent;
+
+    percent = (double)shMap[0] / (double)ngames * 100.0;
+    printf("%-20s%-10d%.2f%%\n", "Random", shMap[0], percent);
+    
+    percent = (double)shMap[1] / (double)ngames * 100.0;
+    printf("%-20s%-10d%.2f%%\n", "Low", shMap[1], percent);
+    
+    percent = (double)shMap[2] / (double)ngames * 100.0;
+    printf("%-20s%-10d%.2f%%\n", "Pyro", shMap[2], percent);
 }
 
 void run_battle_engine(int ngames)
@@ -117,10 +124,22 @@ void run_battle_engine(int ngames)
     }
 
     clock_t end = clock();
-   
-    showSh(shMap);
-
     double elapsed = ((double) (end - start)) / CLOCKS_PER_SEC;
 
-    printf("TIME : %f\n", elapsed);
+    
+    float stalemate_percent = (double)stalemates / (double)ngames * 100.0;
+
+    printf("\n");
+    printf("SUMMARY\n");
+    printf("Total games : %d\n", ngames);
+    printf("Total time : %f seconds\n", elapsed);
+    printf("Stalemates : %d, %.2f%%\n", stalemates, stalemate_percent);
+
+    printf("\n");
+    printf("SCORES\n");
+    printf("%-20s%-10s%s\n", "Name", "Shithead", "Lose rate");
+    printf("------------------------------------------\n");
+    
+    showSh(shMap, ngames);
+
 }
