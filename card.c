@@ -38,7 +38,7 @@ int card_cmp(const void *card1, const void *card2)
     const struct card_t *icard2 = (const struct card_t *) card2;
 
     if (special_card(*icard1) && special_card(*icard2))
-        return EQ;
+        return icard1->rank < icard2->rank;
     else if (special_card(*icard1) && !special_card(*icard2))
         return GT;
     else if (special_card(*icard2))

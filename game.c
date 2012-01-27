@@ -5,7 +5,7 @@
 #include "card.h"
 #include "config.h"
 #include "pile.h"
-
+#include "util.h"
 #include "game_rules.h"
 #include "last_move.h"
 
@@ -62,9 +62,9 @@ static void shuffle(struct game_t *game)
     struct card_t t;
 
     if (game->deck_size > 1) {
-        srand((unsigned)time(NULL)) ;
-        for (i = 0; i < game->deck_size - 1; i++) {
-            j = i + rand() / (RAND_MAX / (game->deck_size - i) + 1);
+        srand(rdtsc()) ;
+        for (i = 0; i < game->deck_size; i++) {
+            j = rand() / (RAND_MAX / game->deck_size + 1);
             t = game->deck[j];
             game->deck[j] = game->deck[i];
             game->deck[i] = t;
@@ -265,8 +265,10 @@ void get_shithead(const struct game_t game, char *name)
     int i;
     
     for (i = 0; i < game.num_players; i++)
-        if (has_cards(game.players[i]))
+        if (has_cards(game.players[i])) {
             strcpy(name, game.players[i].name);
+            return;
+        }
     strcpy(name, game.players[0].name);
 }
 

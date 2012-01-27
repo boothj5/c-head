@@ -5,15 +5,16 @@
 #include "config.h"
 #include "game_rules.h"
 #include "card.h"
+#include "util.h"
 
 static void shuffle(int *choices, int nchoices)
 {
     int i, j, t;
 
     if (nchoices > 1) {
-        srand((unsigned)time(NULL)) ;
-        for (i = 0; i < nchoices - 1; i++) {
-            j = i + rand() / (RAND_MAX / (nchoices - i) + 1);
+        srand(rdtsc()) ;
+        for (i = 0; i < nchoices; i++) {
+            j = rand() / (RAND_MAX / nchoices + 1);
             t = choices[j];
             choices[j] = choices[i];
             choices[i] = t;

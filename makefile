@@ -4,7 +4,7 @@ TESTLIB = -L ~/lib -l headunit
 CPPLIB = -lstdc++
 OBJS = card.o player.o console.o game.o game_rules.o last_move.o \
 	   pile.o c-head.o human_player.o lowcard_player.o random_player.o \
-       pyromaniac.o player_interaction.o cli_engine.o battle_engine.o
+       pyromaniac.o player_interaction.o cli_engine.o battle_engine.o util.o
 TESTOBJS = test_card.o card.o \
 		   test_player.o player.o \
            test_human_player.o human_player.o \
@@ -14,7 +14,7 @@ TESTOBJS = test_card.o card.o \
 		   test_last_move.o last_move.o \
 		   test_game.o game.o \
 		   test_random_player.o random_player.o \
-           pyromaniac.o
+           pyromaniac.o util.o
 
 c-head: $(OBJS)
 	$(CC) -o c-head $(OBJS)
@@ -24,15 +24,16 @@ player.o: player.h player_types.h card.h config.h game.h
 human_player.o: player_types.h player.h config.h
 lowcard_player.o: player_types.h player.h config.h
 pyromaniac.o: player_types.h player.h config.h
-random_player.o: player_types.h player.h config.h
+random_player.o: player_types.h player.h config.h util.h
 player_interaction.o: player_interaction.h game.h player.h console.h game_rules.h
 console.o: console.h player.h game.h
-game.o: game.h card.h pile.h game_rules.h last_move.h config.h
+game.o: game.h card.h pile.h game_rules.h last_move.h config.h util.h
 game_rules.o: game_rules.h card.h player.h config.h game.h
 last_move.o: last_move.h
 pile.o: pile.h config.h game.h pile.h
 cli_engine.o: game.h console.h player_interaction.h config.h engines.h
-battle_engine.o: engines.h player_types.h game.h player_interaction.h
+battle_engine.o: engines.h player_types.h game.h player_interaction.h util.h
+util.o: util.h
 
 c-head.o: player.h game.h console.h player_interaction.h player_types.h \
 		  engines.h
