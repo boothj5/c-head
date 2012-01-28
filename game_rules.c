@@ -17,12 +17,12 @@ static int choice_not_in_cards(const int num_choices, const int card_choices[],
 }
 
 static int cannot_lay_first_card(const struct card_t *cards, 
-    const int card_choices[], const struct game_t game) 
+    const int card_choices[], const struct game_t *game) 
 {
-    return (!can_lay(cards[card_choices[0]], game.pile, game.pile_size));
+    return (!can_lay(&cards[card_choices[0]], game->pile, game->pile_size));
 }
 
-static int valid_move_with_given_hand(const struct game_t game,
+static int valid_move_with_given_hand(const struct game_t *game,
     const int card_choices[], const int num_choices, const struct card_t *cards, 
     const int cards_size)
 {
@@ -54,10 +54,10 @@ static int two_on_pile(const struct card_t *pile, const int pile_size)
     return (pile[pile_size-1].rank == TWO);
 }
 
-static int card_higher_than_pile(const struct card_t card, 
+static int card_higher_than_pile(const struct card_t *card, 
     const struct card_t *pile, const int pile_size) 
 {
-    return (card_cmp(&card, &pile[pile_size-1]) == GT);
+    return (card_cmp(card, &pile[pile_size-1]) == GT);
 }
 
 static int seven_on_pile(const struct card_t *pile, const int pile_size) 
@@ -65,34 +65,34 @@ static int seven_on_pile(const struct card_t *pile, const int pile_size)
     return (pile[pile_size-1].rank == SEVEN);
 }
 
-static int can_move_with_hand(const struct player_t player, const struct card_t *pile, 
+static int can_move_with_hand(const struct player_t *player, const struct card_t *pile, 
     const int pile_size)
 {
     int i;
 
-    for (i = 0 ; i < player.hand_size ; i++)
-        if (can_lay(player.hand[i], pile, pile_size))
+    for (i = 0 ; i < player->hand_size ; i++)
+        if (can_lay(&player->hand[i], pile, pile_size))
             return TRUE;
 
     return FALSE;
 }
 
-static int can_move_with_face_up(const struct player_t player, const struct card_t *pile, 
+static int can_move_with_face_up(const struct player_t *player, const struct card_t *pile, 
     const int pile_size)
 {
     int i;
 
-    for (i = 0 ; i < player.face_up_size ; i++)
-        if (can_lay(player.face_up[i], pile, pile_size))
+    for (i = 0 ; i < player->face_up_size ; i++)
+        if (can_lay(&player->face_up[i], pile, pile_size))
             return TRUE;
 
     return FALSE;
 }
 
-int can_lay(const struct card_t card, const struct card_t *pile, const int pile_size)
+int can_lay(const struct card_t *card, const struct card_t *pile, const int pile_size)
 {
     if ((empty_pile(pile_size)) || (special_card(card)) || 
-            (two_on_pile(pile, pile_size)) || (ranks_equal(card, pile[pile_size-1])) || 
+            (two_on_pile(pile, pile_size)) || (ranks_equal(card, &pile[pile_size-1])) || 
             (card_higher_than_pile(card, pile, pile_size)))
         return TRUE;
     else if (seven_on_pile(pile, pile_size))
@@ -101,9 +101,9 @@ int can_lay(const struct card_t card, const struct card_t *pile, const int pile_
         return FALSE;
 }
 
-int valid_move(struct game_t game, const int card_choices[], const int num_choices)
+int valid_move(const struct game_t *game, const int card_choices[], const int num_choices)
 {
-    const struct player_t *player = &game.players[game.current_player];
+    const struct player_t *player = &game->players[game->current_player];
 
     if (player->hand_size > 0)
         return valid_move_with_given_hand(game, card_choices, num_choices, 
@@ -115,20 +115,20 @@ int valid_move(struct game_t game, const int card_choices[], const int num_choic
         return FALSE;
 }
 
-int can_move(const struct game_t game)
+int can_move(const struct game_t *game)
 {
-    const struct player_t player = game.players[game.current_player];
+    const struct player_t *player = &game->players[game->current_player];
 
-    if (player.hand_size > 0) 
-        return can_move_with_hand(player, game.pile, game.pile_size);
-    else if (player.face_up_size > 0) 
-        return can_move_with_face_up(player, game.pile, game.pile_size);
+    if (player->hand_size > 0) 
+        return can_move_with_hand(player, game->pile, game->pile_size);
+    else if (player->face_up_size > 0) 
+        return can_move_with_face_up(player, game->pile, game->pile_size);
     else 
         return FALSE;
 }
 
-int can_lay_from_face_down(const struct game_t game, const int choice)
+int can_lay_from_face_down(const struct game_t *game, const int choice)
 {
-    const struct player_t player = game.players[game.current_player];
-    return can_lay(player.face_down[choice], game.pile, game.pile_size);
+    const struct player_t *player = &game->players[game->current_player];
+    return can_lay(&player->face_down[choice], game->pile, game->pile_size);
 }

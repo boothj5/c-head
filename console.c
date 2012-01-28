@@ -31,7 +31,7 @@ static void show_players(const struct player_t *players, const int num_players)
 {
     int i;
     for (i = 0 ; i < num_players ; i++)  {
-        show_player(players[i]);
+        show_player(&players[i]);
         newline();
     }
 }
@@ -42,7 +42,7 @@ static void show_cards(const struct card_t *cards, const int num_cards)
     int j = 1;
 
     for (i = 0 ; i< num_cards ; i++) {
-        printf("(%d)%s of %s", j, show_rank(cards[i]), show_suit(cards[i]));
+        printf("(%d)%s of %s", j, show_rank(&cards[i]), show_suit(&cards[i]));
         if (j <= (num_cards - 1))
             printf(", ");
         else
@@ -65,7 +65,6 @@ static void hide_cards(const int num_cards)
         j++;
     }
 }
-
 
 static void show_deck(const int num_cards)
 {
@@ -91,7 +90,7 @@ static void show_pile(const struct card_t *cards, const int num_cards)
         printf("\t");
         if (i == (num_cards-1))
             printf("(*)");
-        printf("%s of %s", show_rank(cards[i]), show_suit(cards[i]));
+        printf("%s of %s", show_rank(&cards[i]), show_suit(&cards[i]));
         newline();
         j++;
     }
@@ -121,21 +120,21 @@ void show_welcome_msg()
     newlines(2);
 }
 
-void show_player(struct player_t player)
+void show_player(const struct player_t *player)
 {
-    printf("Player name : %s", player.name);
+    printf("Player name : %s", player->name);
     newline();
-    if (player.hand_size > 0) {
+    if (player->hand_size > 0) {
         printf("HAND     : ");
-        show_cards(player.hand, player.hand_size);
+        show_cards(player->hand, player->hand_size);
     }
-    if (player.face_up_size > 0) {
+    if (player->face_up_size > 0) {
         printf("FACE UP  : ");
-        show_cards(player.face_up, player.face_up_size);
+        show_cards(player->face_up, player->face_up_size);
     }
-    if (player.face_down_size > 0) {
+    if (player->face_down_size > 0) {
         printf("FACE DOWN: ");
-        hide_cards(player.face_down_size);
+        hide_cards(player->face_down_size);
     }
 }
 
@@ -214,11 +213,11 @@ int request_hand_swap(const int size)
     return choice;
 }
 
-int request_face_down_move(const struct player_t player)
+int request_face_down_move(const struct player_t *player)
 {
     int choice;
     newline();
-    printf("%s, pick a card to play (1-%d): ", player.name, player.face_down_size);
+    printf("%s, pick a card to play (1-%d): ", player->name, player->face_down_size);
     scanf("%d", &choice);
     return choice;
 }
@@ -231,20 +230,20 @@ int request_faceup_swap(const int size)
     return choice;
 }
 
-void show_game_summary(const struct game_t game)
+void show_game_summary(const struct game_t *game)
 {
-    show_pile(game.pile, game.pile_size);
-    show_deck(game.deck_size);
-    show_burnt(game.burnt_size);
-    show_players(game.players, game.num_players);
-    show_last_move(game.last_move);
+    show_pile(game->pile, game->pile_size);
+    show_deck(game->deck_size);
+    show_burnt(game->burnt_size);
+    show_players(game->players, game->num_players);
+    show_last_move(game->last_move);
     wait_user();
 }
 
-void request_move(const struct player_t player, int card_choices[], int *num_choices)
+void request_move(const struct player_t *player, int card_choices[], int *num_choices)
 {
     char entered[10];
-    printf("%s, choose cards to lay: ", player.name);
+    printf("%s, choose cards to lay: ", player->name);
     scanf("%s", entered);
 
     while (!parse_choice(entered, card_choices, num_choices)) {
@@ -252,7 +251,7 @@ void request_move(const struct player_t player, int card_choices[], int *num_cho
         newline();
         printf("Enter card choices seperated by commas.");
         newlines(2);
-        printf("%s, choose cards to lay: ", player.name);
+        printf("%s, choose cards to lay: ", player->name);
         scanf("%s", entered);
     }
 }
@@ -293,7 +292,7 @@ void show_pickup(const char *name)
     newline();
 }
 
-void show_pickup_from_face_down(const struct card_t card)
+void show_pickup_from_face_down(const struct card_t *card)
 {
     newline();
     printf("Oh no, you picked the %s of %s, you must pickup, press enter.", 
@@ -301,7 +300,7 @@ void show_pickup_from_face_down(const struct card_t card)
     newline();
 }
 
-void show_can_move_from_face_down(const struct card_t card)
+void show_can_move_from_face_down(const struct card_t *card)
 {
     newline();
     printf("Whew! you picked the %s of %s, press enter.", show_rank(card), show_suit(card));

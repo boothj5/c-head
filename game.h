@@ -27,8 +27,8 @@ void first_move(struct game_t *game);
 void make_move(struct game_t *game, const int card_choices[], 
     const int num_choices);
 void make_move_from_face_down(struct game_t *game, const int face_down_choice);
-int continue_play(const struct game_t game);
-void get_shithead(const struct game_t game, char *name);
+int continue_play(const struct game_t *game);
+void get_shithead(const struct game_t *game, char *name);
 void pick_up_pile(struct game_t *game);
 void pick_up_pile_and_face_down(struct game_t *game, const int face_down_choice);
 void move_to_next_player(struct game_t *game);

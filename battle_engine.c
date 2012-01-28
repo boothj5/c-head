@@ -128,7 +128,7 @@ void run_battle_engine(int ngames)
         first_move(&game);
 
         int moves = 0;
-        while (continue_play(game) && moves < THRESHOLD) {
+        while (continue_play(&game) && moves < THRESHOLD) {
             if (player_on_last_cards(&game))
                 perform_last_cards_move(&game);
             else
@@ -140,7 +140,7 @@ void run_battle_engine(int ngames)
             stalemates++;
         }
 
-        get_shithead(game, shithead);
+        get_shithead(&game, shithead);
 
         add_sh(shithead, sh_counts);
 
@@ -170,5 +170,4 @@ void run_battle_engine(int ngames)
     show_counts(sh_counts, ngames);
 
     printf("\n");
-
 }

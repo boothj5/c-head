@@ -80,17 +80,17 @@ void deal_to_face_down(struct player_t *player, const struct card_t card)
     add_card_to_cards(player->face_down, &player->face_down_size, card);
 }
 
-void remove_from_hand(struct player_t *player, const struct card_t card)
+void remove_from_hand(struct player_t *player, const struct card_t *card)
 {
     remove_card_from_cards(player->hand, &player->hand_size, card);
 }
 
-void remove_from_face_up(struct player_t *player, const struct card_t card)
+void remove_from_face_up(struct player_t *player, const struct card_t *card)
 {
     remove_card_from_cards(player->face_up, &player->face_up_size, card);
 }
 
-void remove_from_face_down(struct player_t *player, const struct card_t card)
+void remove_from_face_down(struct player_t *player, const struct card_t *card)
 {
     remove_card_from_cards(player->face_down, &player->face_down_size, card);
 }
@@ -103,50 +103,50 @@ void find_lowest_card_by_player(const struct player_t *players,
         cards[i] = find_lowest_card(players[i].hand, players[i].hand_size);
 }
 
-void swap(struct player_t *player, const struct swap_choice_t choice)
+void swap(struct player_t *player, const struct swap_choice_t *choice)
 {
     struct card_t temp;
 
-    temp = player->hand[choice.hand_choice-1];
-    player->hand[choice.hand_choice-1] = player->face_up[choice.faceup_choice-1];
-    player->face_up[choice.faceup_choice-1] = temp;
+    temp = player->hand[choice->hand_choice-1];
+    player->hand[choice->hand_choice-1] = player->face_up[choice->faceup_choice-1];
+    player->face_up[choice->faceup_choice-1] = temp;
     sort_cards(player->hand, player->hand_size);
 
 }
 
-int has_cards(const struct player_t player)
+int has_cards(const struct player_t *player)
 {
-    if (player.hand_size > 0)
+    if (player->hand_size > 0)
         return TRUE;
-    if (player.face_up_size > 0)
+    if (player->face_up_size > 0)
         return TRUE;
-    if (player.face_down_size > 0)
+    if (player->face_down_size > 0)
         return TRUE;
     return FALSE;
 }
 
-int has_cards_in_hand(const struct player_t player)
+int has_cards_in_hand(const struct player_t *player)
 {
-    return player.hand_size > 0;
+    return player->hand_size > 0;
 }
 
-int ask_swap_cards(const struct player_t player)
+int ask_swap_cards(const struct player_t *player)
 {
-    return player.ask_swap_cards(player);
+    return player->ask_swap_cards(player);
 }
 
-struct swap_choice_t ask_swap_choice(const struct player_t player)
+struct swap_choice_t ask_swap_choice(const struct player_t *player)
 {
-    return player.ask_swap_choice(player);
+    return player->ask_swap_choice(player);
 }
 
-void ask_move(const struct player_t player, const struct player_helper_t helper,
+void ask_move(const struct player_t *player, const struct player_helper_t *helper,
     int card_choices[], int *nchoices)
 {
-    return player.ask_move(player, helper, card_choices, nchoices);
+    return player->ask_move(player, helper, card_choices, nchoices);
 }
 
-int ask_face_down_move(const struct player_t player)
+int ask_face_down_move(const struct player_t *player)
 {
-    return player.ask_face_down_move();
+    return player->ask_face_down_move();
 }

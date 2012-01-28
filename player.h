@@ -24,9 +24,9 @@ struct player_t {
     int face_up_size;
     int face_down_size;
 
-    int (*ask_swap_cards)(const struct player_t);
-    struct swap_choice_t (*ask_swap_choice)(const struct player_t);
-    void (*ask_move)(const struct player_t, const struct player_helper_t, int[], int*);
+    int (*ask_swap_cards)(const struct player_t *);
+    struct swap_choice_t (*ask_swap_choice)(const struct player_t *);
+    void (*ask_move)(const struct player_t *, const struct player_helper_t *, int[], int*);
     int (*ask_face_down_move)(void);
 };
 
@@ -35,18 +35,18 @@ struct player_helper_t make_helper(const struct card_t *pile, const int pile_siz
 void deal_to_hand(struct player_t *player, const struct card_t card);
 void deal_to_face_up(struct player_t *player, const struct card_t card);
 void deal_to_face_down(struct player_t *player, const struct card_t card);
-void remove_from_hand(struct player_t *player, const struct card_t card);
-void remove_from_face_up(struct player_t *player, const struct card_t card);
-void remove_from_face_down(struct player_t *player, const struct card_t card);
+void remove_from_hand(struct player_t *player, const struct card_t *card);
+void remove_from_face_up(struct player_t *player, const struct card_t *card);
+void remove_from_face_down(struct player_t *player, const struct card_t *card);
 void find_lowest_card_by_player(const struct player_t *players,
     const int num_players, struct card_t *cards) ;
-void swap(struct player_t *player, const struct swap_choice_t choice);
-int has_cards(const struct player_t player);
-int has_cards_in_hand(const struct player_t player);
-int ask_swap_cards(const struct player_t player);
-struct swap_choice_t ask_swap_choice(const struct player_t player);
-void ask_move(const struct player_t player, const struct player_helper_t helper,
+void swap(struct player_t *player, const struct swap_choice_t *choice);
+int has_cards(const struct player_t *player);
+int has_cards_in_hand(const struct player_t *player);
+int ask_swap_cards(const struct player_t *player);
+struct swap_choice_t ask_swap_choice(const struct player_t *player);
+void ask_move(const struct player_t *player, const struct player_helper_t *helper,
     int card_choices[], int *nchoices);
-int ask_face_down_move(const struct player_t player);
+int ask_face_down_move(const struct player_t *player);
 
 #endif

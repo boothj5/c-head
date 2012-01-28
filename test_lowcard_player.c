@@ -22,7 +22,7 @@ static void test_is_computer(void)
 static void doesnt_swap_cards(void)
 {
     struct player_t low = make_player("Low", 'l');
-    assert_false(ask_swap_cards(low));
+    assert_false(ask_swap_cards(&low));
 }
 
 static void always_chooses_first_face_down(void)
@@ -44,10 +44,10 @@ static void chooses_low_from_hand_when_empty_pile()
     struct card_t pile[0];
     struct player_helper_t helper = make_helper(pile, 0);
     
-    ask_move(low, helper, choices, &nchoices);
+    ask_move(&low, &helper, choices, &nchoices);
 
     assert_int_equals(1, nchoices);
-    assert_true(cards_equal(fourD, low.hand[choices[0]]));
+    assert_true(cards_equal(&fourD, &low.hand[choices[0]]));
 }
 
 static void chooses_low_from_face_up_when_empty_pile()
@@ -62,10 +62,10 @@ static void chooses_low_from_face_up_when_empty_pile()
     struct card_t pile[0];
     struct player_helper_t helper = make_helper(pile, 0);
     
-    ask_move(low, helper, choices, &nchoices);
+    ask_move(&low, &helper, choices, &nchoices);
 
     assert_int_equals(1, nchoices);
-    assert_true(cards_equal(fourD, low.face_up[choices[0]]));
+    assert_true(cards_equal(&fourD, &low.face_up[choices[0]]));
 }
 
 static void chooses_lowest_from_hand_on_pile()
@@ -84,10 +84,10 @@ static void chooses_lowest_from_hand_on_pile()
     pile[0] = aceD;
     struct player_helper_t helper = make_helper(pile, 1);
     
-    ask_move(low, helper, choices, &nchoices);
+    ask_move(&low, &helper, choices, &nchoices);
 
     assert_int_equals(1, nchoices);
-    assert_true(cards_equal(aceS, low.hand[choices[0]]));
+    assert_true(cards_equal(&aceS, &low.hand[choices[0]]));
 }
 
 static void chooses_lowest_from_face_up_on_pile()
@@ -105,10 +105,10 @@ static void chooses_lowest_from_face_up_on_pile()
     pile[0] = sixC;
     struct player_helper_t helper = make_helper(pile, 1);
     
-    ask_move(low, helper, choices, &nchoices);
+    ask_move(&low, &helper, choices, &nchoices);
 
     assert_int_equals(1, nchoices);
-    assert_true(cards_equal(sixH, low.face_up[choices[0]]));
+    assert_true(cards_equal(&sixH, &low.face_up[choices[0]]));
 }
 
 static void chooses_two_cards_from_hand_when_can()
@@ -128,7 +128,7 @@ static void chooses_two_cards_from_hand_when_can()
     pile[0] = fiveH;
     struct player_helper_t helper = make_helper(pile, 1);
     
-    ask_move(low, helper, choices, &nchoices);
+    ask_move(&low, &helper, choices, &nchoices);
     
     assert_int_equals(2, nchoices);
 
@@ -137,7 +137,7 @@ static void chooses_two_cards_from_hand_when_can()
 
     assert_int_equals(SIX, first.rank);
     assert_int_equals(SIX, second.rank);
-    assert_false(cards_equal(first, second));
+    assert_false(cards_equal(&first, &second));
 }
 
 static void chooses_two_cards_from_face_up_when_can()
@@ -156,7 +156,7 @@ static void chooses_two_cards_from_face_up_when_can()
     pile[0] = fiveH;
     struct player_helper_t helper = make_helper(pile, 1);
     
-    ask_move(low, helper, choices, &nchoices);
+    ask_move(&low, &helper, choices, &nchoices);
     
     assert_int_equals(2, nchoices);
 
@@ -165,7 +165,7 @@ static void chooses_two_cards_from_face_up_when_can()
 
     assert_int_equals(SIX, first.rank);
     assert_int_equals(SIX, second.rank);
-    assert_false(cards_equal(first, second));
+    assert_false(cards_equal(&first, &second));
 }
 
 void register_lowcard_player_tests(void)

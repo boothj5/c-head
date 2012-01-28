@@ -9,11 +9,11 @@
 #include "game_rules.h"
 #include "last_move.h"
 
-static int calc_deck_size(const struct game_t game)
+static int calc_deck_size(const struct game_t *game)
 {
     int decks_required, total_cards, div, add;
     
-    total_cards = game.num_players * (game.num_cards_each * 3);
+    total_cards = game->num_players * (game->num_cards_each * 3);
     div = total_cards / DECK_SIZE;
     add = ((total_cards % DECK_SIZE) > 0);
     decks_required = div + add;
@@ -29,7 +29,7 @@ static void create_deck(struct game_t *game)
     int i = 0;
     int j;
 
-    game->deck_size = calc_deck_size(*game);
+    game->deck_size = calc_deck_size(game);
     num_decks = game->deck_size / DECK_SIZE;
     
     for (j = 0; j < num_decks; j++)
@@ -41,18 +41,21 @@ static void create_deck(struct game_t *game)
 static void deal(struct game_t *game)
 {
     int i, j;
+    struct player_t *player = NULL;
+    struct card_t *deck = game->deck;
+    int *deck_size = &game->deck_size;
 
     for (i = 0; i < game->num_players; i++) {
+        player = &game->players[i];
         for (j = 0; j < game->num_cards_each; j++) {
-            struct player_t *player = &(game->players[i]);
-            deal_to_hand(player, game->deck[--game->deck_size]);
-            deal_to_face_up(player, game->deck[--game->deck_size]);
-            deal_to_face_down(player, game->deck[--game->deck_size]);
+            deal_to_hand(player, deck[*deck_size]);
+            (*deck_size)--;
+            deal_to_face_up(player, deck[*deck_size]);
+            (*deck_size)--;
+            deal_to_face_down(player, deck[*deck_size]);
+            (*deck_size)--;
         }
-    }
-
-    for (i = 0; i < game->num_players; i++) {
-        sort_cards(game->players[i].hand, game->players[i].hand_size);
+        sort_cards(player->hand, player->hand_size);
     }
 }
 
@@ -72,39 +75,15 @@ static void shuffle(struct game_t *game)
     }
 }
 
-static int find_lowest_player(const struct game_t *game,
-    const struct card_t lowest, const struct card_t *lowest_by_player)
+static void play_from_hand(struct game_t *game, const struct card_t *to_lay, 
+    const int num_cards)
 {
     int i;
-    int result = 0;
-
-    for (i = 0; i < game->num_players; i++)
-        if (cards_equal(lowest, lowest_by_player[i])) {
-            result = i;
-            break;
-        }
-
-    return result;
-}
-
-static void add_similar_cards(const struct game_t *game, const struct card_t lowest,
-    const struct player_t *lowest_player, struct card_t *to_lay, int *num_cards)
-{
-    int i;
-
-    for (i = 0; i < game->num_cards_each; i++)
-        if (lowest.rank == lowest_player->hand[i].rank)
-            to_lay[(*num_cards)++] = lowest_player->hand[i];
-}
-
-static void play_from_hand(struct game_t *game, struct player_t *player,
-    const struct card_t *to_lay, const int num_cards)
-{
-    int i;
+    struct player_t *player = &game->players[game->current_player];
 
     for (i = 0; i < num_cards; i++) {
         add_to_pile(game->pile, &game->pile_size, to_lay[i]);
-        remove_from_hand(player, to_lay[i]);
+        remove_from_hand(player, &to_lay[i]);
         
         if (game->deck_size > 0 && (player->hand_size < game->num_cards_each)) {
             deal_to_hand(player, game->deck[game->deck_size-1]);
@@ -122,7 +101,7 @@ static void play_from_face_up(struct game_t *game, struct player_t *player,
 
     for (i = 0; i < num_cards; i++) {
         add_to_pile(game->pile, &game->pile_size, to_lay[i]);
-        remove_from_face_up(player, to_lay[i]);
+        remove_from_face_up(player, &to_lay[i]);
     }
 }
 
@@ -133,7 +112,7 @@ static void play_from_face_down(struct game_t *game, struct player_t *player,
     
     for (i = 0; i < num_cards; i++) {
         add_to_pile(game->pile, &game->pile_size, to_lay[i]);
-        remove_from_face_down(player, to_lay[i]);
+        remove_from_face_down(player, &to_lay[i]);
     }
 }
 
@@ -196,19 +175,27 @@ void init_game(struct game_t *game)
 void first_move(struct game_t *game)
 {
     int num_to_lay = 0;
-    struct card_t lowest_by_player[game->num_players];
     struct card_t lowest;
     struct card_t to_lay[MAX_HAND_SIZE];
-    struct player_t *player;
 
-    find_lowest_card_by_player(game->players, game->num_players, lowest_by_player);
-    lowest = find_lowest_card(lowest_by_player, game->num_players);
-    game->current_player = find_lowest_player(game, lowest, lowest_by_player);
-    player = &(game->players[game->current_player]);
-    add_similar_cards(game, lowest, player, to_lay, &num_to_lay);
-    play_from_hand(game, player, to_lay, num_to_lay);
+    game->current_player = 0;
+    struct card_t current_lowest = game->players[game->current_player].hand[0];
+    int i;
+    for (i = 1; i < game->num_players; i++) {
+        struct card_t player_lowest = game->players[i].hand[0];
+        if (card_cmp(&player_lowest, &current_lowest) == LT)
+            game->current_player = i;
+    }
+
+    lowest = game->players[game->current_player].hand[0];
+    for (i = 0; i < game->num_cards_each; i++)
+        if (lowest.rank == game->players[game->current_player].hand[i].rank)
+            to_lay[num_to_lay++] = game->players[game->current_player].hand[i];
+
+    play_from_hand(game, to_lay, num_to_lay);
+    set_last_move(game->last_move, game->players[game->current_player].name, 
+        to_lay, num_to_lay);
     move_to_next_player(game);
-    set_last_move(game->last_move, player->name, to_lay, num_to_lay);
 }
 
 void make_move(struct game_t *game, const int card_choices[], const int num_choices)
@@ -221,7 +208,7 @@ void make_move(struct game_t *game, const int card_choices[], const int num_choi
         for (i = 0 ; i < num_choices ; i++) 
             to_lay[i] = player->hand[card_choices[i]];
 
-        play_from_hand(game, player, to_lay, num_choices);
+        play_from_hand(game, to_lay, num_choices);
     }
     else if (player->face_up_size > 0) {
         for (i = 0; i < num_choices; i++) 
@@ -249,27 +236,27 @@ void make_move_from_face_down(struct game_t *game, const int face_down_choice)
     update_last_move(game, to_lay, 1);
 }
 
-int continue_play(const struct game_t game)
+int continue_play(const struct game_t *game)
 {
     int i, players_with_cards = 0;
 
-    for (i = 0; i < game.num_players; i++)
-        if (has_cards(game.players[i]))
+    for (i = 0; i < game->num_players; i++)
+        if (has_cards(&game->players[i]))
             players_with_cards++;
     
     return (players_with_cards > 1);
 }
 
-void get_shithead(const struct game_t game, char *name)
+void get_shithead(const struct game_t *game, char *name)
 {
     int i;
     
-    for (i = 0; i < game.num_players; i++)
-        if (has_cards(game.players[i])) {
-            strcpy(name, game.players[i].name);
+    for (i = 0; i < game->num_players; i++)
+        if (has_cards(&game->players[i])) {
+            strcpy(name, game->players[i].name);
             return;
         }
-    strcpy(name, game.players[0].name);
+    strcpy(name, game->players[0].name);
 }
 
 void move_to_next_player(struct game_t *game) 
@@ -277,7 +264,7 @@ void move_to_next_player(struct game_t *game)
     game->current_player++;
     if (game->current_player == game->num_players)
         game->current_player = 0;
-    while (!has_cards(game->players[game->current_player])) {
+    while (!has_cards(&game->players[game->current_player])) {
         game->current_player++;
         if (game->current_player == game->num_players)
             game->current_player = 0;
@@ -287,7 +274,7 @@ void move_to_next_player(struct game_t *game)
         game->current_player++;
         if (game->current_player == game->num_players)
             game->current_player = 0;
-        while (!has_cards(game->players[game->current_player])) {
+        while (!has_cards(&game->players[game->current_player])) {
             game->current_player++;
             if (game->current_player == game->num_players)
                 game->current_player = 0;
@@ -319,7 +306,7 @@ void pick_up_pile_and_face_down(struct game_t *game, const int face_down_choice)
     pick_up_pile(game);
     deal_to_hand(player, card);
     sort_cards(player->hand, player->hand_size);
-    remove_from_face_down(player, card);
+    remove_from_face_down(player, &card);
 }
 
 int player_on_last_cards(const struct game_t *game)

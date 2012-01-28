@@ -71,7 +71,7 @@ static void test_valid_card_on_card(struct card_t test_card, struct card_t pile_
     player->hand[player->hand_size++] = test_card;
     choices[0] = 0;
 
-    assert_true(valid_move(game, choices, num_choices));
+    assert_true(valid_move(&game, choices, num_choices));
 }
 
 static void test_not_valid_card_on_card(struct card_t test_card, struct card_t pile_card)
@@ -82,7 +82,7 @@ static void test_not_valid_card_on_card(struct card_t test_card, struct card_t p
     player->hand[player->hand_size++] = test_card;
     choices[0] = 0;
 
-    assert_false(valid_move(game, choices, num_choices));
+    assert_false(valid_move(&game, choices, num_choices));
 }
 
 // basic tests
@@ -92,7 +92,7 @@ static void test_valid_on_no_cards(void)
     num_choices = 1;
     player->hand[player->hand_size++] = threeS;
     
-    assert_true(valid_move(game, choices, num_choices));
+    assert_true(valid_move(&game, choices, num_choices));
 }
 
 static void test_not_valid_move_no_cards(void)
@@ -102,7 +102,7 @@ static void test_not_valid_move_no_cards(void)
     game.pile[game.pile_size++] = nineH;
     player->hand[player->hand_size++] = fourS;
 
-    assert_false(valid_move(game, choices, num_choices));
+    assert_false(valid_move(&game, choices, num_choices));
 }
 
 static void test_not_valid_more_cards_than_hand(void)
@@ -114,7 +114,7 @@ static void test_not_valid_more_cards_than_hand(void)
     choices[0] = 0;
     choices[1] = 1;
 
-    assert_false(valid_move(game, choices, num_choices));
+    assert_false(valid_move(&game, choices, num_choices));
 }
 
 static void test_not_valid_when_rank_not_equal(void) 
@@ -126,7 +126,7 @@ static void test_not_valid_when_rank_not_equal(void)
     choices[0] = 0;
     choices[1] = 1;
 
-    assert_false(valid_move(game, choices, num_choices));
+    assert_false(valid_move(&game, choices, num_choices));
 }
 
 static void test_not_valid_when_not_in_hand(void) 
@@ -139,7 +139,7 @@ static void test_not_valid_when_not_in_hand(void)
     choices[0] = 0;
     choices[1] = 4;
 
-    assert_false(valid_move(game, choices, num_choices));
+    assert_false(valid_move(&game, choices, num_choices));
 }
 
 // normal order tests
@@ -205,7 +205,7 @@ static void test_valid_six_on_seven_on_nothing(void)
     player->hand[player->hand_size++] = sixH;
     choices[0] = 0;
     
-    assert_true(valid_move(game, choices, num_choices));
+    assert_true(valid_move(&game, choices, num_choices));
 }
 
 static void test_valid_five_on_seven_on_three(void)
@@ -217,7 +217,7 @@ static void test_valid_five_on_seven_on_three(void)
     player->hand[player->hand_size++] = fiveH;
     choices[0] = 0;
     
-    assert_true(valid_move(game, choices, num_choices));
+    assert_true(valid_move(&game, choices, num_choices));
 }
 
 void register_game_rules_tests(void)

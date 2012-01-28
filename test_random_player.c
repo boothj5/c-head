@@ -12,7 +12,7 @@ static void test_is_computer(void)
 static void doesnt_swap_cards(void)
 {
     struct player_t random = make_player("Random", 'r');
-    assert_false(ask_swap_cards(random));
+    assert_false(ask_swap_cards(&random));
 }
 
 static void always_chooses_first_face_down(void)

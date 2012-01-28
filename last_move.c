@@ -10,9 +10,9 @@ void set_last_move(char *last_move, const char *name, const struct card_t *cards
     strcat(last_move, name);
     strcat(last_move, " laid: ");
     for (i = 0; i < num_cards; i++) {
-        strcat(last_move, show_rank(cards[i]));
+        strcat(last_move, show_rank(&cards[i]));
         strcat(last_move, " of ");
-        strcat(last_move, show_suit(cards[i]));
+        strcat(last_move, show_suit(&cards[i]));
         strcat(last_move, ", ");
     }
     strcat(last_move, "\n");

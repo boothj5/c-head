@@ -23,15 +23,15 @@ void run_cli_engine()
     perform_swap(&game);
     first_move(&game);
 
-    while (continue_play(game)) {
+    while (continue_play(&game)) {
         clearscreen();
-        show_game_summary(game);
+        show_game_summary(&game);
         if (player_on_last_cards(&game))
             perform_last_cards_move(&game);
         else
             perform_move(&game);
     }
 
-    get_shithead(game, shithead);
+    get_shithead(&game, shithead);
     show_shithead(shithead);
 }
