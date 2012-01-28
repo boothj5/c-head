@@ -3,5 +3,6 @@
 
 #include <stdint.h>
 
+void format_millis(const double, char *);
 uint64_t rdtsc(void);
 #endif

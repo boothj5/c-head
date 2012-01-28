@@ -9,6 +9,11 @@
 
 #define THRESHOLD 10000
 
+struct sh_count_t {
+    struct player_type_t player;
+    int count;
+};
+
 static void shuffle(struct player_type_t *players, int nplayers)
 {
     int i, r;
@@ -25,35 +30,53 @@ static void shuffle(struct player_type_t *players, int nplayers)
     }
 }
 
-static void initShMap(int shMap[])
+static void init_sh_counts(struct player_type_t ptypes[], struct sh_count_t counts[])
 {
-    shMap[0] = 0;
-    shMap[1] = 0;
-    shMap[2] = 0;
+    struct sh_count_t random;
+    random.player = ptypes[0];
+    random.count = 0;
+    counts[0] = random;
+    
+    struct sh_count_t low;
+    low.player = ptypes[1];
+    low.count = 0;
+    counts[1] = low;
+    
+    struct sh_count_t pyro;
+    pyro.player = ptypes[2];
+    pyro.count = 0;
+    counts[2] = pyro;
 }
 
-static void addSh(char *name, int shMap[])
+static void add_sh(char *name, struct sh_count_t counts[])
 {
     if (strcmp(name, "Random") == 0)
-        shMap[0]++;
+        counts[0].count++;
     else if (strcmp(name, "Low") == 0)
-        shMap[1]++;
+        counts[1].count++;
     else
-        shMap[2]++;
+        counts[2].count++;
 }
 
-static void showSh(int shMap[], int ngames)
+static int score_order(const void *count1, const void *count2)
+{
+    const struct sh_count_t *icount1 = (const struct sh_count_t *) count1;
+    const struct sh_count_t *icount2 = (const struct sh_count_t *) count2;
+
+    return icount1->count > icount2->count;
+}
+
+static void show_counts(struct sh_count_t counts[], int ngames)
 {
     float percent;
 
-    percent = (double)shMap[0] / (double)ngames * 100.0;
-    printf("%-20s%-10d%.2f%%\n", "Random", shMap[0], percent);
-    
-    percent = (double)shMap[1] / (double)ngames * 100.0;
-    printf("%-20s%-10d%.2f%%\n", "Low", shMap[1], percent);
-    
-    percent = (double)shMap[2] / (double)ngames * 100.0;
-    printf("%-20s%-10d%.2f%%\n", "Pyro", shMap[2], percent);
+    qsort(counts, 3, sizeof(struct sh_count_t), score_order);
+
+    int i;
+    for (i = 0; i < 3; i++) {
+        percent = (double)counts[i].count / (double)ngames * 100.0;
+        printf("%-20s%-10d%.0f%%\n", counts[i].player.name, counts[i].count, percent);
+    }    
 }
 
 void run_battle_engine(int ngames)
@@ -63,7 +86,7 @@ void run_battle_engine(int ngames)
     int ncards = 3;
     int stalemates = 0;
     struct player_type_t ptypes[nplayers];
-    int shMap[nplayers];
+    struct sh_count_t sh_counts[nplayers];
 
     struct player_type_t random;
     random.type = 'r';
@@ -81,7 +104,7 @@ void run_battle_engine(int ngames)
     ptypes[1] = low;
     ptypes[2] = pyro;
 
-    initShMap(shMap);
+    init_sh_counts(ptypes, sh_counts);
     
     clock_t start = clock();
 
@@ -119,20 +142,24 @@ void run_battle_engine(int ngames)
 
         get_shithead(game, shithead);
 
-        addSh(shithead, shMap);
+        add_sh(shithead, sh_counts);
 
     }
 
     clock_t end = clock();
-    double elapsed = ((double) (end - start)) / CLOCKS_PER_SEC;
-
+    double totalmillis = ((double) (end - start)) / (CLOCKS_PER_SEC / 1000);
+    char fmt_elapsed[100];
+    format_millis(totalmillis, fmt_elapsed);
     
+    float avg_game_millis = totalmillis / ngames;
     float stalemate_percent = (double)stalemates / (double)ngames * 100.0;
 
     printf("\n");
     printf("SUMMARY\n");
     printf("Total games : %d\n", ngames);
-    printf("Total time : %f seconds\n", elapsed);
+    printf("Total time : ");
+    printf("%s\n", fmt_elapsed);
+    printf("Average game: %.2f milliseconds\n", avg_game_millis);
     printf("Stalemates : %d, %.2f%%\n", stalemates, stalemate_percent);
 
     printf("\n");
@@ -140,6 +167,8 @@ void run_battle_engine(int ngames)
     printf("%-20s%-10s%s\n", "Name", "Shithead", "Lose rate");
     printf("------------------------------------------\n");
     
-    showSh(shMap, ngames);
+    show_counts(sh_counts, ngames);
+
+    printf("\n");
 
 }
