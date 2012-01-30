@@ -20,7 +20,6 @@ static void shuffle(struct player_type_t *players, int nplayers)
     struct player_type_t t;
 
     if (nplayers > 1) {
-        srand(rdtsc()) ;
         for (i = 0; i < nplayers; i++) {
             r = rand() / ( RAND_MAX / nplayers + 1 );
             t = players[i];

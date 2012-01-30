@@ -65,7 +65,6 @@ static void shuffle(struct game_t *game)
     struct card_t t;
 
     if (game->deck_size > 1) {
-        srand(rdtsc()) ;
         for (i = 0; i < game->deck_size; i++) {
             j = rand() / (RAND_MAX / game->deck_size + 1);
             t = game->deck[j];

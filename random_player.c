@@ -12,7 +12,6 @@ static void shuffle(int *choices, int nchoices)
     int i, j, t;
 
     if (nchoices > 1) {
-        srand(rdtsc()) ;
         for (i = 0; i < nchoices; i++) {
             j = rand() / (RAND_MAX / nchoices + 1);
             t = choices[j];
