@@ -4,7 +4,8 @@ TESTLIB = -L ~/lib -l headunit
 CPPLIB = -lstdc++
 OBJS = card.o player.o console.o game.o game_rules.o last_move.o \
 	   pile.o c-head.o human_player.o lowcard_player.o random_player.o \
-       pyromaniac.o player_interaction.o cli_engine.o battle_engine.o util.o
+       pyromaniac.o player_interaction.o cli_engine.o battle_engine.o util.o \
+	   card_choosers.o
 TESTOBJS = test_card.o card.o \
 		   test_player.o player.o \
            test_human_player.o human_player.o \
@@ -14,7 +15,7 @@ TESTOBJS = test_card.o card.o \
 		   test_last_move.o last_move.o \
 		   test_game.o game.o \
 		   test_random_player.o random_player.o \
-           pyromaniac.o util.o
+           pyromaniac.o util.o card_choosers.o
 
 c-head: $(OBJS)
 	$(CC) -o c-head $(OBJS)
@@ -22,7 +23,7 @@ c-head: $(OBJS)
 card.o: card.h config.h
 player.o: player.h player_types.h card.h config.h game.h
 human_player.o: player_types.h player.h config.h
-lowcard_player.o: player_types.h player.h config.h
+lowcard_player.o: player_types.h config.h card_choosers.h player.h
 pyromaniac.o: player_types.h player.h config.h
 random_player.o: player_types.h player.h config.h util.h
 player_interaction.o: player_interaction.h game.h player.h console.h game_rules.h
