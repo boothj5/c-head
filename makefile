@@ -24,8 +24,8 @@ card.o: card.h config.h
 player.o: player.h player_types.h card.h config.h game.h
 human_player.o: player_types.h player.h config.h
 lowcard_player.o: player_types.h config.h card_choosers.h player.h
-pyromaniac.o: player_types.h player.h config.h
-random_player.o: player_types.h player.h config.h util.h
+pyromaniac.o: player_types.h player.h config.h card_choosers.h
+random_player.o: player_types.h player.h config.h util.h card_choosers.h
 player_interaction.o: player_interaction.h game.h player.h console.h game_rules.h
 console.o: console.h player.h game.h
 game.o: game.h card.h pile.h game_rules.h last_move.h config.h util.h
