@@ -234,7 +234,7 @@ void show_game_summary(const struct game_t *game)
 {
     show_pile(game->pile, game->pile_size);
     show_deck(game->deck_size);
-    show_burnt(game->burnt_size);
+    show_burnt(game->burnt);
     show_players(game->players, game->num_players);
     show_last_move(game->last_move);
     wait_user();

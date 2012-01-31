@@ -117,11 +117,7 @@ static void play_from_face_down(struct game_t *game, struct player_t *player,
 
 static void burn_pile(struct game_t *game)
 {
-    int i;
-
-    for (i = 0; i < game->pile_size; i++)
-        game->burnt[game->burnt_size++] = game->pile[i];
-
+    game->burnt += game->pile_size;
     game->pile_size = 0;
     game->current_player--;
 }
@@ -154,7 +150,7 @@ struct game_t make_game(const int num_players, char names[][MAX_NAME_LEN], char 
     game.num_cards_each = num_cards;
     game.pile_size = 0; 
     game.deck_size = 0;
-    game.burnt_size = 0;
+    game.burnt = 0;
     game.current_player = 0;
     game.miss_a_go = FALSE;
 
